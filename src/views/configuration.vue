@@ -1,0 +1,168 @@
+<!-- eslint-disable vue/multi-word-component-names -->
+<template>
+  <ion-page>
+    <ion-header :translucent="true" class="ion-no-border">
+      <ion-toolbar class="centered-element">
+        <ion-title>Configuration</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content :fullscreen="true">
+      <div class="container">
+        <ion-header collapse="condense">
+          <ion-toolbar>
+            <ion-title size="large">Configuration</ion-title>
+          </ion-toolbar>
+        </ion-header>
+
+        <IonGrid>
+          <IonRow>
+            <IonCol size="6">
+              <ion-card>
+                <ion-card-header>
+                  <span>
+                    <ion-card-title>
+                      <IonInput v-model="tankCapacity"></IonInput>
+                    </ion-card-title>
+                    <ion-icon :icon="pencilOutline" />
+                  </span>
+
+                  <!-- <ion-icon name="pencil-outline"></ion-icon> -->
+                  <ion-card-subtitle>Tank Capacity</ion-card-subtitle>
+                </ion-card-header>
+
+                <ion-card-content> liters </ion-card-content>
+              </ion-card>
+            </IonCol>
+            <IonCol size="6">
+              <ion-card>
+                <ion-card-header>
+                  <ion-card-title>
+                    <IonInput v-model="maxDistance"></IonInput>
+                  </ion-card-title>
+                  <ion-card-subtitle>Max Cruising Distance</ion-card-subtitle>
+                </ion-card-header>
+
+                <ion-card-content> kilometers </ion-card-content>
+              </ion-card>
+            </IonCol>
+          </IonRow>
+          <IonRow>
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title> <IonInput v-model="fuelPrice"></IonInput> </ion-card-title>
+                <ion-card-subtitle>Fuel Price</ion-card-subtitle>
+              </ion-card-header>
+
+              <ion-card-content> ₵ per liter </ion-card-content>
+            </ion-card>
+          </IonRow>
+        </IonGrid>
+        <!-- <IonGrid>
+          <IonRow>
+            <IonCol class="example-content">
+              <IonLabel>Tank Capacity</IonLabel>
+              <IonInput type="number" v-model="tankCapacity"></IonInput>
+            </IonCol>
+            <IonCol class="example-content">
+              <IonLabel>Max Cruising Distance</IonLabel>
+              <IonInput type="number" v-model="maxDistance"></IonInput>
+            </IonCol>
+            <IonCol class="example-content">
+              <IonLabel>Fuel Efficiency</IonLabel>
+              <IonText fill="outline" label="Fuel Efficiency">{{ fuelEfficiency.toFixed(2) }}</IonText>
+            </IonCol>
+          </IonRow>
+          <IonRow class="example-content">
+            <IonLabel>Fuel Price</IonLabel>
+            <IonInput v-model="fuelPrice"></IonInput>
+          </IonRow>
+        </IonGrid> -->
+      </div>
+    </ion-content>
+  </ion-page>
+</template>
+
+<script lang="ts">
+import { pencilOutline } from "ionicons/icons";
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonInput, IonList, IonText, IonLabel, IonGrid, IonRow, IonCol } from "@ionic/vue";
+import { ref } from "vue";
+import ConfigService from "./services/config.service";
+
+const fuelPrice = ref(12);
+const tankCapacity = ref(55);
+const maxDistance = ref(425);
+const fuelEfficiency = ref(maxDistance.value / tankCapacity.value);
+
+const saveConfig = () => {
+  ConfigService.setFuelPrice(fuelPrice.value);
+  ConfigService.setFuelEfficiency(fuelEfficiency.value);
+};
+
+export default {
+  // eslint-disable-next-line vue/no-unused-components
+  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonInput, IonList, IonText, IonLabel, IonGrid, IonRow, IonCol },
+  data() {
+    return {
+      pencilOutline,
+      fuelPrice,
+      tankCapacity,
+      maxDistance,
+      fuelEfficiency,
+    };
+  },
+};
+</script>
+
+<style scoped>
+.example-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  /* justify-content: center; */
+  /* height: 100%; */
+}
+
+.square-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 0;
+  padding-top: 100%; /* Maintain a 1:1 aspect ratio for the square */
+}
+
+ion-input {
+  width: 80%; /* Adjust the width of the input field as needed */
+}
+
+.container {
+  /* background: rgb(22, 1, 61); */
+  /* color: white; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  height: 100%;
+}
+
+/* .test-padding {
+  padding: 5px;
+}
+
+ion-card {
+  margin: 2px;
+  padding: 5px;
+}
+
+ion-card-header {
+  padding: 2px;
+}
+ion-card-content {
+  padding: 2px;
+} */
+
+.centered-element {
+  text-align: center;
+}
+</style>
