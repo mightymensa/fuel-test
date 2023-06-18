@@ -1,7 +1,8 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <ion-page>
-    <ion-header :translucent="true" class="ion-no-border">
+    <ion-header :translucent="true" class="ion-no-border"
+      >, IonButton
       <ion-toolbar class="centered-element">
         <ion-title>Configuration</ion-title>
       </ion-toolbar>
@@ -58,6 +59,9 @@
             </ion-card>
           </IonRow>
         </IonGrid>
+        <IonButtons>
+          <IonButton @click="saveConfig">Save</IonButton>
+        </IonButtons>
         <!-- <IonGrid>
           <IonRow>
             <IonCol class="example-content">
@@ -85,11 +89,25 @@
 
 <script lang="ts">
 import { pencilOutline } from "ionicons/icons";
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonInput, IonList, IonText, IonLabel, IonGrid, IonRow, IonCol } from "@ionic/vue";
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonPage,
+  IonInput,
+  IonList,
+  IonText,
+  IonLabel,
+  IonGrid,
+  IonRow,
+  IonCol,
+  IonButton,
+} from "@ionic/vue";
 import { ref } from "vue";
 import ConfigService from "./services/config.service";
 
-const fuelPrice = ref(12);
+const fuelPrice = ConfigService.getFuelPrice();
 const tankCapacity = ref(55);
 const maxDistance = ref(425);
 const fuelEfficiency = ref(maxDistance.value / tankCapacity.value);
@@ -101,7 +119,7 @@ const saveConfig = () => {
 
 export default {
   // eslint-disable-next-line vue/no-unused-components
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonInput, IonList, IonText, IonLabel, IonGrid, IonRow, IonCol },
+  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonInput, IonList, IonText, IonLabel, IonGrid, IonRow, IonCol, IonButton },
   data() {
     return {
       pencilOutline,
@@ -109,6 +127,7 @@ export default {
       tankCapacity,
       maxDistance,
       fuelEfficiency,
+      saveConfig,
     };
   },
 };
