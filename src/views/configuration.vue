@@ -90,10 +90,11 @@ import ConfigService from "./services/config.service";
 const fuelPrice = ConfigService.getFuelPrice();
 const tankCapacity = ref(55);
 const maxDistance = ref(425);
-const fuelEfficiency = ref(maxDistance.value / tankCapacity.value);
+let fuelEfficiency = ref(maxDistance.value / tankCapacity.value);
 
 const saveConfig = () => {
   ConfigService.setFuelPrice(fuelPrice.value);
+  fuelEfficiency = ref(maxDistance.value / tankCapacity.value);
   ConfigService.setFuelEfficiency(fuelEfficiency.value);
 };
 
