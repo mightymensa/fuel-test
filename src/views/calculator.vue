@@ -112,8 +112,8 @@ const calculateCost = () => {
 };
 
 const calculateDistance = () => {
-  const fuelPrice = ConfigService.getFuelPrice();
-  const fuelEfficiency = ConfigService.getFuelEfficiency();
+  fuelPrice = ConfigService.getFuelPrice();
+  fuelEfficiency = ConfigService.getFuelEfficiency();
   calculatedDistance.value = ((inputCost.value * fuelEfficiency.value) / fuelPrice.value).toFixed(2);
 };
 
