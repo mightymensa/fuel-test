@@ -62,26 +62,6 @@
         <IonButtons>
           <IonButton @click="saveConfig">Save</IonButton>
         </IonButtons>
-        <!-- <IonGrid>
-          <IonRow>
-            <IonCol class="example-content">
-              <IonLabel>Tank Capacity</IonLabel>
-              <IonInput type="number" v-model="tankCapacity"></IonInput>
-            </IonCol>
-            <IonCol class="example-content">
-              <IonLabel>Max Cruising Distance</IonLabel>
-              <IonInput type="number" v-model="maxDistance"></IonInput>
-            </IonCol>
-            <IonCol class="example-content">
-              <IonLabel>Fuel Efficiency</IonLabel>
-              <IonText fill="outline" label="Fuel Efficiency">{{ fuelEfficiency.toFixed(2) }}</IonText>
-            </IonCol>
-          </IonRow>
-          <IonRow class="example-content">
-            <IonLabel>Fuel Price</IonLabel>
-            <IonInput v-model="fuelPrice"></IonInput>
-          </IonRow>
-        </IonGrid> -->
       </div>
     </ion-content>
   </ion-page>

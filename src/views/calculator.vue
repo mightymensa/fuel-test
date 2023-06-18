@@ -95,8 +95,8 @@ import { ref } from "vue";
 
 import ConfigService from "./services/config.service";
 
-const fuelPrice = ConfigService.getFuelPrice();
-const fuelEfficiency = ConfigService.getFuelEfficiency();
+let fuelPrice = ConfigService.getFuelPrice();
+let fuelEfficiency = ConfigService.getFuelEfficiency();
 
 const segmentValue = ref("cost");
 
@@ -106,10 +106,14 @@ const inputCost = ref();
 const calculatedDistance = ref();
 
 const calculateCost = () => {
+  fuelPrice = ConfigService.getFuelPrice();
+  fuelEfficiency = ConfigService.getFuelEfficiency();
   calculatedCost.value = ((fuelPrice.value * inputDistance.value) / fuelEfficiency.value).toFixed(2);
 };
 
 const calculateDistance = () => {
+  const fuelPrice = ConfigService.getFuelPrice();
+  const fuelEfficiency = ConfigService.getFuelEfficiency();
   calculatedDistance.value = ((inputCost.value * fuelEfficiency.value) / fuelPrice.value).toFixed(2);
 };
 
