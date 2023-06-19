@@ -4,7 +4,7 @@
     <ion-header :translucent="true" class="ion-no-border"
       >, IonButton
       <ion-toolbar class="centered-element">
-        <ion-title>Configuration</ion-title>
+        <ion-title>Setup</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -58,10 +58,14 @@
               <ion-card-content> ₵ per liter </ion-card-content>
             </ion-card>
           </IonRow>
-        </IonGrid>
-        <IonButtons>
-          <IonButton @click="saveConfig">Save</IonButton>
+                    <IonRow>
+     <IonButtons>
+          <IonButton expand="full" @click="saveConfig">Save</IonButton>
         </IonButtons>
+          </IonRow>
+
+        </IonGrid>
+   
       </div>
     </ion-content>
   </ion-page>
@@ -146,21 +150,9 @@ ion-input {
   height: 100%;
 }
 
-/* .test-padding {
-  padding: 5px;
+IonButtons{
+  width:100%;
 }
-
-ion-card {
-  margin: 2px;
-  padding: 5px;
-}
-
-ion-card-header {
-  padding: 2px;
-}
-ion-card-content {
-  padding: 2px;
-} */
 
 .centered-element {
   text-align: center;

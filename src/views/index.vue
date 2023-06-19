@@ -11,7 +11,7 @@
 
         <ion-tab-button tab="config" href="/config">
           <ion-icon :icon="carSportOutline" />
-          <ion-label>Configuration</ion-label>
+          <ion-label>Setup</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
