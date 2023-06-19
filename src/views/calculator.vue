@@ -3,7 +3,7 @@
   <ion-page>
     <ion-header>
       <ion-toolbar>
-        <ion-segment v-model="segmentValue" class="centered">
+        <ion-segment v-model="segmentValue" class="centered" mode="ios">
           <ion-segment-button value="cost">
             <ion-label>Cost Calculator</ion-label>
           </ion-segment-button>
@@ -36,13 +36,12 @@
               <IonCardTitle>3.2L</IonCardTitle>
             </IonCardHeader>
           </ion-card>
-
-          <IonButtons mode="ios">
-            <IonButton>Clear</IonButton>
+<div class="just-right">
+            <ion-button  color="medium">Clear</ion-button>
             <ion-button @click="calculateCost">Calculate</ion-button>
-          </IonButtons>
+</div>
         </div>
-        <div v-if="segmentValue == 'distance'">
+        <div v-if="segmentValue == 'distance'" >
           <div class="input">
             <ion-input fill="outline" label="Amount (GH₵)" label-placement="floating" v-model="inputCost"></ion-input>
           </div>
@@ -60,11 +59,13 @@
               <IonCardTitle>3.2L</IonCardTitle>
             </IonCardHeader>
           </ion-card>
+<div class="just-right">
 
-          <IonButtons mode="ios">
-            <IonButton>Clear</IonButton>
+            <IonButton color="medium">Clear</IonButton>
             <ion-button @click="calculateDistance">Calculate</ion-button>
-          </IonButtons>
+      
+</div>
+
         </div>
       </div>
     </ion-content>
@@ -192,5 +193,12 @@ ion-toolbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+div{
+  width:100%;
+}
+.just-right{
+  text-align:end;
 }
 </style>
