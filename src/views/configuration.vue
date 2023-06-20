@@ -25,7 +25,6 @@
                     <ion-card-title>
                       <IonInput v-model="tankCapacity"></IonInput>
                     </ion-card-title>
-                    <ion-icon :icon="pencilOutline" />
                   </span>
 
                   <!-- <ion-icon name="pencil-outline"></ion-icon> -->
@@ -156,5 +155,10 @@ IonButtons{
 
 .centered-element {
   text-align: center;
+}
+
+ion-input{
+      border-bottom: 1px solid #ededed;
+      width:100%
 }
 </style>
