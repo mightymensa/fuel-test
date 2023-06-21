@@ -20,7 +20,8 @@
         <ion-text> ₵{{ fuelPrice }}/liter</ion-text>
         <div v-if="segmentValue == 'cost'">
           <div class="input">
-            <ion-input type="number" fill="solid" label="Distance (km)" label-placement="floating" v-model="inputDistance"></ion-input>
+            <ion-input type="number" fill="solid" label="Distance (km)" label-placement="floating"
+              v-model="inputDistance"></ion-input>
           </div>
 
           <ion-card>
@@ -35,7 +36,8 @@
         </div>
         <div v-if="segmentValue == 'distance'">
           <div class="input">
-            <ion-input fill="outline" type="number" label="Amount (GH₵)" label-placement="floating" v-model="inputCost"></ion-input>
+            <ion-input fill="outline" type="number" label="Amount (GH₵)" label-placement="floating"
+              v-model="inputCost"></ion-input>
           </div>
 
           <ion-card>
@@ -51,15 +53,9 @@
 
         <div class="centered">
           <ion-button @click="clearPage" color="medium" style="width: 50%">Clear</ion-button>
-          <ion-button
-            :disabled="
-              (segmentValue == 'distance' && (inputCost < 1 || inputCost == 0)) ||
-              (segmentValue == 'cost' && (inputDistance < 1 || inputDistance == 0))
-            "
-            @click="calculate"
-            style="width: 50%"
-            >Calculate</ion-button
-          >
+          <ion-button :disabled="(segmentValue == 'distance' && (inputCost < 1 || inputCost == 0)) ||
+            (segmentValue == 'cost' && (inputDistance < 1 || inputDistance == 0))
+            " @click="calculate" style="width: 50%">Calculate</ion-button>
         </div>
       </div>
     </ion-content>
@@ -86,7 +82,8 @@ import {
   // IonCardTitle,
 } from "@ionic/vue";
 import { constructOutline } from "ionicons/icons";
-import { ref, inject } from "vue";
+import { ref, inject, onBeforeUpdate } from "vue";
+
 
 export default {
   components: {
@@ -120,9 +117,13 @@ export default {
     };
 
     const segmentValue = ref("cost");
-
     const fuelPrice = ref();
     const fuelEfficiency = ref();
+
+    onBeforeUpdate(async () => {
+      fuelEfficiency.value = (await StorageService.get("fuelEfficiency")) || 0;
+      fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
+    })
 
     const inputDistance = ref(0);
     const calculatedCost = ref();
@@ -167,7 +168,7 @@ export default {
       calculatedVolume,
       calculate,
       clearPage,
-      loadData,
+      loadData
     };
   },
 };
@@ -204,18 +205,22 @@ ion-toolbar {
 div {
   width: 100%;
 }
+
 .just-right {
   text-align: end;
 }
+
 ion-input {
   border-bottom: 1px solid #eeeeee;
   font-size: 1.2rem;
   font-weight: 500;
   color: #222222;
 }
+
 .mt-2 {
   margin-top: 40px;
 }
+
 .result-main-item {
   --color: var(--ion-text-color, #000);
   margin: 0px;
@@ -224,13 +229,14 @@ ion-input {
   font-weight: 700;
   line-height: 1.2;
 }
+
 .result-heading-item {
   font-size: 12px;
   font-weight: normal;
   text-transform: uppercase;
 }
+
 .param-unit {
   font-size: 0.9rem;
   color: #444444;
-}
-</style>
+}</style>
