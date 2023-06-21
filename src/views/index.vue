@@ -9,7 +9,7 @@
           <ion-label>Calculator</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="config" href="/config">
+        <ion-tab-button tab="setup" href="/setup">
           <ion-icon :icon="carSportOutline" />
           <ion-label>Setup</ion-label>
         </ion-tab-button>
@@ -42,6 +42,6 @@ export default {
 ion-tab-bar {
   --color: black;
   --border: none;
-  box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19) !important
+  box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
 }
 </style>

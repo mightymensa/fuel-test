@@ -1,9 +1,8 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <ion-page>
-    <ion-header :translucent="true" class="ion-no-border"
-      >, IonButton
-      <ion-toolbar class="centered-element">
+    <ion-header :translucent="true" class="ion-no-border">
+      <ion-toolbar class="centered">
         <ion-title>Setup</ion-title>
       </ion-toolbar>
     </ion-header>
@@ -12,7 +11,7 @@
       <div class="container">
         <ion-header collapse="condense">
           <ion-toolbar>
-            <ion-title size="large">Configuration</ion-title>
+            <ion-title size="large">Setup</ion-title>
           </ion-toolbar>
         </ion-header>
 
@@ -27,11 +26,10 @@
                     </ion-card-title>
                   </span>
 
-                  <!-- <ion-icon name="pencil-outline"></ion-icon> -->
-                  <ion-card-subtitle class="parameter-subtitle">Tank Capacity</ion-card-subtitle>
+                  <ion-card-subtitle>liters</ion-card-subtitle>
                 </ion-card-header>
 
-                <ion-card-content> liters </ion-card-content>
+                <ion-card-content class="parameter-subtitle"> Tank Capacity </ion-card-content>
               </ion-card>
             </IonCol>
             <IonCol size="6">
@@ -40,31 +38,29 @@
                   <ion-card-title>
                     <IonInput v-model="maxDistance"></IonInput>
                   </ion-card-title>
-                  <ion-card-subtitle  class="parameter-subtitle">Max Cruising Distance</ion-card-subtitle>
+                  <ion-card-subtitle>kilometers</ion-card-subtitle>
                 </ion-card-header>
 
-                <ion-card-content> kilometers </ion-card-content>
+                <ion-card-content class="parameter-subtitle">Max Cruising Distance</ion-card-content>
               </ion-card>
             </IonCol>
           </IonRow>
           <IonRow>
-            <ion-card style="margin-top:2px;">
+            <ion-card style="margin-top: 2px">
               <ion-card-header>
                 <ion-card-title> <IonInput v-model="fuelPrice"></IonInput> </ion-card-title>
-                <ion-card-subtitle>Fuel Price</ion-card-subtitle>
+                <ion-card-subtitle>₵ per liter</ion-card-subtitle>
               </ion-card-header>
 
-              <ion-card-content> ₵ per liter </ion-card-content>
+              <ion-card-content> Fuel Price </ion-card-content>
             </ion-card>
           </IonRow>
-                    <IonRow>
-     <IonButtons>
-          <IonButton expand="full" @click="saveConfig">Save</IonButton>
-        </IonButtons>
+          <IonRow>
+            <IonButtons>
+              <IonButton expand="full" @click="saveConfig">Save</IonButton>
+            </IonButtons>
           </IonRow>
-
         </IonGrid>
-   
       </div>
     </ion-content>
   </ion-page>
@@ -88,7 +84,7 @@ import {
   IonButton,
 } from "@ionic/vue";
 import { ref } from "vue";
-import ConfigService from "./services/config.service";
+import ConfigService from "./services/storage.service";
 
 const fuelPrice = ConfigService.getFuelPrice();
 const tankCapacity = ref(55);
@@ -123,8 +119,6 @@ export default {
   flex-direction: column;
   align-items: center;
   text-align: center;
-  /* justify-content: center; */
-  /* height: 100%; */
 }
 
 .square-input {
@@ -133,10 +127,6 @@ export default {
   align-items: center;
   height: 0;
   padding-top: 100%; /* Maintain a 1:1 aspect ratio for the square */
-}
-
-ion-input {
-  width: 80%; /* Adjust the width of the input field as needed */
 }
 
 .container {
@@ -149,19 +139,19 @@ ion-input {
   height: 100%;
 }
 
-IonButtons{
-  width:100%;
+IonButtons {
+  width: 100%;
 }
 
-.centered-element {
+.centered {
   text-align: center;
 }
 
-ion-input{
-      border-bottom: 1px solid #ededed;
-      width:100%
+ion-input {
+  border-bottom: 1px solid #ededed;
+  width: 100%;
 }
-.parameter-subtitle{
-min-height:40px;
+.parameter-subtitle {
+  min-height: 60px;
 }
 </style>

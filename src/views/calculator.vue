@@ -24,51 +24,55 @@
           </div>
 
           <ion-card>
-           <ion-card-content>
+            <ion-card-content>
               <div class="result-heading-item">Cost</div>
               <div class="result-main-item"><span class="param-unit">GH₵</span> {{ calculatedCost }}</div>
-           
+
               <div class="result-heading-item mt-2">Volume</div>
               <div class="result-main-item">3.2L</div>
             </ion-card-content>
           </ion-card>
-<!-- <div class="centered">
+          <!-- <div class="centered">
             <ion-button  color="medium" style="width:50%;">Clear</ion-button>
             <ion-button @click="calculateCost" style="width:50%;">Calculate</ion-button>
 </div> -->
         </div>
-        <div v-if="segmentValue == 'distance'" >
+        <div v-if="segmentValue == 'distance'">
           <div class="input">
             <ion-input fill="outline" type="number" label="Amount (GH₵)" label-placement="floating" v-model="inputCost"></ion-input>
           </div>
 
           <ion-card>
             <!-- <IonCardHeader> -->
-              <ion-card-content>
+            <ion-card-content>
               <div class="result-heading-item">Distance</div>
               <div class="result-main-item">{{ calculatedDistance }} <span class="param-unit">km</span></div>
-         
+
               <div class="mt-2 result-heading-item">Volume</div>
               <div class="result-main-item">3.2L</div>
-            <!-- </IonCardHeader> -->
-          </ion-card-content>
+              <!-- </IonCardHeader> -->
+            </ion-card-content>
           </ion-card>
-<!-- <div class="just-right">
+          <!-- <div class="just-right">
 
             <IonButton color="medium">Clear</IonButton>
             <ion-button @click="calculateDistance">Calculate</ion-button>
       
 </div> -->
-
         </div>
 
-
-<div class="centered">
-            <ion-button @click="clearPage" color="medium" style="width:50%;">Clear</ion-button>
-            <ion-button :disabled="(segmentValue == 'distance' && (inputCost<1||inputCost==0))||segmentValue == 'cost' && (inputDistance<1||inputDistance==0)" @click="calculate" style="width:50%;">Calculate</ion-button>
-
-</div>
-
+        <div class="centered">
+          <ion-button @click="clearPage" color="medium" style="width: 50%">Clear</ion-button>
+          <ion-button
+            :disabled="
+              (segmentValue == 'distance' && (inputCost < 1 || inputCost == 0)) ||
+              (segmentValue == 'cost' && (inputDistance < 1 || inputDistance == 0))
+            "
+            @click="calculate"
+            style="width: 50%"
+            >Calculate</ion-button
+          >
+        </div>
       </div>
     </ion-content>
   </ion-page>
@@ -96,7 +100,7 @@ import {
 import { constructOutline } from "ionicons/icons";
 import { ref } from "vue";
 
-import ConfigService from "./services/config.service";
+import ConfigService from "./services/storage.service";
 
 let fuelPrice = ConfigService.getFuelPrice();
 let fuelEfficiency = ConfigService.getFuelEfficiency();
@@ -110,27 +114,23 @@ const calculatedDistance = ref();
 inputDistance.value = 0;
 inputCost.value = 0;
 const calculate = () => {
-  console.log(11)
-  if(segmentValue.value == 'cost'){
-
+  if (segmentValue.value == "cost") {
     fuelPrice = ConfigService.getFuelPrice();
-  fuelEfficiency = ConfigService.getFuelEfficiency();
-  calculatedCost.value = ((fuelPrice.value * inputDistance.value) / fuelEfficiency.value).toFixed(2);
-}else{
-   fuelPrice = ConfigService.getFuelPrice();
-  fuelEfficiency = ConfigService.getFuelEfficiency();
-  calculatedDistance.value = ((inputCost.value * fuelEfficiency.value) / fuelPrice.value).toFixed(2);
-}
-
- 
+    fuelEfficiency = ConfigService.getFuelEfficiency();
+    calculatedCost.value = ((fuelPrice.value * inputDistance.value) / fuelEfficiency.value).toFixed(2);
+  } else {
+    fuelPrice = ConfigService.getFuelPrice();
+    fuelEfficiency = ConfigService.getFuelEfficiency();
+    calculatedDistance.value = ((inputCost.value * fuelEfficiency.value) / fuelPrice.value).toFixed(2);
+  }
 };
 
 const clearPage = () => {
-  calculatedCost.value = 0;
   inputDistance.value = 0;
-calculatedDistance.value = 0;
-inputDistance.value = 0;}
-
+  calculatedCost.value = 0;
+  inputCost.value = 0;
+  calculatedDistance.value = 0;
+};
 
 export default {
   components: {
@@ -163,10 +163,10 @@ export default {
       fuelPrice,
       inputDistance,
       inputCost,
-      calculate,
-clearPage,
       calculatedCost,
       calculatedDistance,
+      calculate,
+      clearPage,
     };
   },
 };
@@ -207,35 +207,35 @@ ion-toolbar {
   justify-content: space-between;
 }
 
-div{
-  width:100%;
+div {
+  width: 100%;
 }
-.just-right{
-  text-align:end;
+.just-right {
+  text-align: end;
 }
-ion-input{
+ion-input {
   border-bottom: 1px solid #eeeeee;
   font-size: 1.2rem;
   font-weight: 500;
   color: #222222;
 }
-.mt-2{
+.mt-2 {
   margin-top: 40px;
 }
-.result-main-item{
-      --color: var(--ion-text-color, #000);
-    margin: 0px;
-    padding: 0px;
-    font-size: 28px;
-    font-weight: 700;
-    line-height: 1.2;
+.result-main-item {
+  --color: var(--ion-text-color, #000);
+  margin: 0px;
+  padding: 0px;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
 }
-.result-heading-item{
+.result-heading-item {
   font-size: 12px;
   font-weight: normal;
   text-transform: uppercase;
 }
-.param-unit{
+.param-unit {
   font-size: 0.9rem;
   color: #444444;
 }

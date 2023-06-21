@@ -22,8 +22,8 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import("./views/calculator.vue"),
       },
       {
-        path: "config",
-        component: () => import("./views/configuration.vue"),
+        path: "setup",
+        component: () => import("./views/setup.vue"),
       },
     ],
   },
