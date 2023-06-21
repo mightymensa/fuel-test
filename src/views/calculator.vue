@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <ion-page>
-    <ion-header>
+    <ion-header :translucent="true" class="ion-no-border">
       <ion-toolbar>
         <ion-segment v-model="segmentValue" class="centered" mode="ios">
           <ion-segment-button value="cost">
@@ -28,14 +28,10 @@
               <div class="result-heading-item">Cost</div>
               <div class="result-main-item"><span class="param-unit">GH₵</span> {{ calculatedCost }}</div>
 
-              <div class="result-heading-item mt-2">Volume</div>
-              <div class="result-main-item">3.2L</div>
+              <div class="mt-2 result-heading-item">Volume</div>
+              <div class="result-main-item">{{ calculatedVolume }} <span class="param-unit">liters</span></div>
             </ion-card-content>
           </ion-card>
-          <!-- <div class="centered">
-            <ion-button  color="medium" style="width:50%;">Clear</ion-button>
-            <ion-button @click="calculateCost" style="width:50%;">Calculate</ion-button>
-</div> -->
         </div>
         <div v-if="segmentValue == 'distance'">
           <div class="input">
@@ -43,22 +39,14 @@
           </div>
 
           <ion-card>
-            <!-- <IonCardHeader> -->
             <ion-card-content>
               <div class="result-heading-item">Distance</div>
               <div class="result-main-item">{{ calculatedDistance }} <span class="param-unit">km</span></div>
 
               <div class="mt-2 result-heading-item">Volume</div>
-              <div class="result-main-item">3.2L</div>
-              <!-- </IonCardHeader> -->
+              <div class="result-main-item">{{ calculatedVolume }} <span class="param-unit">liters</span></div>
             </ion-card-content>
           </ion-card>
-          <!-- <div class="just-right">
-
-            <IonButton color="medium">Clear</IonButton>
-            <ion-button @click="calculateDistance">Calculate</ion-button>
-      
-</div> -->
         </div>
 
         <div class="centered">
@@ -107,21 +95,24 @@ let fuelEfficiency = ConfigService.getFuelEfficiency();
 
 const segmentValue = ref("cost");
 
-const inputDistance = ref();
+const inputDistance = ref(0);
 const calculatedCost = ref();
-const inputCost = ref();
+const inputCost = ref(0);
 const calculatedDistance = ref();
-inputDistance.value = 0;
-inputCost.value = 0;
+
+const calculatedVolume = ref();
+
 const calculate = () => {
   if (segmentValue.value == "cost") {
     fuelPrice = ConfigService.getFuelPrice();
     fuelEfficiency = ConfigService.getFuelEfficiency();
     calculatedCost.value = ((fuelPrice.value * inputDistance.value) / fuelEfficiency.value).toFixed(2);
+    calculatedVolume.value = (calculatedCost.value / fuelPrice.value).toFixed(2);
   } else {
     fuelPrice = ConfigService.getFuelPrice();
     fuelEfficiency = ConfigService.getFuelEfficiency();
     calculatedDistance.value = ((inputCost.value * fuelEfficiency.value) / fuelPrice.value).toFixed(2);
+    calculatedVolume.value = (inputCost.value / fuelPrice.value).toFixed(2);
   }
 };
 
@@ -130,6 +121,7 @@ const clearPage = () => {
   calculatedCost.value = 0;
   inputCost.value = 0;
   calculatedDistance.value = 0;
+  calculatedVolume.value = 0;
 };
 
 export default {
@@ -165,6 +157,7 @@ export default {
       inputCost,
       calculatedCost,
       calculatedDistance,
+      calculatedVolume,
       calculate,
       clearPage,
     };
