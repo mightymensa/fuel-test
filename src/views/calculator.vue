@@ -86,43 +86,7 @@ import {
   // IonCardTitle,
 } from "@ionic/vue";
 import { constructOutline } from "ionicons/icons";
-import { ref } from "vue";
-
-import ConfigService from "./services/storage.service";
-
-let fuelPrice = ConfigService.getFuelPrice();
-let fuelEfficiency = ConfigService.getFuelEfficiency();
-
-const segmentValue = ref("cost");
-
-const inputDistance = ref(0);
-const calculatedCost = ref();
-const inputCost = ref(0);
-const calculatedDistance = ref();
-
-const calculatedVolume = ref();
-
-const calculate = () => {
-  if (segmentValue.value == "cost") {
-    fuelPrice = ConfigService.getFuelPrice();
-    fuelEfficiency = ConfigService.getFuelEfficiency();
-    calculatedCost.value = ((fuelPrice.value * inputDistance.value) / fuelEfficiency.value).toFixed(2);
-    calculatedVolume.value = (calculatedCost.value / fuelPrice.value).toFixed(2);
-  } else {
-    fuelPrice = ConfigService.getFuelPrice();
-    fuelEfficiency = ConfigService.getFuelEfficiency();
-    calculatedDistance.value = ((inputCost.value * fuelEfficiency.value) / fuelPrice.value).toFixed(2);
-    calculatedVolume.value = (inputCost.value / fuelPrice.value).toFixed(2);
-  }
-};
-
-const clearPage = () => {
-  inputDistance.value = 0;
-  calculatedCost.value = 0;
-  inputCost.value = 0;
-  calculatedDistance.value = 0;
-  calculatedVolume.value = 0;
-};
+import { ref, inject } from "vue";
 
 export default {
   components: {
@@ -148,7 +112,45 @@ export default {
     // IonCardTitle,
   },
 
-  data() {
+  async setup() {
+    const StorageService = inject("StorageService") as {
+      set: (key: string, value: number) => Promise<void>;
+      get: (key: string) => Promise<any>;
+      remove: (key: string) => Promise<void>;
+    };
+
+    let fuelPrice = (await StorageService.get("fuelPrice")) || 0;
+    let fuelEfficiency = (await StorageService.get("fuelEfficiency")) || 0;
+
+    const segmentValue = ref("cost");
+
+    const inputDistance = ref(0);
+    const calculatedCost = ref();
+    const inputCost = ref(0);
+    const calculatedDistance = ref();
+    const calculatedVolume = ref();
+
+    const calculate = async () => {
+      fuelPrice = await StorageService.get("fuelPrice");
+      fuelEfficiency = await StorageService.get("fuelEfficiency");
+
+      if (segmentValue.value == "cost") {
+        calculatedCost.value = ((fuelPrice.value * inputDistance.value) / fuelEfficiency.value).toFixed(2);
+        calculatedVolume.value = (calculatedCost.value / fuelPrice.value).toFixed(2);
+      } else {
+        calculatedDistance.value = ((inputCost.value * fuelEfficiency.value) / fuelPrice.value).toFixed(2);
+        calculatedVolume.value = (inputCost.value / fuelPrice.value).toFixed(2);
+      }
+    };
+
+    const clearPage = () => {
+      inputDistance.value = 0;
+      calculatedCost.value = 0;
+      inputCost.value = 0;
+      calculatedDistance.value = 0;
+      calculatedVolume.value = 0;
+    };
+
     return {
       constructOutline,
       segmentValue,

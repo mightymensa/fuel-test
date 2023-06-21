@@ -57,7 +57,7 @@
           </IonRow>
           <IonRow>
             <IonButtons>
-              <IonButton expand="full" @click="saveConfig">Save</IonButton>
+              <IonButton expand="full" @click="saveData">Save</IonButton>
             </IonButtons>
           </IonRow>
         </IonGrid>
@@ -83,19 +83,35 @@ import {
   IonCol,
   IonButton,
 } from "@ionic/vue";
-import { ref } from "vue";
-import ConfigService from "./services/storage.service";
+import { ref, inject } from "vue";
 
-const fuelPrice = ConfigService.getFuelPrice();
-const tankCapacity = ref(55);
-const maxDistance = ref(425);
-let fuelEfficiency = ref(maxDistance.value / tankCapacity.value);
-
-const saveConfig = () => {
-  ConfigService.setFuelPrice(fuelPrice.value);
-  fuelEfficiency = ref(maxDistance.value / tankCapacity.value);
-  ConfigService.setFuelEfficiency(fuelEfficiency.value);
+const StorageService = inject("StorageService") as {
+  set: (key: string, value: number) => Promise<void>;
+  get: (key: string) => Promise<any>;
+  remove: (key: string) => Promise<void>;
 };
+
+const tankCapacity = ref();
+const maxDistance = ref();
+const fuelEfficiency = ref();
+const fuelPrice = ref();
+
+const loadData = async () => {
+  tankCapacity.value = (await StorageService.get("tankCapacity")) || 0;
+  maxDistance.value = (await StorageService.get("maxDistance")) || 0;
+  fuelEfficiency.value = (await StorageService.get("fuelEfficiency")) || 0;
+  fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
+};
+
+const saveData = () => {
+  StorageService.set("tankCapacity", tankCapacity.value);
+  StorageService.set("maxDistance", maxDistance.value);
+  fuelEfficiency.value = ref(maxDistance.value / tankCapacity.value);
+  StorageService.set("fuelEfficiency", fuelEfficiency.value);
+  StorageService.set("fuelPrice", fuelPrice.value);
+};
+
+loadData();
 
 export default {
   // eslint-disable-next-line vue/no-unused-components
@@ -107,7 +123,7 @@ export default {
       tankCapacity,
       maxDistance,
       fuelEfficiency,
-      saveConfig,
+      saveData,
     };
   },
 };

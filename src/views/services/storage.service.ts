@@ -1,25 +1,75 @@
-// sharedService.ts
-import { ref } from "vue";
+import { Storage } from "@ionic/storage";
 
-class ConfigService {
-  private fuelPrice = ref(12.45);
-  private fuelEfficiency = ref(7.73);
+const storage = new Storage();
+await storage.create();
 
-  setFuelPrice(fuelPrice: number): void {
-    this.fuelPrice.value = fuelPrice;
-  }
+export default {
+  async set(key: string, value: any): Promise<void> {
+    await storage.create();
+    await storage.set(key, value);
+  },
 
-  setFuelEfficiency(fuelEfficiency: number): void {
-    this.fuelEfficiency.value = fuelEfficiency;
-  }
+  async get(key: string): Promise<any> {
+    await storage.create();
+    return await storage.get(key);
+  },
 
-  getFuelPrice() {
-    return this.fuelPrice;
-  }
+  async remove(key: string): Promise<void> {
+    await storage.remove(key);
+  },
+  // Tank Capacity
 
-  getFuelEfficiency() {
-    return this.fuelEfficiency;
-  }
-}
+  // setTankCapacity(value: number): Promise<any> {
+  //   return store.set("tankCapacity", value);
+  // },
 
-export default new ConfigService();
+  // getTankCapacity(): Promise<any> {
+  //   return store.get("tankCapacity");
+  // },
+
+  // removeTankCapacity(): Promise<any> {
+  //   return store.remove("tankCapacity");
+  // },
+
+  // // Max Cruising Distance
+
+  // setMaxDistance(value: number): Promise<any> {
+  //   return store.set("maxDistance", value);
+  // },
+
+  // getMaxDistance(): Promise<any> {
+  //   return store.get("maxDistance");
+  // },
+
+  // removeMaxDistance(): Promise<any> {
+  //   return store.remove("maxDistance");
+  // },
+
+  // // Fuel Efficiency
+
+  // setFuelEfficiency(value: number): Promise<any> {
+  //   return store.set("fuelEfficiency", value);
+  // },
+
+  // getFuelEfficiency(): Promise<any> {
+  //   return store.get("fuelEfficiency");
+  // },
+
+  // removeFuelEfficiency(): Promise<any> {
+  //   return store.remove("fuelEfficiency");
+  // },
+
+  // // Fuel Price
+
+  // setFuelPrice(value: number): Promise<any> {
+  //   return store.set("fuelPrice", value);
+  // },
+
+  // getFuelPrice(): Promise<any> {
+  //   return store.get("fuelPrice");
+  // },
+
+  // removeFuelPrice(): Promise<any> {
+  //   return store.remove("fuelPrice");
+  // },
+};
