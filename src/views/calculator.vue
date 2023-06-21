@@ -119,10 +119,10 @@ export default {
       remove: (key: string) => Promise<void>;
     };
 
+    const segmentValue = ref("cost");
+
     const fuelPrice = ref();
     const fuelEfficiency = ref();
-
-    const segmentValue = ref("cost");
 
     const inputDistance = ref(0);
     const calculatedCost = ref();
@@ -130,9 +130,13 @@ export default {
     const calculatedDistance = ref();
     const calculatedVolume = ref();
 
+    const loadData = async () => {
+      fuelEfficiency.value = (await StorageService.get("fuelEfficiency")) || 0;
+      fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
+    };
+
     const calculate = async () => {
       await loadData();
-
       if (segmentValue.value == "cost") {
         calculatedCost.value = ((fuelPrice.value * inputDistance.value) / fuelEfficiency.value).toFixed(2);
         calculatedVolume.value = (calculatedCost.value / fuelPrice.value).toFixed(2);
@@ -140,11 +144,6 @@ export default {
         calculatedDistance.value = ((inputCost.value * fuelEfficiency.value) / fuelPrice.value).toFixed(2);
         calculatedVolume.value = (inputCost.value / fuelPrice.value).toFixed(2);
       }
-    };
-
-    const loadData = async () => {
-      fuelEfficiency.value = (await StorageService.get("fuelEfficiency")) || 0;
-      fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
     };
 
     const clearPage = () => {
@@ -176,13 +175,6 @@ export default {
 
 <style scoped>
 ion-toolbar {
-  /* --background: #19422d;
-  --color: white;
-
-  --border-color: #f24aec;
-  --border-width: 4px 0;
-  --border-style: double; */
-
   --min-height: 80px;
   --padding-top: 20px;
   --padding-bottom: 20px;

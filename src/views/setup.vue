@@ -11,7 +11,7 @@
       <div class="container">
         <ion-header collapse="condense">
           <ion-toolbar>
-            <ion-title size="large">Setup</ion-title>
+            <ion-title size="large"> Setup </ion-title>
           </ion-toolbar>
         </ion-header>
 
@@ -26,7 +26,7 @@
                     </ion-card-title>
                   </span>
 
-                  <ion-card-subtitle class="parameter-subtitle"> Tank Capacity</ion-card-subtitle>
+                  <ion-card-subtitle class="parameter-subtitle"> Tank Capacity </ion-card-subtitle>
                 </ion-card-header>
 
                 <ion-card-content>liters </ion-card-content>
@@ -38,10 +38,10 @@
                   <ion-card-title>
                     <IonInput v-model="maxDistance"></IonInput>
                   </ion-card-title>
-                  <ion-card-subtitle class="parameter-subtitle"> Max Cruising Distance</ion-card-subtitle>
+                  <ion-card-subtitle class="parameter-subtitle"> Max Cruising Distance </ion-card-subtitle>
                 </ion-card-header>
 
-                <ion-card-content>kilometers</ion-card-content>
+                <ion-card-content> kilometers </ion-card-content>
               </ion-card>
             </IonCol>
           </IonRow>
@@ -49,7 +49,7 @@
             <ion-card style="margin-top: 2px">
               <ion-card-header>
                 <ion-card-title> <IonInput v-model="fuelPrice"></IonInput> </ion-card-title>
-                <ion-card-subtitle>Fuel Price</ion-card-subtitle>
+                <ion-card-subtitle> Fuel Price </ion-card-subtitle>
               </ion-card-header>
 
               <ion-card-content> ₵ per liter </ion-card-content>
@@ -57,7 +57,7 @@
           </IonRow>
           <IonRow>
             <IonButtons>
-              <IonButton expand="full" @click="saveData">Save</IonButton>
+              <IonButton expand="full" @click="saveData"> Save </IonButton>
             </IonButtons>
           </IonRow>
         </IonGrid>
@@ -115,19 +115,14 @@ export default {
       StorageService.set("fuelPrice", fuelPrice.value);
     };
 
-    // const defer = (func: ()) => {
-    //   setTimeout(() => func(), 0);
-    // }
-    setTimeout(() => {
-      loadData();
-    }, 0);
+    loadData();
 
     return {
       pencilOutline,
-      fuelPrice,
       tankCapacity,
       maxDistance,
       fuelEfficiency,
+      fuelPrice,
       loadData,
       saveData,
     };
