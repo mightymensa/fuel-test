@@ -26,10 +26,10 @@
                     </ion-card-title>
                   </span>
 
-                  <ion-card-subtitle>liters</ion-card-subtitle>
+                  <ion-card-subtitle class="parameter-subtitle"> Tank Capacity</ion-card-subtitle>
                 </ion-card-header>
 
-                <ion-card-content class="parameter-subtitle"> Tank Capacity </ion-card-content>
+                <ion-card-content>liters </ion-card-content>
               </ion-card>
             </IonCol>
             <IonCol size="6">
@@ -38,10 +38,10 @@
                   <ion-card-title>
                     <IonInput v-model="maxDistance"></IonInput>
                   </ion-card-title>
-                  <ion-card-subtitle>kilometers</ion-card-subtitle>
+                  <ion-card-subtitle class="parameter-subtitle"> Max Cruising Distance</ion-card-subtitle>
                 </ion-card-header>
 
-                <ion-card-content class="parameter-subtitle">Max Cruising Distance</ion-card-content>
+                <ion-card-content>kilometers</ion-card-content>
               </ion-card>
             </IonCol>
           </IonRow>
@@ -49,10 +49,10 @@
             <ion-card style="margin-top: 2px">
               <ion-card-header>
                 <ion-card-title> <IonInput v-model="fuelPrice"></IonInput> </ion-card-title>
-                <ion-card-subtitle>₵ per liter</ion-card-subtitle>
+                <ion-card-subtitle>Fuel Price</ion-card-subtitle>
               </ion-card-header>
 
-              <ion-card-content> Fuel Price </ion-card-content>
+              <ion-card-content> ₵ per liter </ion-card-content>
             </ion-card>
           </IonRow>
           <IonRow>
@@ -152,6 +152,6 @@ ion-input {
   width: 100%;
 }
 .parameter-subtitle {
-  min-height: 60px;
+  min-height: 40px;
 }
 </style>
