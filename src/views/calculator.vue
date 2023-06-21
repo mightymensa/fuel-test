@@ -20,7 +20,7 @@
         <ion-text> ₵{{ fuelPrice }}/liter</ion-text>
         <div v-if="segmentValue == 'cost'">
           <div class="input">
-            <ion-input fill="solid" label="Distance (km)" label-placement="floating" v-model="inputDistance"></ion-input>
+            <ion-input type="number" fill="solid" label="Distance (km)" label-placement="floating" v-model="inputDistance"></ion-input>
           </div>
 
           <ion-card>
@@ -39,7 +39,7 @@
         </div>
         <div v-if="segmentValue == 'distance'" >
           <div class="input">
-            <ion-input fill="outline" label="Amount (GH₵)" label-placement="floating" v-model="inputCost"></ion-input>
+            <ion-input fill="outline" type="number" label="Amount (GH₵)" label-placement="floating" v-model="inputCost"></ion-input>
           </div>
 
           <ion-card>
@@ -64,8 +64,9 @@
 
 
 <div class="centered">
-            <ion-button  color="medium" style="width:50%;">Clear</ion-button>
-            <ion-button @click="calculate" style="width:50%;">Calculate</ion-button>
+            <ion-button @click="clearPage" color="medium" style="width:50%;">Clear</ion-button>
+            <ion-button :disabled="(segmentValue == 'distance' && (inputCost<1||inputCost==0))||segmentValue == 'cost' && (inputDistance<1||inputDistance==0)" @click="calculate" style="width:50%;">Calculate</ion-button>
+
 </div>
 
       </div>
@@ -106,9 +107,10 @@ const inputDistance = ref();
 const calculatedCost = ref();
 const inputCost = ref();
 const calculatedDistance = ref();
-calculatedCost.value=0;
-calculatedDistance.value=0;
+inputDistance.value = 0;
+inputCost.value = 0;
 const calculate = () => {
+  console.log(11)
   if(segmentValue.value == 'cost'){
 
     fuelPrice = ConfigService.getFuelPrice();
@@ -123,11 +125,12 @@ const calculate = () => {
  
 };
 
-const calculateDistance = () => {
-  fuelPrice = ConfigService.getFuelPrice();
-  fuelEfficiency = ConfigService.getFuelEfficiency();
-  calculatedDistance.value = ((inputCost.value * fuelEfficiency.value) / fuelPrice.value).toFixed(2);
-};
+const clearPage = () => {
+  calculatedCost.value = 0;
+  inputDistance.value = 0;
+calculatedDistance.value = 0;
+inputDistance.value = 0;}
+
 
 export default {
   components: {
@@ -161,7 +164,7 @@ export default {
       inputDistance,
       inputCost,
       calculate,
-      calculateDistance,
+clearPage,
       calculatedCost,
       calculatedDistance,
     };
