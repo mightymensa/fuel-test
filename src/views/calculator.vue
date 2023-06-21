@@ -112,15 +112,15 @@ export default {
     // IonCardTitle,
   },
 
-  async setup() {
+  setup() {
     const StorageService = inject("StorageService") as {
       set: (key: string, value: number) => Promise<void>;
       get: (key: string) => Promise<any>;
       remove: (key: string) => Promise<void>;
     };
 
-    let fuelPrice = (await StorageService.get("fuelPrice")) || 0;
-    let fuelEfficiency = (await StorageService.get("fuelEfficiency")) || 0;
+    const fuelPrice = ref();
+    const fuelEfficiency = ref();
 
     const segmentValue = ref("cost");
 
@@ -131,8 +131,7 @@ export default {
     const calculatedVolume = ref();
 
     const calculate = async () => {
-      fuelPrice = await StorageService.get("fuelPrice");
-      fuelEfficiency = await StorageService.get("fuelEfficiency");
+      await loadData();
 
       if (segmentValue.value == "cost") {
         calculatedCost.value = ((fuelPrice.value * inputDistance.value) / fuelEfficiency.value).toFixed(2);
@@ -143,6 +142,11 @@ export default {
       }
     };
 
+    const loadData = async () => {
+      fuelEfficiency.value = (await StorageService.get("fuelEfficiency")) || 0;
+      fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
+    };
+
     const clearPage = () => {
       inputDistance.value = 0;
       calculatedCost.value = 0;
@@ -150,6 +154,8 @@ export default {
       calculatedDistance.value = 0;
       calculatedVolume.value = 0;
     };
+
+    loadData();
 
     return {
       constructOutline,
@@ -162,6 +168,7 @@ export default {
       calculatedVolume,
       calculate,
       clearPage,
+      loadData,
     };
   },
 };

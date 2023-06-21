@@ -5,12 +5,14 @@ await storage.create();
 
 export default {
   async set(key: string, value: any): Promise<void> {
-    await storage.create();
+    // await storage.create();
+    console.log("here");
+    console.log("key", key, "value", value);
     await storage.set(key, value);
   },
 
   async get(key: string): Promise<any> {
-    await storage.create();
+    // await storage.create();
     return await storage.get(key);
   },
 

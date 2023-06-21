@@ -85,44 +85,50 @@ import {
 } from "@ionic/vue";
 import { ref, inject } from "vue";
 
-const StorageService = inject("StorageService") as {
-  set: (key: string, value: number) => Promise<void>;
-  get: (key: string) => Promise<any>;
-  remove: (key: string) => Promise<void>;
-};
-
-const tankCapacity = ref();
-const maxDistance = ref();
-const fuelEfficiency = ref();
-const fuelPrice = ref();
-
-const loadData = async () => {
-  tankCapacity.value = (await StorageService.get("tankCapacity")) || 0;
-  maxDistance.value = (await StorageService.get("maxDistance")) || 0;
-  fuelEfficiency.value = (await StorageService.get("fuelEfficiency")) || 0;
-  fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
-};
-
-const saveData = () => {
-  StorageService.set("tankCapacity", tankCapacity.value);
-  StorageService.set("maxDistance", maxDistance.value);
-  fuelEfficiency.value = ref(maxDistance.value / tankCapacity.value);
-  StorageService.set("fuelEfficiency", fuelEfficiency.value);
-  StorageService.set("fuelPrice", fuelPrice.value);
-};
-
-loadData();
-
 export default {
   // eslint-disable-next-line vue/no-unused-components
   components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonInput, IonList, IonText, IonLabel, IonGrid, IonRow, IonCol, IonButton },
-  data() {
+  setup() {
+    const StorageService = inject("StorageService") as {
+      set: (key: string, value: number) => Promise<void>;
+      get: (key: string) => Promise<any>;
+      remove: (key: string) => Promise<void>;
+    };
+
+    const tankCapacity = ref();
+    const maxDistance = ref();
+    const fuelEfficiency = ref();
+    const fuelPrice = ref();
+
+    const loadData = async () => {
+      tankCapacity.value = (await StorageService.get("tankCapacity")) || 0;
+      maxDistance.value = (await StorageService.get("maxDistance")) || 0;
+      fuelEfficiency.value = (await StorageService.get("fuelEfficiency")) || 0;
+      fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
+    };
+
+    const saveData = () => {
+      StorageService.set("tankCapacity", tankCapacity.value);
+      StorageService.set("maxDistance", maxDistance.value);
+      fuelEfficiency.value = maxDistance.value / tankCapacity.value;
+      StorageService.set("fuelEfficiency", fuelEfficiency.value);
+      StorageService.set("fuelPrice", fuelPrice.value);
+    };
+
+    // const defer = (func: ()) => {
+    //   setTimeout(() => func(), 0);
+    // }
+    setTimeout(() => {
+      loadData();
+    }, 0);
+
     return {
       pencilOutline,
       fuelPrice,
       tankCapacity,
       maxDistance,
       fuelEfficiency,
+      loadData,
       saveData,
     };
   },
