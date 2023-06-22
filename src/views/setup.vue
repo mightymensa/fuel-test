@@ -81,8 +81,8 @@
           </IonGrid> -->
         </div>
         <div class="centered" style="padding-bottom: 100px">
-          <ion-button color="medium" style="width: 50%" @click="clearData">Clear</ion-button>
-          <ion-button id="save" style="width: 50%" @click="saveData">Save</ion-button>
+          <ion-button color="medium" class="result-buttons" @click="clearData">Clear</ion-button>
+          <ion-button id="save" class="result-buttons" @click="saveData">Save</ion-button>
           <ion-toast class="ion-toast" trigger="save" message="Saved!" :duration="3000" position="top" :icon="checkmarkCircleOutline"></ion-toast>
         </div>
       </div>
@@ -127,6 +127,12 @@ const clearData = async () => {
   fuelEfficiency.value = "";
   fuelPrice.value = "";
 };
+
+const infoCards = ref({
+  tankCapacity: "How much fuel your tank can contain, or the volume of your tank",
+  maxMileage: "How far a full tank of fuel can take you. Also known as maximum cruising distance",
+  fuelPrice: "How much a liter of fuel costs",
+});
 
 loadData();
 </script>
@@ -184,18 +190,18 @@ loadData();
   height: 100%;
 }
 
-IonButtons {
+/* IonButtons {
   width: 100%;
-}
+} */
 
-ion-button {
+.result-buttons {
   /* --background: #93e9be;
   --background-hover: #9ce0be;
   --background-activated: #88f4be;
   --background-focused: #88f4be; */
 
   /* --color: blue; */
-
+  width: 50%;
   --border-radius: 8px;
   /* --border-color: #000; */
   --border-style: solid;
