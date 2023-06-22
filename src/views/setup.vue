@@ -22,20 +22,37 @@
                 <ion-icon class="info-icon" :icon="informationCircleOutline"> </ion-icon>
               </div>
               <div class="result-main-item">
-                <IonInput v-model="tankCapacity"></IonInput>
-                <span class="param-unit">liters</span>
+                <!-- <IonInput v-model="tankCapacity"></IonInput> -->
+                            <ion-item>
+  <IonInput type="number" v-model="tankCapacity" step="1"></IonInput>
+  <ion-note slot="end">liters</ion-note>
+</ion-item>
+                <!-- <span class="param-unit">liters</span> -->
               </div>
               <div>
                 <div class="mt result-heading-item">Maximum Mileage</div>
                 <ion-icon class="info-icon" :icon="informationCircleOutline"> </ion-icon>
               </div>
-              <div class="result-main-item"><IonInput v-model="maxMileage"> </IonInput><span class="param-unit">km</span></div>
+              <div class="result-main-item">
+                <ion-item>
+  <IonInput type="number" v-model="maxMileage" step="1"></IonInput>
+  <ion-note slot="end">km</ion-note>
+</ion-item>
+                <!-- <IonInput v-model="maxMileage"> </IonInput><span class="param-unit">km</span> -->
+              </div>
 
               <div>
                 <div class="mt result-heading-item">Fuel Price</div>
                 <ion-icon class="info-icon" :icon="informationCircleOutline"> </ion-icon>
               </div>
-              <div class="result-main-item"><IonInput v-model="fuelPrice"> </IonInput><span class="param-unit">GH₵ / liter</span></div>
+              <div class="result-main-item">
+                <!-- <IonInput v-model="fuelPrice"> </IonInput><span class="param-unit">GH₵ / liter</span> -->
+
+                                <ion-item>
+  <IonInput type="number" v-model="fuelPrice" step="1"></IonInput>
+  <ion-note slot="end">GH₵ / liter</ion-note>
+</ion-item>
+              </div>
             </ion-card-content>
           </ion-card>
           <!-- <IonGrid>
@@ -59,6 +76,7 @@
                 <ion-card>
                   <ion-card-header>
                     <ion-card-title>
+
                       <IonInput v-model="maxMileage"></IonInput>
                     </ion-card-title>
                     <ion-card-subtitle class="parameter-title"> Maximum Mileage </ion-card-subtitle>
@@ -80,7 +98,7 @@
             </IonRow>
           </IonGrid> -->
         </div>
-        <div class="centered" style="padding-bottom: 100px">
+        <div class="centered">
           <ion-button color="medium" class="result-buttons" @click="clearData">Clear</ion-button>
           <ion-button id="save" class="result-buttons" @click="saveData">Save</ion-button>
           <ion-toast class="ion-toast" trigger="save" message="Saved!" :duration="3000" position="top" :icon="checkmarkCircleOutline"></ion-toast>
@@ -178,7 +196,7 @@ loadData();
 }
 
 .mt {
-  margin-top: 40px;
+  margin-top: 24px;
 }
 .container {
   /* background: rgb(22, 1, 61); */
@@ -187,8 +205,7 @@ loadData();
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  height: 100%;
-}
+  }
 
 /* IonButtons {
   width: 100%;
@@ -223,6 +240,12 @@ loadData();
 ion-input {
   border-bottom: 1px solid #ededed;
   width: 100%;
+    font-size:1.5rem;
+
+}
+ion-item{
+  width: 100%;
+  padding:5px;
 }
 .parameter-title {
   min-height: 40px;
@@ -231,4 +254,5 @@ ion-input {
 div {
   width: 100%;
 }
+
 </style>

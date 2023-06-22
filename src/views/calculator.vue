@@ -77,7 +77,7 @@
           <ion-button @click="clearPage" color="medium" style="width: 50%">Clear</ion-button>
           <ion-button
             :disabled="
-              (segmentValue == 'mileage' && (inputCost < 1 || inputCost == 0)) || (segmentValue == 'cost' && (inputMileage < 1 || inputMileage == 0))
+              (segmentValue == 'mileage' && (inputCost < 1 || inputCost == 0||inputCost==undefined)) || (segmentValue == 'cost' && (inputMileage < 1 || inputMileage == 0||inputMileage==undefined))
             "
             @click="calculate"
             style="width: 50%"
@@ -120,6 +120,7 @@ const fuelPrice = ref();
 const fuelEfficiency = ref();
 
 onBeforeUpdate(async () => {
+  console.log("inputCost",inputCost.value)
   await loadData();
 });
 
