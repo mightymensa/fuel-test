@@ -36,9 +36,9 @@
               <ion-card>
                 <ion-card-header>
                   <ion-card-title>
-                    <IonInput v-model="maxDistance"></IonInput>
+                    <IonInput v-model="maxMileage"></IonInput>
                   </ion-card-title>
-                  <ion-card-subtitle class="parameter-subtitle"> Max Cruising Distance </ion-card-subtitle>
+                  <ion-card-subtitle class="parameter-subtitle"> Maximum Mileage </ion-card-subtitle>
                 </ion-card-header>
 
                 <ion-card-content> kilometers </ion-card-content>
@@ -96,21 +96,21 @@ export default {
     };
 
     const tankCapacity = ref();
-    const maxDistance = ref();
+    const maxMileage = ref();
     const fuelEfficiency = ref();
     const fuelPrice = ref();
 
     const loadData = async () => {
       tankCapacity.value = (await StorageService.get("tankCapacity")) || 0;
-      maxDistance.value = (await StorageService.get("maxDistance")) || 0;
+      maxMileage.value = (await StorageService.get("maxMileage")) || 0;
       fuelEfficiency.value = (await StorageService.get("fuelEfficiency")) || 0;
       fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
     };
 
     const saveData = () => {
       StorageService.set("tankCapacity", tankCapacity.value);
-      StorageService.set("maxDistance", maxDistance.value);
-      fuelEfficiency.value = maxDistance.value / tankCapacity.value;
+      StorageService.set("maxMileage", maxMileage.value);
+      fuelEfficiency.value = maxMileage.value / tankCapacity.value;
       StorageService.set("fuelEfficiency", fuelEfficiency.value);
       StorageService.set("fuelPrice", fuelPrice.value);
     };
@@ -120,7 +120,7 @@ export default {
     return {
       pencilOutline,
       tankCapacity,
-      maxDistance,
+      maxMileage,
       fuelEfficiency,
       fuelPrice,
       loadData,

@@ -7,8 +7,8 @@
           <ion-segment-button value="cost">
             <ion-label>Cost Calculator</ion-label>
           </ion-segment-button>
-          <ion-segment-button value="distance">
-            <ion-label>Distance Calculator</ion-label>
+          <ion-segment-button value="mileage">
+            <ion-label>Mileage Calculator</ion-label>
           </ion-segment-button>
         </ion-segment>
       </ion-toolbar>
@@ -20,8 +20,7 @@
         <ion-text> ₵{{ fuelPrice }}/liter</ion-text>
         <div v-if="segmentValue == 'cost'">
           <div class="input">
-            <ion-input type="number" fill="solid" label="Distance (km)" label-placement="floating"
-              v-model="inputDistance"></ion-input>
+            <ion-input type="number" fill="solid" label="mileage (km)" label-placement="floating" v-model="inputMileage"></ion-input>
           </div>
 
           <ion-card>
@@ -34,16 +33,15 @@
             </ion-card-content>
           </ion-card>
         </div>
-        <div v-if="segmentValue == 'distance'">
+        <div v-if="segmentValue == 'mileage'">
           <div class="input">
-            <ion-input fill="outline" type="number" label="Amount (GH₵)" label-placement="floating"
-              v-model="inputCost"></ion-input>
+            <ion-input fill="outline" type="number" label="Amount (GH₵)" label-placement="floating" v-model="inputCost"></ion-input>
           </div>
 
           <ion-card>
             <ion-card-content>
-              <div class="result-heading-item">Distance</div>
-              <div class="result-main-item">{{ calculatedDistance }} <span class="param-unit">km</span></div>
+              <div class="result-heading-item">mileage</div>
+              <div class="result-main-item">{{ calculatedMileage }} <span class="param-unit">km</span></div>
 
               <div class="mt-2 result-heading-item">Volume</div>
               <div class="result-main-item">{{ calculatedVolume }} <span class="param-unit">liters</span></div>
@@ -53,9 +51,14 @@
 
         <div class="centered">
           <ion-button @click="clearPage" color="medium" style="width: 50%">Clear</ion-button>
-          <ion-button :disabled="(segmentValue == 'distance' && (inputCost < 1 || inputCost == 0)) ||
-            (segmentValue == 'cost' && (inputDistance < 1 || inputDistance == 0))
-            " @click="calculate" style="width: 50%">Calculate</ion-button>
+          <ion-button
+            :disabled="
+              (segmentValue == 'mileage' && (inputCost < 1 || inputCost == 0)) || (segmentValue == 'cost' && (inputMileage < 1 || inputMileage == 0))
+            "
+            @click="calculate"
+            style="width: 50%"
+            >Calculate</ion-button
+          >
         </div>
       </div>
     </ion-content>
@@ -83,7 +86,6 @@ import {
 } from "@ionic/vue";
 import { constructOutline } from "ionicons/icons";
 import { ref, inject, onBeforeUpdate } from "vue";
-
 
 export default {
   components: {
@@ -123,12 +125,12 @@ export default {
     onBeforeUpdate(async () => {
       fuelEfficiency.value = (await StorageService.get("fuelEfficiency")) || 0;
       fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
-    })
+    });
 
-    const inputDistance = ref(0);
+    const inputMileage = ref(0);
     const calculatedCost = ref();
     const inputCost = ref(0);
-    const calculatedDistance = ref();
+    const calculatedMileage = ref();
     const calculatedVolume = ref();
 
     const loadData = async () => {
@@ -139,19 +141,19 @@ export default {
     const calculate = async () => {
       await loadData();
       if (segmentValue.value == "cost") {
-        calculatedCost.value = ((fuelPrice.value * inputDistance.value) / fuelEfficiency.value).toFixed(2);
+        calculatedCost.value = ((fuelPrice.value * inputMileage.value) / fuelEfficiency.value).toFixed(2);
         calculatedVolume.value = (calculatedCost.value / fuelPrice.value).toFixed(2);
       } else {
-        calculatedDistance.value = ((inputCost.value * fuelEfficiency.value) / fuelPrice.value).toFixed(2);
+        calculatedMileage.value = ((inputCost.value * fuelEfficiency.value) / fuelPrice.value).toFixed(2);
         calculatedVolume.value = (inputCost.value / fuelPrice.value).toFixed(2);
       }
     };
 
     const clearPage = () => {
-      inputDistance.value = 0;
+      inputMileage.value = 0;
       calculatedCost.value = 0;
       inputCost.value = 0;
-      calculatedDistance.value = 0;
+      calculatedMileage.value = 0;
       calculatedVolume.value = 0;
     };
 
@@ -161,14 +163,14 @@ export default {
       constructOutline,
       segmentValue,
       fuelPrice,
-      inputDistance,
+      inputMileage,
       inputCost,
       calculatedCost,
-      calculatedDistance,
+      calculatedMileage,
       calculatedVolume,
       calculate,
       clearPage,
-      loadData
+      loadData,
     };
   },
 };
@@ -239,4 +241,5 @@ ion-input {
 .param-unit {
   font-size: 0.9rem;
   color: #444444;
-}</style>
+}
+</style>
