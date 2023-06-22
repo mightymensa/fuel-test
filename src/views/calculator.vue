@@ -78,116 +78,70 @@
   </ion-page>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import {
   IonHeader,
   IonToolbar,
-  IonButtons,
   IonButton,
   IonContent,
   IonPage,
   IonSegment,
   IonSegmentButton,
   IonInput,
-  IonText,
   IonLabel,
-  IonIcon,
   IonCard,
   // IonCardSubtitle,
   // IonCardHeader,
   // IonCardTitle,
   IonCardContent,
 } from "@ionic/vue";
-import { constructOutline } from "ionicons/icons";
 import { ref, inject, onBeforeUpdate } from "vue";
 
-export default {
-  components: {
-    IonHeader,
-    IonToolbar,
-    // eslint-disable-next-line vue/no-unused-components
-    IonButtons,
-    // eslint-disable-next-line vue/no-unused-components
-    IonButton,
-    IonContent,
-    IonPage,
-    IonSegment,
-    IonSegmentButton,
-    IonInput,
-    // eslint-disable-next-line vue/no-unused-components
-    IonText,
-    IonLabel,
-    // eslint-disable-next-line vue/no-unused-components
-    IonIcon,
-    IonCard,
-    // IonCardHeader,
-    // IonCardSubtitle,
-    // IonCardTitle,
-    IonCardContent,
-  },
-
-  setup() {
-    const StorageService = inject("StorageService") as {
-      set: (key: string, value: number) => Promise<void>;
-      get: (key: string) => Promise<any>;
-      remove: (key: string) => Promise<void>;
-    };
-
-    const segmentValue = ref("cost");
-    const fuelPrice = ref();
-    const fuelEfficiency = ref();
-
-    onBeforeUpdate(async () => {
-      await loadData();
-    });
-
-    const inputMileage = ref();
-    const calculatedCost = ref();
-    const inputCost = ref();
-    const calculatedMileage = ref();
-    const calculatedVolume = ref();
-
-    const loadData = async () => {
-      fuelEfficiency.value = (await StorageService.get("fuelEfficiency")) || 0;
-      fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
-    };
-
-    const calculate = async () => {
-      await loadData();
-      if (segmentValue.value == "cost") {
-        calculatedCost.value = ((fuelPrice.value * inputMileage.value) / fuelEfficiency.value).toFixed(2);
-        calculatedVolume.value = (calculatedCost.value / fuelPrice.value).toFixed(2);
-      } else {
-        calculatedMileage.value = ((inputCost.value * fuelEfficiency.value) / fuelPrice.value).toFixed(2);
-        calculatedVolume.value = (inputCost.value / fuelPrice.value).toFixed(2);
-      }
-    };
-
-    const clearPage = () => {
-      inputMileage.value = 0;
-      calculatedCost.value = 0;
-      inputCost.value = 0;
-      calculatedMileage.value = 0;
-      calculatedVolume.value = 0;
-    };
-
-    loadData();
-
-    return {
-      constructOutline,
-      segmentValue,
-      fuelPrice,
-      inputMileage,
-      inputCost,
-      calculatedCost,
-      calculatedMileage,
-      calculatedVolume,
-      calculate,
-      clearPage,
-      loadData,
-    };
-  },
+const StorageService = inject("StorageService") as {
+  set: (key: string, value: number) => Promise<void>;
+  get: (key: string) => Promise<any>;
+  remove: (key: string) => Promise<void>;
 };
+
+const segmentValue = ref("cost");
+const fuelPrice = ref();
+const fuelEfficiency = ref();
+
+onBeforeUpdate(async () => {
+  await loadData();
+});
+
+const inputMileage = ref();
+const calculatedCost = ref();
+const inputCost = ref();
+const calculatedMileage = ref();
+const calculatedVolume = ref();
+
+const loadData = async () => {
+  fuelEfficiency.value = (await StorageService.get("fuelEfficiency")) || 0;
+  fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
+};
+
+const calculate = async () => {
+  await loadData();
+  if (segmentValue.value == "cost") {
+    calculatedCost.value = ((fuelPrice.value * inputMileage.value) / fuelEfficiency.value).toFixed(2);
+    calculatedVolume.value = (calculatedCost.value / fuelPrice.value).toFixed(2);
+  } else {
+    calculatedMileage.value = ((inputCost.value * fuelEfficiency.value) / fuelPrice.value).toFixed(2);
+    calculatedVolume.value = (inputCost.value / fuelPrice.value).toFixed(2);
+  }
+};
+
+const clearPage = () => {
+  inputMileage.value = "";
+  calculatedCost.value = "";
+  inputCost.value = "";
+  calculatedMileage.value = "";
+  calculatedVolume.value = "";
+};
+
+loadData();
 </script>
 
 <style scoped>

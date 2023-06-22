@@ -67,98 +67,45 @@
   </ion-page>
 </template>
 
-<script lang="ts">
-import { pencilOutline, checkmarkCircleOutline } from "ionicons/icons";
-import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonPage,
-  IonInput,
-  IonList,
-  IonText,
-  IonLabel,
-  IonGrid,
-  IonRow,
-  IonCol,
-  IonButton,
-  IonToast,
-} from "@ionic/vue";
+<script lang="ts" setup>
+import { checkmarkCircleOutline } from "ionicons/icons";
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonInput, IonGrid, IonRow, IonCol, IonButton, IonToast } from "@ionic/vue";
 import { ref, inject } from "vue";
 
-export default {
-  // eslint-disable-next-line vue/no-unused-components
-  components: {
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonContent,
-    IonPage,
-    IonInput,
-
-    // eslint-disable-next-line vue/no-unused-components
-    IonList,
-    // eslint-disable-next-line vue/no-unused-components
-    IonText,
-    // eslint-disable-next-line vue/no-unused-components
-    IonLabel,
-    IonGrid,
-    IonRow,
-    IonCol,
-    IonButton,
-    IonToast,
-  },
-  setup() {
-    const StorageService = inject("StorageService") as {
-      set: (key: string, value: number) => Promise<void>;
-      get: (key: string) => Promise<any>;
-      remove: (key: string) => Promise<void>;
-    };
-
-    const tankCapacity = ref();
-    const maxMileage = ref();
-    const fuelEfficiency = ref();
-    const fuelPrice = ref();
-
-    const loadData = async () => {
-      tankCapacity.value = (await StorageService.get("tankCapacity")) || 0;
-      maxMileage.value = (await StorageService.get("maxMileage")) || 0;
-      fuelEfficiency.value = (await StorageService.get("fuelEfficiency")) || 0;
-      fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
-    };
-
-    const saveData = async () => {
-      await StorageService.set("tankCapacity", tankCapacity.value);
-      await StorageService.set("maxMileage", maxMileage.value);
-      fuelEfficiency.value = maxMileage.value / tankCapacity.value;
-      await StorageService.set("fuelEfficiency", fuelEfficiency.value);
-      await StorageService.set("fuelPrice", fuelPrice.value);
-    };
-
-    const clearData = async () => {
-      tankCapacity.value = 0;
-      maxMileage.value = 0;
-      fuelEfficiency.value = 0;
-      fuelPrice.value = 0;
-    };
-
-    loadData();
-
-    return {
-      pencilOutline,
-      checkmarkCircleOutline,
-
-      tankCapacity,
-      maxMileage,
-      fuelEfficiency,
-      fuelPrice,
-      loadData,
-      saveData,
-      clearData,
-    };
-  },
+const StorageService = inject("StorageService") as {
+  set: (key: string, value: number) => Promise<void>;
+  get: (key: string) => Promise<any>;
+  remove: (key: string) => Promise<void>;
 };
+
+const tankCapacity = ref();
+const maxMileage = ref();
+const fuelEfficiency = ref();
+const fuelPrice = ref();
+
+const loadData = async () => {
+  tankCapacity.value = (await StorageService.get("tankCapacity")) || 0;
+  maxMileage.value = (await StorageService.get("maxMileage")) || 0;
+  fuelEfficiency.value = (await StorageService.get("fuelEfficiency")) || 0;
+  fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
+};
+
+const saveData = async () => {
+  await StorageService.set("tankCapacity", tankCapacity.value);
+  await StorageService.set("maxMileage", maxMileage.value);
+  fuelEfficiency.value = maxMileage.value / tankCapacity.value;
+  await StorageService.set("fuelEfficiency", fuelEfficiency.value);
+  await StorageService.set("fuelPrice", fuelPrice.value);
+};
+
+const clearData = async () => {
+  tankCapacity.value = "";
+  maxMileage.value = "";
+  fuelEfficiency.value = "";
+  fuelPrice.value = "";
+};
+
+loadData();
 </script>
 
 <style scoped>
