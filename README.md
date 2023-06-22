@@ -1,14 +1,19 @@
-# My Fuel Manager
+# [My Fuel Manager](#my-fuel-manager)
 
-This is a simple Ionic/Vue app that calculates two parameters:
+A simple Ionic/Vue app that helps manage fuel expenditure. You can calculate
 
 - the cost of fuel for a trip (or any distance)
-- how far your car can go if you buy a certain amount of fuel
+- how much mileage an amount of money spent on fuel can give you
 
-## Installation
+### [Use Cases](#use-cases)
 
-1. Fork the repository.
+You can ask the manager how much mileage you would get if you buy ₵200 of fuel.
+You can also ask how much fuel ( in ₵ ) you would need to buy to go to work.
+It's useful for trip planning and creating a budget for transportation.
+If you drive the same distance every day or every week, for example to work, you could use this to budget for fuel for the month, with room for contingencies of course.
 
-2. `npm install`
+### [Installation](#installation)
 
-3. `ionic serve`
+1. `npm install`
+
+2. `ionic serve`
