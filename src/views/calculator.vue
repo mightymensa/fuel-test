@@ -16,11 +16,24 @@
 
     <ion-content>
       <div class="container">
-        <ion-label> Fuel Price</ion-label>
-        <ion-text> ₵{{ fuelPrice }}/liter</ion-text>
+        <ion-card
+          style="
+             {
+              display: flex;
+              margin: 0 !important;
+            }
+          "
+        >
+          <div class="centered">
+            <ion-card-content>
+              <div class="result-heading-item">Fuel Price</div>
+              <div class="result-main-item"><span class="param-unit">GH₵</span> {{ fuelPrice }}</div>
+            </ion-card-content>
+          </div>
+        </ion-card>
         <div v-if="segmentValue == 'cost'">
-          <div class="input">
-            <ion-input type="number" fill="solid" label="mileage (km)" label-placement="floating" v-model="inputMileage"></ion-input>
+          <div class="input centered">
+            <ion-input type="number" fill="solid" label="Mileage (km)" label-placement="floating" v-model="inputMileage"></ion-input>
           </div>
 
           <ion-card>
@@ -28,22 +41,22 @@
               <div class="result-heading-item">Cost</div>
               <div class="result-main-item"><span class="param-unit">GH₵</span> {{ calculatedCost }}</div>
 
-              <div class="mt-2 result-heading-item">Volume</div>
+              <div class="mt result-heading-item">Volume</div>
               <div class="result-main-item">{{ calculatedVolume }} <span class="param-unit">liters</span></div>
             </ion-card-content>
           </ion-card>
         </div>
         <div v-if="segmentValue == 'mileage'">
-          <div class="input">
-            <ion-input fill="outline" type="number" label="Amount (GH₵)" label-placement="floating" v-model="inputCost"></ion-input>
+          <div>
+            <ion-input class="input" fill="outline" type="number" label="Amount (GH₵)" label-placement="floating" v-model="inputCost"></ion-input>
           </div>
 
           <ion-card>
             <ion-card-content>
-              <div class="result-heading-item">mileage</div>
+              <div class="result-heading-item">Mileage</div>
               <div class="result-main-item">{{ calculatedMileage }} <span class="param-unit">km</span></div>
 
-              <div class="mt-2 result-heading-item">Volume</div>
+              <div class="mt result-heading-item">Volume</div>
               <div class="result-main-item">{{ calculatedVolume }} <span class="param-unit">liters</span></div>
             </ion-card-content>
           </ion-card>
@@ -83,6 +96,7 @@ import {
   // IonCardSubtitle,
   // IonCardHeader,
   // IonCardTitle,
+  IonCardContent,
 } from "@ionic/vue";
 import { constructOutline } from "ionicons/icons";
 import { ref, inject, onBeforeUpdate } from "vue";
@@ -109,6 +123,7 @@ export default {
     // IonCardHeader,
     // IonCardSubtitle,
     // IonCardTitle,
+    IonCardContent,
   },
 
   setup() {
@@ -123,13 +138,12 @@ export default {
     const fuelEfficiency = ref();
 
     onBeforeUpdate(async () => {
-      fuelEfficiency.value = (await StorageService.get("fuelEfficiency")) || 0;
-      fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
+      await loadData();
     });
 
-    const inputMileage = ref(0);
+    const inputMileage = ref();
     const calculatedCost = ref();
-    const inputCost = ref(0);
+    const inputCost = ref();
     const calculatedMileage = ref();
     const calculatedVolume = ref();
 
@@ -184,6 +198,7 @@ ion-toolbar {
 }
 
 .container {
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -191,8 +206,20 @@ ion-toolbar {
   height: 100%;
 }
 
-.default-spacing {
-  margin: 10px;
+ion-button {
+  /* --background: #93e9be;
+  --background-hover: #9ce0be;
+  --background-activated: #88f4be;
+  --background-focused: #88f4be; */
+
+  /* --color: blue; */
+
+  --border-radius: 8px;
+  /* --border-color: #000; */
+  --border-style: solid;
+  --border-width: 1px;
+
+  --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
 }
 
 .centered {
@@ -208,18 +235,21 @@ div {
   width: 100%;
 }
 
-.just-right {
-  text-align: end;
+.parameter-title {
+  min-height: 40px;
 }
 
-ion-input {
+.input {
   border-bottom: 1px solid #eeeeee;
   font-size: 1.2rem;
   font-weight: 500;
-  color: #222222;
+  /* color: #222222; */
+  padding: 16px;
+  /* width: 80%;
+  align-self: center; */
 }
 
-.mt-2 {
+.mt {
   margin-top: 40px;
 }
 
