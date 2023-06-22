@@ -38,10 +38,15 @@
 
           <ion-card>
             <ion-card-content>
-              <div class="result-heading-item">Cost</div>
+              <div>
+                <div class="result-heading-item">Cost</div>
+                <ion-icon class="info-icon" :icon="informationCircleOutline"> </ion-icon>
+              </div>
               <div class="result-main-item"><span class="param-unit">GH₵</span> {{ calculatedCost }}</div>
-
-              <div class="mt result-heading-item">Volume</div>
+              <div>
+                <div class="mt result-heading-item">Volume</div>
+                <ion-icon class="info-icon" :icon="informationCircleOutline"> </ion-icon>
+              </div>
               <div class="result-main-item">{{ calculatedVolume }} <span class="param-unit">liters</span></div>
             </ion-card-content>
           </ion-card>
@@ -53,10 +58,16 @@
 
           <ion-card>
             <ion-card-content>
-              <div class="result-heading-item">Mileage</div>
+              <div>
+                <div class="result-heading-item">Mileage</div>
+                <ion-icon class="info-icon" :icon="informationCircleOutline"> </ion-icon>
+              </div>
               <div class="result-main-item">{{ calculatedMileage }} <span class="param-unit">km</span></div>
 
-              <div class="mt result-heading-item">Volume</div>
+              <div>
+                <div class="mt result-heading-item">Volume</div>
+                <ion-icon class="info-icon" :icon="informationCircleOutline"> </ion-icon>
+              </div>
               <div class="result-main-item">{{ calculatedVolume }} <span class="param-unit">liters</span></div>
             </ion-card-content>
           </ion-card>
@@ -79,6 +90,7 @@
 </template>
 
 <script lang="ts" setup>
+import { informationCircleOutline } from "ionicons/icons";
 import {
   IonHeader,
   IonToolbar,
@@ -214,6 +226,11 @@ div {
   font-size: 28px;
   font-weight: 700;
   line-height: 1.2;
+}
+
+.info-icon {
+  float: right;
+  margin-top: -15px;
 }
 
 .result-heading-item {

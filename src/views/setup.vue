@@ -15,7 +15,30 @@
           </ion-toolbar>
         </ion-header>
         <div>
-          <IonGrid>
+          <ion-card>
+            <ion-card-content>
+              <div>
+                <div class="result-heading-item">Tank Capacity</div>
+                <ion-icon class="info-icon" :icon="informationCircleOutline"> </ion-icon>
+              </div>
+              <div class="result-main-item">
+                <IonInput v-model="tankCapacity"></IonInput>
+                <span class="param-unit">liters</span>
+              </div>
+              <div>
+                <div class="mt result-heading-item">Maximum Mileage</div>
+                <ion-icon class="info-icon" :icon="informationCircleOutline"> </ion-icon>
+              </div>
+              <div class="result-main-item"><IonInput v-model="maxMileage"> </IonInput><span class="param-unit">km</span></div>
+
+              <div>
+                <div class="mt result-heading-item">Fuel Price</div>
+                <ion-icon class="info-icon" :icon="informationCircleOutline"> </ion-icon>
+              </div>
+              <div class="result-main-item"><IonInput v-model="fuelPrice"> </IonInput><span class="param-unit">GH₵ / liter</span></div>
+            </ion-card-content>
+          </ion-card>
+          <!-- <IonGrid>
             <IonRow>
               <IonCol size="6">
                 <ion-card>
@@ -55,9 +78,9 @@
                 <ion-card-content> ₵ per liter </ion-card-content>
               </ion-card>
             </IonRow>
-          </IonGrid>
+          </IonGrid> -->
         </div>
-        <div class="centered">
+        <div class="centered" style="padding-bottom: 100px">
           <ion-button color="medium" style="width: 50%" @click="clearData">Clear</ion-button>
           <ion-button id="save" style="width: 50%" @click="saveData">Save</ion-button>
           <ion-toast class="ion-toast" trigger="save" message="Saved!" :duration="3000" position="top" :icon="checkmarkCircleOutline"></ion-toast>
@@ -68,7 +91,7 @@
 </template>
 
 <script lang="ts" setup>
-import { checkmarkCircleOutline } from "ionicons/icons";
+import { checkmarkCircleOutline, informationCircleOutline } from "ionicons/icons";
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonInput, IonGrid, IonRow, IonCol, IonButton, IonToast } from "@ionic/vue";
 import { ref, inject } from "vue";
 
@@ -116,6 +139,29 @@ loadData();
   height: 0;
   padding-top: 100%; /* Maintain a 1:1 aspect ratio for the square */
 }
+.result-main-item {
+  /* --color: var(--ion-text-color, #000); */
+  margin: 0px;
+  padding: 0px;
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.param-unit {
+  font-size: 0.9rem;
+  color: #444444;
+}
+.info-icon {
+  float: right;
+  margin-top: -15px;
+}
+
+.result-heading-item {
+  font-size: 12px;
+  font-weight: normal;
+  text-transform: uppercase;
+}
 
 .ion-toast {
   --border-color: rgb(0, 128, 0);
@@ -123,6 +169,10 @@ loadData();
   --font-weight: 600;
   --font-size: small;
   --color: rgb(16, 230, 16);
+}
+
+.mt {
+  margin-top: 40px;
 }
 .container {
   /* background: rgb(22, 1, 61); */
