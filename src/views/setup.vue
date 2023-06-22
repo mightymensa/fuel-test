@@ -59,7 +59,8 @@
         </div>
         <div class="centered">
           <ion-button color="medium" style="width: 50%" @click="clearData">Clear</ion-button>
-          <ion-button style="width: 50%" @click="saveData">Save</ion-button>
+          <ion-button id="save" style="width: 50%" @click="saveData">Save</ion-button>
+          <ion-toast class="ion-toast" trigger="save" message="Saved!" :duration="3000" position="top" :icon="checkmarkCircleOutline"></ion-toast>
         </div>
       </div>
     </ion-content>
@@ -67,7 +68,7 @@
 </template>
 
 <script lang="ts">
-import { pencilOutline, trashBinOutline } from "ionicons/icons";
+import { pencilOutline, checkmarkCircleOutline } from "ionicons/icons";
 import {
   IonHeader,
   IonToolbar,
@@ -82,12 +83,32 @@ import {
   IonRow,
   IonCol,
   IonButton,
+  IonToast,
 } from "@ionic/vue";
 import { ref, inject } from "vue";
 
 export default {
   // eslint-disable-next-line vue/no-unused-components
-  components: { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonInput, IonList, IonText, IonLabel, IonGrid, IonRow, IonCol, IonButton },
+  components: {
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonPage,
+    IonInput,
+
+    // eslint-disable-next-line vue/no-unused-components
+    IonList,
+    // eslint-disable-next-line vue/no-unused-components
+    IonText,
+    // eslint-disable-next-line vue/no-unused-components
+    IonLabel,
+    IonGrid,
+    IonRow,
+    IonCol,
+    IonButton,
+    IonToast,
+  },
   setup() {
     const StorageService = inject("StorageService") as {
       set: (key: string, value: number) => Promise<void>;
@@ -107,12 +128,12 @@ export default {
       fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
     };
 
-    const saveData = () => {
-      StorageService.set("tankCapacity", tankCapacity.value);
-      StorageService.set("maxMileage", maxMileage.value);
+    const saveData = async () => {
+      await StorageService.set("tankCapacity", tankCapacity.value);
+      await StorageService.set("maxMileage", maxMileage.value);
       fuelEfficiency.value = maxMileage.value / tankCapacity.value;
-      StorageService.set("fuelEfficiency", fuelEfficiency.value);
-      StorageService.set("fuelPrice", fuelPrice.value);
+      await StorageService.set("fuelEfficiency", fuelEfficiency.value);
+      await StorageService.set("fuelPrice", fuelPrice.value);
     };
 
     const clearData = async () => {
@@ -126,7 +147,8 @@ export default {
 
     return {
       pencilOutline,
-      trashBinOutline,
+      checkmarkCircleOutline,
+
       tankCapacity,
       maxMileage,
       fuelEfficiency,
@@ -148,6 +170,13 @@ export default {
   padding-top: 100%; /* Maintain a 1:1 aspect ratio for the square */
 }
 
+.ion-toast {
+  --border-color: rgb(0, 128, 0);
+  --border-width: 50px;
+  --font-weight: 600;
+  --font-size: small;
+  --color: rgb(16, 230, 16);
+}
 .container {
   /* background: rgb(22, 1, 61); */
   /* color: white; */

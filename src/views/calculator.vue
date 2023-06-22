@@ -47,8 +47,8 @@
           </ion-card>
         </div>
         <div v-if="segmentValue == 'mileage'">
-          <div>
-            <ion-input class="input" fill="outline" type="number" label="Amount (GH₵)" label-placement="floating" v-model="inputCost"></ion-input>
+          <div class="input centered">
+            <ion-input fill="outline" type="number" label="Amount (GH₵)" label-placement="floating" v-model="inputCost"></ion-input>
           </div>
 
           <ion-card>
@@ -198,7 +198,7 @@ ion-toolbar {
 }
 
 .container {
-  margin-top: 20px;
+  /* margin-top: 20px; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -243,7 +243,7 @@ div {
   border-bottom: 1px solid #eeeeee;
   font-size: 1.2rem;
   font-weight: 500;
-  /* color: #222222; */
+  --color: var(--ion-text-color);
   padding: 16px;
   /* width: 80%;
   align-self: center; */
@@ -254,7 +254,7 @@ div {
 }
 
 .result-main-item {
-  --color: var(--ion-text-color, #000);
+  /* --color: var(--ion-text-color, #000); */
   margin: 0px;
   padding: 0px;
   font-size: 28px;
