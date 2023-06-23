@@ -1,6 +1,12 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <ion-page>
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large"> Calculator </ion-title>
+      </ion-toolbar>
+    </ion-header>
+
     <ion-header :translucent="true" class="ion-no-border">
       <ion-toolbar>
         <ion-segment v-model="segmentValue" class="centered" mode="ios">
@@ -15,8 +21,18 @@
     </ion-header>
 
     <ion-content>
+
+      <div id="fuel-info-header">
+<div >
+  <div class="fuel-info-subtitle">Fuel Price</div>
+  <div class="fuel-info-value"><span class="fuel-info-unit">GH₵</span> 1234 </div>
+</div>
+
+      </div>
+
+
       <div class="container">
-        <ion-card
+        <!-- <ion-card
           style="
              {
               display: flex;
@@ -30,10 +46,21 @@
               <div class="result-main-item"><span class="param-unit">GH₵</span> {{ fuelPrice }}</div>
             </ion-card-content>
           </div>
-        </ion-card>
+        </ion-card> -->
         <div v-if="segmentValue == 'cost'">
           <div class="input centered">
-            <ion-input type="number" fill="solid" label="Mileage (km)" label-placement="floating" v-model="inputMileage"></ion-input>
+            <!-- <ion-input
+              type="number"
+              fill="solid"
+              label="Mileage (km)"
+              label-placement="floating"
+              v-model="inputMileage"
+            ></ion-input> -->
+            <ion-item class="centered" style="width: 100%;padding-block-start: 0px;--padding-start: 0px;
+     --inner-padding-end: 0px;">
+  <ion-label position="stacked" class="mylabel">Mileage (km)</ion-label>
+  <ion-input type="number"      placeholder="Enter Mileage"         v-model="inputMileage" step="1" style="width: 100%;font-size: 1.4rem;"></ion-input>
+</ion-item>
           </div>
 
           <ion-card>
@@ -51,9 +78,21 @@
         </div>
         <div v-if="segmentValue == 'mileage'">
           <div class="input centered">
-            <ion-input fill="outline" type="number" label="Amount (GH₵)" label-placement="floating" v-model="inputCost"></ion-input>
+            <!-- <ion-input
+              fill="outline"
+              type="number"
+              label="Amount (GH₵)"
+              label-placement="floating"
+              placeholder="enter distance"
+              v-model="inputCost"
+            ></ion-input> -->
+            <ion-item class="centered" style="width: 100%;padding-block-start: 0px;--padding-start: 0px;
+     --inner-padding-end: 0px;">
+  <ion-label position="stacked" class="mylabel">Amount (GH₵)</ion-label>
+  <ion-input type="number"      placeholder="Enter Amount"         v-model="inputCost" step="1" style="width: 100%;font-size: 1.4rem;"></ion-input>
+</ion-item>
           </div>
-
+     
           <ion-card>
             <ion-card-content>
               <div>
@@ -103,21 +142,21 @@ import {
   // IonCardHeader,
   // IonCardTitle,
   IonCardContent,
-} from "@ionic/vue";
-import { ref, inject, onBeforeUpdate } from "vue";
+} from '@ionic/vue';
+import { ref, inject, onBeforeUpdate } from 'vue';
 
-const StorageService = inject("StorageService") as {
+const StorageService = inject('StorageService') as {
   set: (key: string, value: number) => Promise<void>;
   get: (key: string) => Promise<any>;
   remove: (key: string) => Promise<void>;
 };
 
-const segmentValue = ref("cost");
+const segmentValue = ref('cost');
 const fuelPrice = ref();
 const fuelEfficiency = ref();
 
 onBeforeUpdate(async () => {
-  console.log("inputCost", inputCost.value);
+  console.log('inputCost', inputCost.value);
   await loadData();
 });
 
@@ -128,13 +167,13 @@ const calculatedMileage = ref();
 const calculatedVolume = ref();
 
 const loadData = async () => {
-  fuelEfficiency.value = (await StorageService.get("fuelEfficiency")) || 0;
-  fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
+  fuelEfficiency.value = (await StorageService.get('fuelEfficiency')) || 0;
+  fuelPrice.value = (await StorageService.get('fuelPrice')) || 0;
 };
 
 const calculate = async () => {
   await loadData();
-  if (segmentValue.value == "cost") {
+  if (segmentValue.value == 'cost') {
     calculatedCost.value = ((fuelPrice.value * inputMileage.value) / fuelEfficiency.value).toFixed(2);
     calculatedVolume.value = (calculatedCost.value / fuelPrice.value).toFixed(2);
   } else {
@@ -144,11 +183,11 @@ const calculate = async () => {
 };
 
 const clearPage = () => {
-  inputMileage.value = "";
-  calculatedCost.value = "";
-  inputCost.value = "";
-  calculatedMileage.value = "";
-  calculatedVolume.value = "";
+  inputMileage.value = '';
+  calculatedCost.value = '';
+  inputCost.value = '';
+  calculatedMileage.value = '';
+  calculatedVolume.value = '';
 };
 
 loadData();
@@ -167,6 +206,7 @@ ion-toolbar {
   flex-direction: column;
   align-items: center;
   padding: 20px;
+  padding-bottom: 0;
   height: 100%;
 }
 
@@ -189,7 +229,8 @@ ion-button {
 .centered {
   margin-left: auto;
   margin-right: auto;
-  width: 300px;
+  max-width: 320px;
+  width: 94%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -205,10 +246,11 @@ div {
 
 .input {
   border-bottom: 1px solid #eeeeee;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 500;
   --color: var(--ion-text-color);
   padding: 16px;
+  padding-bottom: 3px;
   /* width: 80%;
   align-self: center; */
 }
@@ -240,5 +282,52 @@ div {
 .param-unit {
   font-size: 0.9rem;
   color: #444444;
+}
+#fuel-info-header{
+  display: flex;
+  text-align: left;
+  width: fit-content;
+  /* justify-content: space-between; */
+  margin: auto;
+  max-width: 320px;
+  width: 94%;
+}
+#fuel-info-header * {
+text-align: center;
+width: fit-content;
+
+}
+.fuel-info-subtitle{
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: rgb(157, 157, 157);
+  text-transform: uppercase;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 1px;
+}
+.fuel-info-value{
+  margin-top: 2px;
+  font-weight: bold;
+  font-size: 1.7rem;
+  color: black;
+  letter-spacing: 1px;
+}
+.fuel-info-unit{
+  font-size: 1rem;
+  color: rgb(68, 68, 68);
+  font-weight: 600;
+}
+ion-card{
+  margin-top: 5px;
+}
+label{
+  font-size: 0.8rem;
+  color: rgb(117, 117, 117);
+}
+ion-input{
+  /* font-size: 1.5rem; */
+}
+.label-text-wrapper{
+  font-size: larger;
 }
 </style>
