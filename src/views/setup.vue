@@ -50,7 +50,7 @@
         </div>
         <div class="centered">
           <ion-button color="medium" class="result-buttons" @click="clearData">Clear</ion-button>
-          <ion-button id="save" class="result-buttons" @click="saveData">Save</ion-button>
+          <ion-button id="save" :disabled="maxMileage<=0||tankCapacity<=0||fuelPrice<=0" class="result-buttons" @click="saveData">Save</ion-button>
           <ion-toast class="ion-toast" trigger="save" message="Saved!" :duration="3000" position="top" :icon="checkmarkCircleOutline"></ion-toast>
         </div>
       </div>
