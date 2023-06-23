@@ -40,12 +40,10 @@
             <ion-card-content>
               <div>
                 <div class="result-heading-item">Cost</div>
-                <ion-icon class="info-icon" :icon="informationCircleOutline"> </ion-icon>
               </div>
               <div class="result-main-item"><span class="param-unit">GH₵</span> {{ calculatedCost }}</div>
               <div>
                 <div class="mt result-heading-item">Volume</div>
-                <ion-icon class="info-icon" :icon="informationCircleOutline"> </ion-icon>
               </div>
               <div class="result-main-item">{{ calculatedVolume }} <span class="param-unit">liters</span></div>
             </ion-card-content>
@@ -60,13 +58,11 @@
             <ion-card-content>
               <div>
                 <div class="result-heading-item">Mileage</div>
-                <ion-icon class="info-icon" :icon="informationCircleOutline"> </ion-icon>
               </div>
               <div class="result-main-item">{{ calculatedMileage }} <span class="param-unit">km</span></div>
 
               <div>
                 <div class="mt result-heading-item">Volume</div>
-                <ion-icon class="info-icon" :icon="informationCircleOutline"> </ion-icon>
               </div>
               <div class="result-main-item">{{ calculatedVolume }} <span class="param-unit">liters</span></div>
             </ion-card-content>
@@ -77,7 +73,8 @@
           <ion-button @click="clearPage" color="medium" style="width: 50%">Clear</ion-button>
           <ion-button
             :disabled="
-              (segmentValue == 'mileage' && (inputCost < 1 || inputCost == 0||inputCost==undefined)) || (segmentValue == 'cost' && (inputMileage < 1 || inputMileage == 0||inputMileage==undefined))
+              (segmentValue == 'mileage' && (inputCost < 1 || inputCost == 0 || inputCost == undefined)) ||
+              (segmentValue == 'cost' && (inputMileage < 1 || inputMileage == 0 || inputMileage == undefined))
             "
             @click="calculate"
             style="width: 50%"
@@ -90,7 +87,7 @@
 </template>
 
 <script lang="ts" setup>
-import { informationCircleOutline } from "ionicons/icons";
+// import { informationCircleOutline } from "ionicons/icons";
 import {
   IonHeader,
   IonToolbar,
@@ -120,7 +117,7 @@ const fuelPrice = ref();
 const fuelEfficiency = ref();
 
 onBeforeUpdate(async () => {
-  console.log("inputCost",inputCost.value)
+  console.log("inputCost", inputCost.value);
   await loadData();
 });
 

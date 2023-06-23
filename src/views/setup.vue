@@ -19,84 +19,34 @@
             <ion-card-content>
               <div>
                 <div class="result-heading-item">Tank Capacity</div>
-                <ion-icon class="info-icon" :icon="informationCircleOutline"> </ion-icon>
-              </div>
-              <div class="result-main-item">
-                <!-- <IonInput v-model="tankCapacity"></IonInput> -->
-                            <ion-item>
-  <IonInput type="number" v-model="tankCapacity" step="1"></IonInput>
-  <ion-note slot="end">liters</ion-note>
-</ion-item>
-                <!-- <span class="param-unit">liters</span> -->
-              </div>
-              <div>
-                <div class="mt result-heading-item">Maximum Mileage</div>
-                <ion-icon class="info-icon" :icon="informationCircleOutline"> </ion-icon>
               </div>
               <div class="result-main-item">
                 <ion-item>
-  <IonInput type="number" v-model="maxMileage" step="1"></IonInput>
-  <ion-note slot="end">km</ion-note>
-</ion-item>
-                <!-- <IonInput v-model="maxMileage"> </IonInput><span class="param-unit">km</span> -->
+                  <IonInput type="number" v-model="tankCapacity"></IonInput>
+                  <ion-note slot="end">liters</ion-note>
+                </ion-item>
+              </div>
+              <div>
+                <div class="mt result-heading-item">Maximum Mileage</div>
+              </div>
+              <div class="result-main-item">
+                <ion-item>
+                  <IonInput type="number" v-model="maxMileage"></IonInput>
+                  <ion-note slot="end">km</ion-note>
+                </ion-item>
               </div>
 
               <div>
                 <div class="mt result-heading-item">Fuel Price</div>
-                <ion-icon class="info-icon" :icon="informationCircleOutline"> </ion-icon>
               </div>
               <div class="result-main-item">
-                <!-- <IonInput v-model="fuelPrice"> </IonInput><span class="param-unit">GH₵ / liter</span> -->
-
-                                <ion-item>
-  <IonInput type="number" v-model="fuelPrice" step="1"></IonInput>
-  <ion-note slot="end">GH₵ / liter</ion-note>
-</ion-item>
+                <ion-item>
+                  <IonInput type="number" v-model="fuelPrice" step="1"></IonInput>
+                  <ion-note slot="end">GH₵ / liter</ion-note>
+                </ion-item>
               </div>
             </ion-card-content>
           </ion-card>
-          <!-- <IonGrid>
-            <IonRow>
-              <IonCol size="6">
-                <ion-card>
-                  <ion-card-header>
-                    <span>
-                      <ion-card-title>
-                        <IonInput v-model="tankCapacity"></IonInput>
-                      </ion-card-title>
-                    </span>
-
-                    <ion-card-subtitle class="parameter-title"> Tank Capacity </ion-card-subtitle>
-                  </ion-card-header>
-
-                  <ion-card-content>liters </ion-card-content>
-                </ion-card>
-              </IonCol>
-              <IonCol size="6">
-                <ion-card>
-                  <ion-card-header>
-                    <ion-card-title>
-
-                      <IonInput v-model="maxMileage"></IonInput>
-                    </ion-card-title>
-                    <ion-card-subtitle class="parameter-title"> Maximum Mileage </ion-card-subtitle>
-                  </ion-card-header>
-
-                  <ion-card-content> kilometers </ion-card-content>
-                </ion-card>
-              </IonCol>
-            </IonRow>
-            <IonRow>
-              <ion-card style="margin-top: 2px">
-                <ion-card-header>
-                  <ion-card-title> <IonInput v-model="fuelPrice"></IonInput> </ion-card-title>
-                  <ion-card-subtitle> Fuel Price </ion-card-subtitle>
-                </ion-card-header>
-
-                <ion-card-content> ₵ per liter </ion-card-content>
-              </ion-card>
-            </IonRow>
-          </IonGrid> -->
         </div>
         <div class="centered">
           <ion-button color="medium" class="result-buttons" @click="clearData">Clear</ion-button>
@@ -109,8 +59,20 @@
 </template>
 
 <script lang="ts" setup>
-import { checkmarkCircleOutline, informationCircleOutline } from "ionicons/icons";
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonInput, IonGrid, IonRow, IonCol, IonButton, IonToast } from "@ionic/vue";
+import { checkmarkCircleOutline } from "ionicons/icons";
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonPage,
+  IonInput,
+  // IonGrid,
+  // IonRow,
+  // IonCol,
+  IonButton,
+  IonToast,
+} from "@ionic/vue";
 import { ref, inject } from "vue";
 
 const StorageService = inject("StorageService") as {
@@ -146,23 +108,10 @@ const clearData = async () => {
   fuelPrice.value = "";
 };
 
-const infoCards = ref({
-  tankCapacity: "How much fuel your tank can contain, or the volume of your tank",
-  maxMileage: "How far a full tank of fuel can take you. Also known as maximum cruising distance",
-  fuelPrice: "How much a liter of fuel costs",
-});
-
 loadData();
 </script>
 
 <style scoped>
-.square-input {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 0;
-  padding-top: 100%; /* Maintain a 1:1 aspect ratio for the square */
-}
 .result-main-item {
   /* --color: var(--ion-text-color, #000); */
   margin: 0px;
@@ -172,10 +121,6 @@ loadData();
   line-height: 1.2;
 }
 
-.param-unit {
-  font-size: 0.9rem;
-  color: #444444;
-}
 .info-icon {
   float: right;
   margin-top: -15px;
@@ -205,11 +150,7 @@ loadData();
   flex-direction: column;
   align-items: center;
   padding: 20px;
-  }
-
-/* IonButtons {
-  width: 100%;
-} */
+}
 
 .result-buttons {
   /* --background: #93e9be;
@@ -238,22 +179,17 @@ loadData();
 }
 
 ion-input {
-  border-bottom: 1px solid #ededed;
+  /* border-bottom: 1px solid #ededed; */
   width: 100%;
-    font-size:1.5rem;
-
+  font-size: 1.5rem;
 }
-ion-item{
+ion-item {
   width: 100%;
-  padding:5px;
-  --padding-start: 2px
-}
-.parameter-title {
-  min-height: 40px;
+  padding: 5px;
+  --padding-start: 2px;
 }
 
 div {
   width: 100%;
 }
-
 </style>
