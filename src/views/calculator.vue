@@ -23,44 +23,25 @@
     <ion-content>
 
       <div id="fuel-info-header">
-<div >
-  <div class="fuel-info-subtitle">Fuel Price</div>
-  <div class="fuel-info-value"><span class="fuel-info-unit">GH₵</span> 1234 </div>
-</div>
+        <div>
+          <div class="fuel-info-subtitle">Fuel Price</div>
+          <div class="fuel-info-value"><span class="fuel-info-unit">GH₵</span> {{fuelPrice}} </div>
+        </div>
 
       </div>
 
 
       <div class="container">
-        <!-- <ion-card
-          style="
-             {
-              display: flex;
-              margin: 0 !important;
-            }
-          "
-        >
-          <div class="centered">
-            <ion-card-content>
-              <div class="result-heading-item">Fuel Price</div>
-              <div class="result-main-item"><span class="param-unit">GH₵</span> {{ fuelPrice }}</div>
-            </ion-card-content>
-          </div>
-        </ion-card> -->
+   
         <div v-if="segmentValue == 'cost'">
           <div class="input centered">
-            <!-- <ion-input
-              type="number"
-              fill="solid"
-              label="Mileage (km)"
-              label-placement="floating"
-              v-model="inputMileage"
-            ></ion-input> -->
+         
             <ion-item class="centered" style="width: 100%;padding-block-start: 0px;--padding-start: 0px;
      --inner-padding-end: 0px;">
-  <ion-label position="stacked" class="mylabel">Mileage (km)</ion-label>
-  <ion-input type="number"      placeholder="Enter Mileage"         v-model="inputMileage" step="1" style="width: 100%;font-size: 1.4rem;"></ion-input>
-</ion-item>
+              <ion-label position="stacked" class="mylabel">Mileage (km)</ion-label>
+              <ion-input type="number" placeholder="Enter Mileage" v-model="inputMileage" step="1"
+                style="width: 100%;font-size: 1.4rem;"></ion-input>
+            </ion-item>
           </div>
 
           <ion-card>
@@ -78,21 +59,15 @@
         </div>
         <div v-if="segmentValue == 'mileage'">
           <div class="input centered">
-            <!-- <ion-input
-              fill="outline"
-              type="number"
-              label="Amount (GH₵)"
-              label-placement="floating"
-              placeholder="enter distance"
-              v-model="inputCost"
-            ></ion-input> -->
+         
             <ion-item class="centered" style="width: 100%;padding-block-start: 0px;--padding-start: 0px;
      --inner-padding-end: 0px;">
-  <ion-label position="stacked" class="mylabel">Amount (GH₵)</ion-label>
-  <ion-input type="number"      placeholder="Enter Amount"         v-model="inputCost" step="1" style="width: 100%;font-size: 1.4rem;"></ion-input>
-</ion-item>
+              <ion-label position="stacked" class="mylabel">Amount (GH₵)</ion-label>
+              <ion-input type="number" placeholder="Enter Amount" v-model="inputCost" step="1"
+                style="width: 100%;font-size: 1.4rem;"></ion-input>
+            </ion-item>
           </div>
-     
+
           <ion-card>
             <ion-card-content>
               <div>
@@ -110,15 +85,9 @@
 
         <div class="centered">
           <ion-button @click="clearPage" color="medium" style="width: 50%">Clear</ion-button>
-          <ion-button
-            :disabled="
-              (segmentValue == 'mileage' && (inputCost < 1 || inputCost == 0 || inputCost == undefined)) ||
-              (segmentValue == 'cost' && (inputMileage < 1 || inputMileage == 0 || inputMileage == undefined))
-            "
-            @click="calculate"
-            style="width: 50%"
-            >Calculate</ion-button
-          >
+          <ion-button :disabled="(segmentValue == 'mileage' && (inputCost < 1 || inputCost == 0 || inputCost == undefined)) ||
+            (segmentValue == 'cost' && (inputMileage < 1 || inputMileage == 0 || inputMileage == undefined))
+            " @click="calculate" style="width: 50%">Calculate</ion-button>
         </div>
       </div>
     </ion-content>
@@ -126,7 +95,6 @@
 </template>
 
 <script lang="ts" setup>
-// import { informationCircleOutline } from "ionicons/icons";
 import {
   IonHeader,
   IonToolbar,
@@ -138,9 +106,6 @@ import {
   IonInput,
   IonLabel,
   IonCard,
-  // IonCardSubtitle,
-  // IonCardHeader,
-  // IonCardTitle,
   IonCardContent,
 } from '@ionic/vue';
 import { ref, inject, onBeforeUpdate } from 'vue';
@@ -211,18 +176,9 @@ ion-toolbar {
 }
 
 ion-button {
-  /* --background: #93e9be;
-  --background-hover: #9ce0be;
-  --background-activated: #88f4be;
-  --background-focused: #88f4be; */
-
-  /* --color: blue; */
-
   --border-radius: 8px;
-  /* --border-color: #000; */
   --border-style: solid;
   --border-width: 1px;
-
   --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
 }
 
@@ -251,8 +207,7 @@ div {
   --color: var(--ion-text-color);
   padding: 16px;
   padding-bottom: 3px;
-  /* width: 80%;
-  align-self: center; */
+
 }
 
 .mt {
@@ -260,7 +215,6 @@ div {
 }
 
 .result-main-item {
-  /* --color: var(--ion-text-color, #000); */
   margin: 0px;
   padding: 0px;
   font-size: 28px;
@@ -283,7 +237,8 @@ div {
   font-size: 0.9rem;
   color: #444444;
 }
-#fuel-info-header{
+
+#fuel-info-header {
   display: flex;
   text-align: left;
   width: fit-content;
@@ -292,12 +247,14 @@ div {
   max-width: 320px;
   width: 94%;
 }
+
 #fuel-info-header * {
-text-align: center;
-width: fit-content;
+  text-align: center;
+  width: fit-content;
 
 }
-.fuel-info-subtitle{
+
+.fuel-info-subtitle {
   font-size: 0.9rem;
   font-weight: 300;
   color: rgb(157, 157, 157);
@@ -305,29 +262,30 @@ width: fit-content;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   letter-spacing: 1px;
 }
-.fuel-info-value{
+
+.fuel-info-value {
   margin-top: 2px;
   font-weight: bold;
   font-size: 1.7rem;
   color: black;
   letter-spacing: 1px;
 }
-.fuel-info-unit{
+
+.fuel-info-unit {
   font-size: 1rem;
   color: rgb(68, 68, 68);
   font-weight: 600;
 }
-ion-card{
+
+ion-card {
   margin-top: 5px;
 }
-label{
+
+label {
   font-size: 0.8rem;
   color: rgb(117, 117, 117);
 }
-ion-input{
-  /* font-size: 1.5rem; */
-}
-.label-text-wrapper{
+
+.label-text-wrapper {
   font-size: larger;
-}
-</style>
+}</style>
