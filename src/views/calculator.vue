@@ -1,14 +1,14 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <ion-page>
-    <ion-header collapse="condense">
-      <ion-toolbar>
-        <ion-title size="large"> Calculator </ion-title>
+    <ion-header collapse="condense"  mode="ios">
+      <ion-toolbar mode="ios">
+        <ion-title mode="ios" size="large"> Calculator </ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-header :translucent="true" class="ion-no-border">
-      <ion-toolbar>
+      <ion-toolbar  mode="ios">
         <ion-segment v-model="segmentValue" class="centered" mode="ios">
           <ion-segment-button value="cost">
             <ion-label>Cost Calculator</ion-label>
@@ -33,7 +33,7 @@
 
       <div class="container">
    
-        <div v-if="segmentValue == 'cost'">
+        <div v-if="segmentValue == 'cost'" class="mw-1">
           <div class="input centered">
          
             <ion-item class="centered" style="width: 100%;padding-block-start: 0px;--padding-start: 0px;
@@ -57,6 +57,9 @@
             </ion-card-content>
           </ion-card>
         </div>
+
+
+
         <div v-if="segmentValue == 'mileage'">
           <div class="input centered">
          
@@ -191,7 +194,13 @@ ion-button {
   align-items: center;
   justify-content: space-between;
 }
+.mw-1{
+      max-width: 320px;
 
+}
+ion-page{
+    max-width: 320px;
+}
 div {
   width: 100%;
 }
