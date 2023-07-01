@@ -1,19 +1,21 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <ion-page>
-    <ion-header :translucent="true" class="ion-no-border">
+    <div class="page-title">Setup</div>
+
+    <!-- <ion-header :translucent="true" class="ion-no-border">
       <ion-toolbar class="centered">
         <ion-title>Setup</ion-title>
       </ion-toolbar>
-    </ion-header>
+    </ion-header> -->
 
     <ion-content :fullscreen="true">
       <div class="container">
-        <ion-header collapse="condense">
+        <!-- <ion-header collapse="condense">
           <ion-toolbar>
             <ion-title size="large"> Setup </ion-title>
           </ion-toolbar>
-        </ion-header>
+        </ion-header> -->
         <div>
           <ion-card>
             <ion-card-content>
@@ -191,5 +193,15 @@ ion-item {
 
 div {
   width: 100%;
+}
+
+.page-title{
+  width: 100%;
+  padding: 10px 20px;
+  font-size: 34px;
+  margin-bottom: 20px;
+  color: #232323;
+  font-weight: 700;
+  z-index: 1000;
 }
 </style>

@@ -1,14 +1,15 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <ion-page>
-    <ion-header collapse="condense"  mode="ios">
+    <div class="page-title">Calculator</div>
+    <!-- <ion-header collapse="condense"  mode="ios">
       <ion-toolbar mode="ios">
         <ion-title mode="ios" size="large"> Calculator </ion-title>
       </ion-toolbar>
-    </ion-header>
+    </ion-header> -->
 
-    <ion-header :translucent="true" class="ion-no-border">
-      <ion-toolbar  mode="ios">
+    <!-- <ion-header :translucent="true" class="ion-no-border">
+      <ion-toolbar  mode="ios"> -->
         <ion-segment v-model="segmentValue" class="centered" mode="ios">
           <ion-segment-button value="cost">
             <ion-label>Cost Calculator</ion-label>
@@ -17,8 +18,8 @@
             <ion-label>Mileage Calculator</ion-label>
           </ion-segment-button>
         </ion-segment>
-      </ion-toolbar>
-    </ion-header>
+      <!-- </ion-toolbar>
+    </ion-header> -->
 
     <ion-content>
 
@@ -162,7 +163,24 @@ loadData();
 </script>
 
 <style scoped>
-ion-toolbar {
+.page-title{
+  width: 100%;
+  padding: 10px 20px;
+  font-size: 34px;
+  margin-bottom: 20px;
+  color: #232323;
+  font-weight: 700;
+}
+ion-content,ion-card, ion-input, ion-label, ion-header, ion-toolbar{
+  --backgrjound:#ffffff;
+  backgrokund:#ffffff;
+
+}
+ion-segment{
+  colojr: black;
+  --background-chemcked:white;
+}
+ion-toolbkar {
   --min-height: 80px;
   --padding-top: 20px;
   --padding-bottom: 20px;
@@ -218,7 +236,9 @@ div {
   padding-bottom: 3px;
 
 }
-
+ion-segment{
+  margin-bottom: 20px;
+}
 .mt {
   margin-top: 40px;
 }
