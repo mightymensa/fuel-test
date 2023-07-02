@@ -12,10 +12,10 @@
       <ion-toolbar  mode="ios"> -->
         <ion-segment v-model="segmentValue" class="centered" mode="ios">
           <ion-segment-button value="cost">
-            <ion-label>Cost Calculator</ion-label>
+            <ion-label><font-awesome-icon class="fc-blue" icon="fa-solid fa-money-bill" />Cost Calculator</ion-label>
           </ion-segment-button>
           <ion-segment-button value="mileage">
-            <ion-label>Mileage Calculator</ion-label>
+            <ion-label><font-awesome-icon class="fc-green" icon="fa-solid fa-tachometer-alt" />Mileage Calculator</ion-label>
           </ion-segment-button>
         </ion-segment>
       <!-- </ion-toolbar>
@@ -48,11 +48,11 @@
           <ion-card>
             <ion-card-content>
               <div>
-                <div class="result-heading-item">Cost</div>
+                <div class="result-heading-item"><font-awesome-icon class="fc-blue" icon="fa-solid fa-money-bill" />Cost</div>
               </div>
               <div class="result-main-item"><span class="param-unit">GH₵</span> {{ calculatedCost }}</div>
               <div>
-                <div class="mt result-heading-item">Volume</div>
+                <div class="mt result-heading-item"><font-awesome-icon class="fc-orange" icon="fa-solid fa-fill-drip" />Volume</div>
               </div>
               <div class="result-main-item">{{ calculatedVolume }} <span class="param-unit">liters</span></div>
             </ion-card-content>
@@ -75,12 +75,12 @@
           <ion-card>
             <ion-card-content>
               <div>
-                <div class="result-heading-item">Mileage</div>
+                <div class="result-heading-item"><font-awesome-icon class="fc-green" icon="fa-solid fa-tachometer-alt" />Mileage</div>
               </div>
               <div class="result-main-item">{{ calculatedMileage }} <span class="param-unit">km</span></div>
 
               <div>
-                <div class="mt result-heading-item">Volume</div>
+                <div class="mt result-heading-item"><font-awesome-icon class="fc-orange" icon="fa-solid fa-fill-drip" />Volume</div>
               </div>
               <div class="result-main-item">{{ calculatedVolume }} <span class="param-unit">liters</span></div>
             </ion-card-content>
@@ -163,14 +163,7 @@ loadData();
 </script>
 
 <style scoped>
-.page-title{
-  width: 100%;
-  padding: 10px 20px;
-  font-size: 34px;
-  margin-bottom: 20px;
-  color: #232323;
-  font-weight: 700;
-}
+
 ion-content,ion-card, ion-input, ion-label, ion-header, ion-toolbar{
   --backgrjound:#ffffff;
   backgrokund:#ffffff;
@@ -213,11 +206,11 @@ ion-button {
   justify-content: space-between;
 }
 .mw-1{
-      max-width: 320px;
+      max-width: 400px;
 
 }
 ion-page{
-    max-width: 320px;
+    max-width: 400px;
 }
 div {
   width: 100%;
@@ -296,13 +289,13 @@ ion-segment{
   margin-top: 2px;
   font-weight: bold;
   font-size: 1.7rem;
-  color: black;
+  color: rgb(63, 63, 63);
   letter-spacing: 1px;
 }
 
 .fuel-info-unit {
   font-size: 1rem;
-  color: rgb(68, 68, 68);
+  color: rgb(93, 93, 93);
   font-weight: 600;
 }
 
@@ -317,4 +310,8 @@ label {
 
 .label-text-wrapper {
   font-size: larger;
-}</style>
+}
+div{
+  color: #444444;
+}
+</style>

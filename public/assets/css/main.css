@@ -1,0 +1,32 @@
+.page-title{
+    max-width: 400px;
+    margin: auto;
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 34px;
+    color: #3a3939;
+    font-weight: 700;
+    z-index: 1000;
+  }
+
+  .svg-inline--fa{
+    margin-right: 5px;
+  }
+
+  .fc-green{
+color: rgb(83, 161, 83) !important;
+  }
+  .fc-orange{
+color: rgb(203, 157, 71) !important;
+  }
+
+  .fc-blue{
+    color: rgb(10, 119, 186) !important;
+  }
+  .fc-grey{
+    color: rgb(124, 124, 124) !important;
+  }
+
+  .fc-blue-button{
+    --background: rgb(10, 119, 186) !important;
+  }

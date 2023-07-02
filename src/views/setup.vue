@@ -3,56 +3,51 @@
   <ion-page>
     <div class="page-title">Setup</div>
 
-    <!-- <ion-header :translucent="true" class="ion-no-border">
-      <ion-toolbar class="centered">
-        <ion-title>Setup</ion-title>
-      </ion-toolbar>
-    </ion-header> -->
 
     <ion-content :fullscreen="true">
       <div class="container">
-        <!-- <ion-header collapse="condense">
-          <ion-toolbar>
-            <ion-title size="large"> Setup </ion-title>
-          </ion-toolbar>
-        </ion-header> -->
-        <div>
-          <ion-card>
+       
+          <ion-card  mode="ios">
             <ion-card-content>
               <div>
-                <div class="result-heading-item">Tank Capacity</div>
+                <div class="result-heading-item"><font-awesome-icon class="fc-orange" icon="fa-solid fa-gas-pump" />Tank Capacity</div>
               </div>
-              <div class="result-main-item">
-                <ion-item>
+              <div class="result-main-itema setup-parameter-item">
+                <input type="number" :disabled="tankCapacity>100000" v-model="tankCapacity" class="setup-parameter-input">
+                <span class="setup-parameter-unit">liters</span>
+              </div>
+              <!-- <div class="result-main-item">
+                <ion-item mode="ios">
                   <IonInput type="number" v-model="tankCapacity"></IonInput>
                   <ion-note slot="end">liters</ion-note>
                 </ion-item>
-              </div>
+              </div> -->
               <div>
-                <div class="mt result-heading-item">Maximum Mileage</div>
+                <div class="mt result-heading-item"><font-awesome-icon class="fc-green" icon="fa-solid fa-tachometer-alt" />Maximum Mileage</div>
               </div>
-              <div class="result-main-item">
-                <ion-item>
-                  <IonInput type="number" v-model="maxMileage"></IonInput>
-                  <ion-note slot="end">km</ion-note>
-                </ion-item>
+              <div class="result-main-itema setup-parameter-item">
+                <input type="number" :disabled="maxMileage>100000" name="" v-model="maxMileage" class="setup-parameter-input">
+                <span class="setup-parameter-unit">km</span>
               </div>
 
               <div>
-                <div class="mt result-heading-item">Fuel Price</div>
+                <div class="mt result-heading-item"><font-awesome-icon class="fc-blue" icon="fa-solid fa-money-bill" />Fuel Price</div>
               </div>
-              <div class="result-main-item">
+              <div class="result-main-itema setup-parameter-item">
+                <input type="number" max="100" :disabled="fuelPrice>100000" name="" v-model="fuelPrice" class="setup-parameter-input">
+                <span class="setup-parameter-unit">GH₵ / liter</span>
+              </div>
+              <!-- <div class="result-main-item">
                 <ion-item>
                   <IonInput type="number" v-model="fuelPrice" step="1"></IonInput>
                   <ion-note slot="end">GH₵ / liter</ion-note>
                 </ion-item>
-              </div>
+              </div> -->
             </ion-card-content>
           </ion-card>
-        </div>
         <div class="centered">
           <ion-button color="medium" class="result-buttons" @click="clearData">Clear</ion-button>
-          <ion-button id="save" :disabled="maxMileage<=0||tankCapacity<=0||fuelPrice<=0" class="result-buttons" @click="saveData">Save</ion-button>
+          <ion-button id="save" :disabled="maxMileage<=0||tankCapacity<=0||fuelPrice<=0" class="result-buttons fc-blue-button" @click="saveData">Save</ion-button>
           <ion-toast class="ion-toast" trigger="save" message="Saved!" :duration="3000" position="top" :icon="checkmarkCircleOutline"></ion-toast>
         </div>
       </div>
@@ -143,15 +138,19 @@ loadData();
 }
 
 .mt {
-  margin-top: 24px;
+  margin-top: 35px;
 }
 .container {
   /* background: rgb(22, 1, 61); */
   /* color: white; */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
+  /* display: flex;
+  flex-direction: column; */
+  /* align-items: center; */
+  /* text-align: center; */
+  width: 90%;
+  max-width: 400px;
+  margin: auto;
+  /* padding: 20px; */
 }
 
 .result-buttons {
@@ -172,11 +171,10 @@ loadData();
 
 .centered {
   text-align: center;
-  margin-left: auto;
-  margin-right: auto;
   width: 300px;
   display: flex;
   align-items: center;
+  margin: auto;
   justify-content: space-between;
 }
 
@@ -184,24 +182,45 @@ ion-input {
   /* border-bottom: 1px solid #ededed; */
   width: 100%;
   font-size: 1.5rem;
+  font-weight: 700;
+  color: rgb(27, 26, 26);
 }
 ion-item {
   width: 100%;
   padding: 5px;
   --padding-start: 2px;
 }
-
-div {
-  width: 100%;
+ion-card{
+  max-width: 360px;
 }
 
-.page-title{
-  width: 100%;
-  padding: 10px 20px;
-  font-size: 34px;
-  margin-bottom: 20px;
-  color: #232323;
+.setup-parameter-item {
+  display: flex;
+  border-bottom: 1px solid rgb(206, 206, 206);
+  margin-top: 10px;
+}
+
+.setup-parameter-unit {
+  /* flex: 0 0 auto;  */
+  /* Keeps the first span's width as content-based */
+  /* white-space: nowrap; */
+  position: absolute;
+  right: 20px;
+}
+
+.setup-parameter-input {
+  padding-left: 5px;
+  border: none;
+  /* border-bottom: 1px solid grey; */
+  font-size: 1.3rem;
+  color: rgb(94, 92, 92);
   font-weight: 700;
-  z-index: 1000;
+    flex-grow: 1; /* Makes the second span fill the remaining space */
 }
+.setup-parameter-input:focus{
+  border: none;
+  outline: none;
+  border-left: 3px solid rgb(107, 147, 204);
+}
+
 </style>
