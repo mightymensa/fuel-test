@@ -10,15 +10,15 @@
 
     <!-- <ion-header :translucent="true" class="ion-no-border">
       <ion-toolbar  mode="ios"> -->
-        <ion-segment v-model="segmentValue" class="centered" mode="ios">
-          <ion-segment-button value="cost">
-            <ion-label><font-awesome-icon class="fc-blue" icon="fa-solid fa-money-bill" />Cost Calculator</ion-label>
-          </ion-segment-button>
-          <ion-segment-button value="mileage">
-            <ion-label><font-awesome-icon class="fc-green" icon="fa-solid fa-tachometer-alt" />Mileage Calculator</ion-label>
-          </ion-segment-button>
-        </ion-segment>
-      <!-- </ion-toolbar>
+    <ion-segment v-model="segmentValue" class="centered" mode="ios">
+      <ion-segment-button value="cost">
+        <ion-label><font-awesome-icon class="fc-blue" icon="fa-solid fa-money-bill" />Cost Calculator</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="mileage">
+        <ion-label><font-awesome-icon class="fc-green" icon="fa-solid fa-tachometer-alt" />Mileage Calculator</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+    <!-- </ion-toolbar>
     </ion-header> -->
 
     <ion-content>
@@ -26,33 +26,47 @@
       <div id="fuel-info-header">
         <div>
           <div class="fuel-info-subtitle">Fuel Price</div>
-          <div class="fuel-info-value"><span class="fuel-info-unit">GH₵</span> {{fuelPrice}} </div>
+          <div class="fuel-info-value"><span class="fuel-info-unit">GH₵</span> {{ fuelPrice }} </div>
         </div>
 
       </div>
 
 
       <div class="container">
-   
-        <div v-if="segmentValue == 'cost'" class="mw-1">
-          <div class="input centered">
-         
-            <ion-item class="centered" style="width: 100%;padding-block-start: 0px;--padding-start: 0px;
+
+        <div v-if="segmentValue == 'cost'" class="mw-1a">
+          <!-- <div class="input centered"> -->
+
+          <!-- <ion-item class="centered" style="width: 100%;padding-block-start: 0px;--padding-start: 0px;
      --inner-padding-end: 0px;">
               <ion-label position="stacked" class="mylabel">Mileage (km)</ion-label>
               <ion-input type="number" placeholder="Enter Mileage" v-model="inputMileage" step="1"
                 style="width: 100%;font-size: 1.4rem;"></ion-input>
-            </ion-item>
+            </ion-item> -->
+          <div style="padding: 0px 15px;margin-bottom: 20px;">
+
+            <div>
+              <div class="mt result-heading-item"><font-awesome-icon class="fc-blue"
+                  icon="fa-solid fa-money-bill" />Mileage (km)</div>
+            </div>
+            <div class="result-main-itema setup-parameter-item">
+              <input placeholder="Enter Mileage" type="number" max="100" :disabled="fuelPrice > 100000" name=""
+                v-model="inputMileage" class="setup-parameter-input">
+              <span class="setup-parameter-unit">GH₵ / liter</span>
+            </div>
           </div>
+          <!-- </div> -->
 
           <ion-card>
             <ion-card-content>
               <div>
-                <div class="result-heading-item"><font-awesome-icon class="fc-blue" icon="fa-solid fa-money-bill" />Cost</div>
+                <div class="result-heading-item"><font-awesome-icon class="fc-blue" icon="fa-solid fa-money-bill" />Cost
+                </div>
               </div>
               <div class="result-main-item"><span class="param-unit">GH₵</span> {{ calculatedCost }}</div>
               <div>
-                <div class="mt result-heading-item"><font-awesome-icon class="fc-orange" icon="fa-solid fa-fill-drip" />Volume</div>
+                <div class="mt result-heading-item"><font-awesome-icon class="fc-orange"
+                    icon="fa-solid fa-fill-drip" />Volume</div>
               </div>
               <div class="result-main-item">{{ calculatedVolume }} <span class="param-unit">liters</span></div>
             </ion-card-content>
@@ -62,25 +76,31 @@
 
 
         <div v-if="segmentValue == 'mileage'">
-          <div class="input centered">
-         
-            <ion-item class="centered" style="width: 100%;padding-block-start: 0px;--padding-start: 0px;
-     --inner-padding-end: 0px;">
-              <ion-label position="stacked" class="mylabel">Amount (GH₵)</ion-label>
-              <ion-input type="number" placeholder="Enter Amount" v-model="inputCost" step="1"
-                style="width: 100%;font-size: 1.4rem;"></ion-input>
-            </ion-item>
+
+          <div style="padding: 0px 15px;margin-bottom: 20px;">
+
+            <div>
+              <div class="mt result-heading-item"><font-awesome-icon class="fc-blue"
+                  icon="fa-solid fa-money-bill" />Amount (GH₵)</div>
+            </div>
+            <div class="result-main-itema setup-parameter-item">
+              <input placeholder="Enter Mileage" type="number" max="100" :disabled="fuelPrice > 100000" name=""
+                v-model="inputCost" class="setup-parameter-input">
+              <span class="setup-parameter-unit">GH₵</span>
+            </div>
           </div>
 
           <ion-card>
             <ion-card-content>
               <div>
-                <div class="result-heading-item"><font-awesome-icon class="fc-green" icon="fa-solid fa-tachometer-alt" />Mileage</div>
+                <div class="result-heading-item"><font-awesome-icon class="fc-green"
+                    icon="fa-solid fa-tachometer-alt" />Mileage</div>
               </div>
               <div class="result-main-item">{{ calculatedMileage }} <span class="param-unit">km</span></div>
 
               <div>
-                <div class="mt result-heading-item"><font-awesome-icon class="fc-orange" icon="fa-solid fa-fill-drip" />Volume</div>
+                <div class="mt result-heading-item"><font-awesome-icon class="fc-orange"
+                    icon="fa-solid fa-fill-drip" />Volume</div>
               </div>
               <div class="result-main-item">{{ calculatedVolume }} <span class="param-unit">liters</span></div>
             </ion-card-content>
@@ -163,16 +183,17 @@ loadData();
 </script>
 
 <style scoped>
-
-ion-content,ion-card, ion-input, ion-label, ion-header, ion-toolbar{
-  --backgrjound:#ffffff;
-  backgrokund:#ffffff;
+ion-content,
+ion-card,
+ion-input,
+ion-label,
+ion-header,
+ion-toolbar {
+  --backgrjound: #ffffff;
+  backgrokund: #ffffff;
 
 }
-ion-segment{
-  colojr: black;
-  --background-chemcked:white;
-}
+
 ion-toolbkar {
   --min-height: 80px;
   --padding-top: 20px;
@@ -181,12 +202,12 @@ ion-toolbkar {
 
 .container {
   /* margin-top: 20px; */
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
   padding: 20px;
   padding-bottom: 0;
-  height: 100%;
+  height: 100%; */
 }
 
 ion-button {
@@ -205,13 +226,16 @@ ion-button {
   align-items: center;
   justify-content: space-between;
 }
-.mw-1{
-      max-width: 400px;
+
+.mw-1 {
+  max-width: 400px;
 
 }
-ion-page{
-    max-width: 400px;
+
+ion-page {
+  max-width: 400px;
 }
+
 div {
   width: 100%;
 }
@@ -229,9 +253,11 @@ div {
   padding-bottom: 3px;
 
 }
-ion-segment{
+
+ion-segment {
   margin-bottom: 20px;
 }
+
 .mt {
   margin-top: 40px;
 }
@@ -311,7 +337,7 @@ label {
 .label-text-wrapper {
   font-size: larger;
 }
-div{
+
+div {
   color: #444444;
-}
-</style>
+}</style>

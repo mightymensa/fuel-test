@@ -64,9 +64,6 @@ import {
   IonContent,
   IonPage,
   IonInput,
-  // IonGrid,
-  // IonRow,
-  // IonCol,
   IonButton,
   IonToast,
 } from "@ionic/vue";
@@ -123,11 +120,7 @@ loadData();
   margin-top: -15px;
 }
 
-.result-heading-item {
-  font-size: 12px;
-  font-weight: normal;
-  text-transform: uppercase;
-}
+
 
 .ion-toast {
   --border-color: rgb(0, 128, 0);
@@ -200,27 +193,6 @@ ion-card{
   margin-top: 10px;
 }
 
-.setup-parameter-unit {
-  /* flex: 0 0 auto;  */
-  /* Keeps the first span's width as content-based */
-  /* white-space: nowrap; */
-  position: absolute;
-  right: 20px;
-}
 
-.setup-parameter-input {
-  padding-left: 5px;
-  border: none;
-  /* border-bottom: 1px solid grey; */
-  font-size: 1.3rem;
-  color: rgb(94, 92, 92);
-  font-weight: 700;
-    flex-grow: 1; /* Makes the second span fill the remaining space */
-}
-.setup-parameter-input:focus{
-  border: none;
-  outline: none;
-  border-left: 3px solid rgb(107, 147, 204);
-}
 
 </style>
