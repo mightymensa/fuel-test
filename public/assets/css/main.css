@@ -1,3 +1,6 @@
+*{
+  font-family: Avenir Black;
+}
 .page-title{
     max-width: 400px;
     margin: auto;
@@ -7,6 +10,7 @@
     color: #3a3939;
     font-weight: 700;
     z-index: 1000;
+    font-family: Avenir Black;
   }
 
   .svg-inline--fa{
@@ -51,10 +55,10 @@ color: rgb(203, 157, 71) !important;
   }
 
   .result-heading-item {
-    font-size: 12px;
+    /* font-size: 12px;
     font-weight: normal;
     text-transform: uppercase;
-    margin-bottom: 5px;
+    margin-bottom: 5px; */
   }
 
   .container {
@@ -70,7 +74,3 @@ color: rgb(203, 157, 71) !important;
     margin: auto;
     /* padding: 20px; */
   }
-/* 
-  ion-content{
-    --background:linear-gradient(300deg, rgba(16,136,205,1) 0%, rgba(255,255,255,1) 0%, rgba(255,236,236,1) 48%, rgba(250,242,255,1) 100%);;
-  } */
