@@ -40,7 +40,7 @@ defineProps({
 .result-main-item {
   /* --color: var(--ion-text-color, #000); */
   margin: 0px;
-  padding: 0px;
+  padding: 10px;
   font-size: 28px;
   font-weight: 700;
   line-height: 1.2;
