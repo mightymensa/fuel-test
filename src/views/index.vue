@@ -26,8 +26,9 @@ import { calculator, carSportOutline } from "ionicons/icons";
 
 <style scoped>
 ion-tab-bar {
-  --color: black;
+  /* --color: black; */
   --border: none;
   box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+  padding: 10px;
 }
 </style>
