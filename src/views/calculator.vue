@@ -31,23 +31,23 @@
           </ion-segment-button>
         </ion-segment>
 
-        <ion-card>
+        <ion-card  v-if="showResults == false">
           <ion-card-content id="calculator-input-div" class="center-items">
             <div id="calculator-input-group">
 
               <div v-if="inputMileage !== ''" :style="inputMileage !== '' ? 'display:block;' : 'display:none;'">{{
                 segmentValue == 'cost' ? 'Enter Cost' : 'Enter Mileage' }}</div>
               <input id="calculator-input" class="custom-input" v-model="inputMileage" type="number"
-                placeholder="Enter mileage in kilometers">
+                :placeholder="'Enter '+(segmentValue == 'cost' ?'cost in GHS':'mileage in km')">
             </div>
 
           </ion-card-content>
         </ion-card>
-        <div v-if="segmentValue == 'cost-INVALID'" class="mw-1a">
+        <!-- <div v-if="segmentValue == 'cost' && showResults == true" class="mw-1a"> -->
 
-          <ion-card>
-            <ion-card-content>
-              <div>
+          <ion-card v-if="segmentValue == 'cost' && showResults == true">
+            <ion-card-content id="calculator-result-div">
+              <!-- <div>
                 <div class="info-item-heading"><font-awesome-icon class="fc-blue" icon="fa-solid fa-money-bill" />Cost
                 </div>
               </div>
@@ -56,10 +56,10 @@
                 <div class="mt info-item-heading"><font-awesome-icon class="fc-orange"
                     icon="fa-solid fa-fill-drip" />Volume</div>
               </div>
-              <div class="result-main-item">{{ calculatedVolume }} <span class="info-item-unit">liters</span></div>
+              <div class="result-main-item">{{ calculatedVolume }} <span class="info-item-unit">liters</span></div> -->
             </ion-card-content>
           </ion-card>
-        </div>
+        <!-- </div> -->
 
 
 
@@ -67,7 +67,7 @@
 
           <ion-card>
             <ion-card-content>
-              <div>
+              <!-- <div>
                 <div class="info-item-heading"><font-awesome-icon class="fc-green"
                     icon="fa-solid fa-tachometer-alt" />Mileage</div>
               </div>
@@ -77,7 +77,7 @@
                 <div class="mt info-item-heading"><font-awesome-icon class="fc-orange"
                     icon="fa-solid fa-fill-drip" />Volume</div>
               </div>
-              <div class="result-main-item">{{ calculatedVolume }} <span class="info-item-unit">liters</span></div>
+              <div class="result-main-item">{{ calculatedVolume }} <span class="info-item-unit">liters</span></div> -->
             </ion-card-content>
           </ion-card>
         </div>
@@ -127,8 +127,10 @@ onBeforeUpdate(async () => {
 const inputMileage = ref('');
 const calculatedCost = ref();
 const inputCost = ref();
+const calculatorInput = ref('');
 const calculatedMileage = ref();
 const calculatedVolume = ref();
+const showResults = ref(false);
 
 const loadData = async () => {
   fuelEfficiency.value = (await StorageService.get('fuelEfficiency')) || 0;
@@ -138,12 +140,13 @@ const loadData = async () => {
 const calculate = async () => {
   await loadData();
   if (segmentValue.value == 'cost') {
-    calculatedCost.value = ((fuelPrice.value * +inputMileage.value) / fuelEfficiency.value).toFixed(2);
+    calculatedCost.value = ((fuelPrice.value * +calculatorInput.value) / fuelEfficiency.value).toFixed(2);
     calculatedVolume.value = (calculatedCost.value / fuelPrice.value).toFixed(2);
   } else {
-    calculatedMileage.value = ((inputCost.value * fuelEfficiency.value) / fuelPrice.value).toFixed(2);
+    calculatedMileage.value = ((+calculatorInput.value * fuelEfficiency.value) / fuelPrice.value).toFixed(2);
     calculatedVolume.value = (inputCost.value / fuelPrice.value).toFixed(2);
   }
+  showResults.value = true;
 };
 
 const clearPage = () => {
@@ -152,6 +155,8 @@ const clearPage = () => {
   inputCost.value = '';
   calculatedMileage.value = '';
   calculatedVolume.value = '';
+  calculatorInput.value = '';
+  showResults.value = false;
 };
 
 loadData();
@@ -220,8 +225,8 @@ ion-segment {
 ion-card {
   margin-top: 5px;
   border-radius: 20px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  /* padding-top: 10px;
+  padding-bottom: 10px; */
 }
 
 label {
@@ -288,8 +293,13 @@ item-label {
 }
 
 #calculator-input-div {
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: 75px;
+  padding-bottom: 75px;
+  min-height: 250px;
+}
+#calculator-result-div{
+  min-height: 250px;
+
 }
 
 .custom-input:focus {
