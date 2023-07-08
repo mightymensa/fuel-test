@@ -12,13 +12,13 @@
             <div class="info-item">
               <div class="info-item-heading">Fuel Price
               </div>
-              <div class="info-item-value">{{fuelPrice}} <span class="info-item-unit">GH₵</span> </div>
+              <div class="info-item-value">{{fuelPrice}} <span class="info-item-unit">GH&cent;</span> </div>
               <font-awesome-icon @click="console.log(123)" class="fc-orange ion-item-action-icon" icon="fa-solid fa-pencil" />
             </div>
             <div class="info-item">
               <div class="info-item-heading">Fuel Economy
               </div>
-              <div class="info-item-value">{{fuelEfficiency}} <span class="info-item-unit">GH₵</span> </div>
+              <div class="info-item-value">{{fuelEfficiency}} <span class="info-item-unit">GH&cent;</span> </div>
             </div>
 
           </ion-card-content>
@@ -37,8 +37,8 @@
             <div id="calculator-input-group">
 
               <div v-if="calculatorInput !== ''" :style="calculatorInput !== '' ? 'display:block;' : 'display:none;'">{{
-                'Enter ' + (segmentValue == 'mileage' ? 'cost in GH₵' : 'mileage in km') }}</div>
-              <input id="calculator-input" class="custom-input" v-model="calculatorInput" type="number"
+                'Enter ' + (segmentValue == 'mileage' ? 'cost in GH&cent;' : 'mileage in km') }}</div>
+              <input id="calculator-input" v-model="calculatorInput" type="number"
                 :placeholder="'Enter ' + (segmentValue == 'mileage' ? 'cost in GHS' : 'mileage in km')" :style="calculatorInput === ''?'font-size: 1.1rem;':'font-size: 1.5rem;'">
             </div>
 
@@ -51,7 +51,7 @@
             <div v-if="segmentValue == 'cost'" class="info-item mt-10">
               <div class="info-item-heading">Cost
               </div>
-              <div class="info-item-value text-lg">{{ calculatedCost }} <span class="info-item-unit">GH₵</span> </div>
+              <div class="info-item-value text-lg">{{ calculatedCost }} <span class="info-item-unit">GH&cent;</span> </div>
             </div>
             <div v-if="segmentValue == 'mileage'" class="info-item mt-10">
               <div class="info-item-heading">Mileage
@@ -293,26 +293,7 @@ item-label {
 
 }
 
-.custom-input:focus {
-  border: none;
-  outline: none;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-}
 
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  appearance: none;
-  margin: 0;
-}
-
-input[type="number"] {
-  -moz-appearance: textfield;
-  /* Firefox */
-}
 
 #calculator-input {
   width: 100%;
@@ -332,4 +313,9 @@ input[type="number"] {
 .action-div {
   width: 70%;
 }
+
+.info-item:not(:first-child){
+  margin-top: 40px;
+}
+
 </style>

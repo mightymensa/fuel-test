@@ -8,6 +8,25 @@ ion-content{
   --background:rgb(246, 251, 249);
 }
 
+input{
+  border: none;
+  outline: none;
+  appearance: none;
+
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  /* Firefox */
+}
+
 .ion-item-action-icon{
   position: absolute;
   right: 20px;
@@ -15,19 +34,6 @@ ion-content{
 }
 
 
-/* Margins */
-.mt-10{
-  margin-top: 10px;
-}
-.mt-20{
-  margin-top: 20px;
-}
-.mb-10{
-  margin-bottom: 10px;
-}
-.mb-20{
-  margin-bottom: 20px;
-}
 
 /* Widths */
 .w-100{
@@ -139,9 +145,6 @@ opacity: 0.5;
   border-color: rgb(164, 235, 187);
 }
 
-.info-item:not(:first-child) {
-  margin-top: 20px;
-}
 
 .info-item-heading {
   font-size: 12px;
@@ -161,4 +164,23 @@ opacity: 0.5;
 
 .text-lg{
   font-size: 1.5rem;
+}
+
+
+
+/* Margins */
+.mt-10{
+  margin-top: 10px;
+}
+.mt-20{
+  margin-top: 20px;
+}
+.mt-50{
+  margin-top: 50px;
+}
+.mb-10{
+  margin-bottom: 10px;
+}
+.mb-20{
+  margin-bottom: 20px;
 }
