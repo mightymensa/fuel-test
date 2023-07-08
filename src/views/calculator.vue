@@ -4,17 +4,17 @@
 
     <ion-content>
       <div class="page-title">Calculator</div>
-      
+
       <div class="container" style="margin-top: 20px;">
 
         <ion-card>
           <ion-card-content>
-            <div :class="'info-card-item' + ' lb-warning'">
+            <div class="info-card-item">
               <div class="result-heading-item">Fuel Price
               </div>
               <div class="result-main-item">12.23 <span class="param-unit">GH₵</span> </div>
             </div>
-            <div :class="'info-card-item' + ' lb-success'">
+            <div class="info-card-item">
               <div class="result-heading-item">Fuel Economy
               </div>
               <div class="result-main-item">2.23 <span class="param-unit">GH₵</span> </div>
@@ -33,39 +33,17 @@
 
         <ion-card>
           <ion-card-content id="calculator-input-div" class="center-items">
-<div id="calculator-input-group">
+            <div id="calculator-input-group">
 
-  <div v-if="inputMileage!==''" :style="inputMileage!==''?'display:block;':'display:none;'">{{ segmentValue=='cost'?'Enter Cost':'Enter Mileage' }}</div>
-  <input id="calculator-input" class="custom-input" v-model="inputMileage"  type="number" placeholder="Enter mileage in kilometers">
-</div>
+              <div v-if="inputMileage !== ''" :style="inputMileage !== '' ? 'display:block;' : 'display:none;'">{{
+                segmentValue == 'cost' ? 'Enter Cost' : 'Enter Mileage' }}</div>
+              <input id="calculator-input" class="custom-input" v-model="inputMileage" type="number"
+                placeholder="Enter mileage in kilometers">
+            </div>
 
           </ion-card-content>
         </ion-card>
         <div v-if="segmentValue == 'cosat'" class="mw-1a">
-
-
-
-          <!-- <div class="input centered"> -->
-
-          <!-- <ion-item class="centered" style="width: 100%;padding-block-start: 0px;--padding-start: 0px;
-     --inner-padding-end: 0px;">
-              <ion-label position="stacked" class="mylabel">Mileage (km)</ion-label>
-              <ion-input type="number" placeholder="Enter Mileage" v-model="inputMileage" step="1"
-                style="width: 100%;font-size: 1.4rem;"></ion-input>
-            </ion-item> -->
-          <!-- <div style="padding: 0px 15px;margin-bottom: 20px;">
-
-            <div>
-              <div class="mt result-heading-item"><font-awesome-icon class="fc-blue"
-                  icon="fa-solid fa-money-bill" />Mileage (km)</div>
-            </div>
-            <div class="result-main-itema setup-parameter-item">
-              <input placeholder="Enter Mileage" type="number" max="100" :disabled="fuelPrice > 100000" name=""
-                v-model="inputMileage" class="setup-parameter-input">
-              <span class="setup-parameter-unit">GH₵ / liter</span>
-            </div>
-          </div> -->
-          <!-- </div> -->
 
           <ion-card>
             <ion-card-content>
@@ -87,19 +65,6 @@
 
         <div v-if="segmentValue == 'mileagae'">
 
-          <!-- <div style="padding: 0px 15px;margin-bottom: 20px;">
-
-            <div>
-              <div class="mt result-heading-item"><font-awesome-icon class="fc-blue"
-                  icon="fa-solid fa-money-bill" />Amount (GH₵)</div>
-            </div>
-            <div class="result-main-itema setup-parameter-item">
-              <input placeholder="Enter Mileage" type="number" max="100" :disabled="fuelPrice > 100000" name=""
-                v-model="inputCost" class="setup-parameter-input">
-              <span class="setup-parameter-unit">GH₵</span>
-            </div>
-          </div> -->
-
           <ion-card>
             <ion-card-content>
               <div>
@@ -118,8 +83,8 @@
         </div>
 
         <div class="centered action-div">
-          <button class="custom-button" @click="clearPage" style="width: 50%">Clear</button>
-          <button id="calculate-button" class="custom-button" :disabled="(segmentValue == 'mileage' && (inputCost < 1 || inputCost == 0 || inputCost == undefined)) ||
+          <button class="btn btn-secondary m-2" @click="clearPage" style="width: 50%">Clear</button>
+          <button id="calculate-button" class="btn btn-primary m-2" :disabled="(segmentValue == 'mileage' && (inputCost < 1 || inputCost == 0 || inputCost == undefined)) ||
             (segmentValue == 'cost' && (+inputMileage < 1 || +inputMileage == 0 || inputMileage == undefined))
             " @click="calculate" style="width: 50%">Calculate</button>
         </div>
@@ -193,7 +158,6 @@ loadData();
 </script>
 
 <style scoped>
-
 ion-button {
   --border-radius: 8px;
   --border-style: solid;
@@ -218,10 +182,6 @@ ion-button {
 ion-page {
   max-width: 400px;
   background-color: #08a391;
-}
-ion-content{
-
-  --background:#ebfbf9;
 }
 
 div {
@@ -251,7 +211,7 @@ ion-segment {
 }
 
 .result-main-item {
-  color: black;
+  color: rgb(94, 94, 94);
   font-size: 1.1rem;
   font-weight: 500;
 }
@@ -264,13 +224,13 @@ ion-segment {
 .result-heading-item {
   font-size: 12px;
   font-weight: normal;
-  color: #909090;
+  color: rgb(146, 146, 146);
 }
 
 .param-unit {
   font-size: 0.9rem;
-  font-weight:lighter;
-  color: #909090;
+  font-weight: lighter;
+  color: rgb(146, 146, 146);
 }
 
 #fuel-info-header {
@@ -330,26 +290,26 @@ label {
 
 ion-segment {
   background: none;
-  margin-top: 30px;
+  margin-top: 18px;
 }
 
 ion-segment-button {
-  --indicator-color: #a3e9e1;
+  --indicator-color: rgb(211, 242, 232);
+  /* --indicator-color: rgb(211, 242, 232); */
   --padding-top: 5px;
   --padding-bottom: 5px;
 }
 
 /* Material Design styles */
 ion-segment-button.md {
-  /* --color: #000; */
-  --color-checked: #08a391;
+  --color-checked: rgb(31, 200, 128);
   --indicator-height: 4px;
 }
 
 /* iOS styles */
 ion-segment-button.ios {
-  /* --color: #08a391; */
-  --color-checked: #1d6b1c;
+  --color: rgb(94, 94, 94);
+  --color-checked: rgb(31, 200, 128);
   --border-radius: 20px;
 }
 
@@ -367,42 +327,46 @@ font-awesome-icon {
   padding-left: 5px;
 }
 
-.lb-warning {
-  border-color: rgb(164, 235, 187);
+.info-card-item:not(:first-child){
+  border-color: rgb(135, 204, 158);
 }
 
-.lb-success {
-  border-color: rgb(135, 204, 158);
+.info-card-item:first-child{
+  border-color: rgb(164, 235, 187);
 }
 
 .info-card-item:not(:first-child) {
   margin-top: 20px;
 }
 
-ion-item,ion-input,item-native,item-label{
+ion-item,
+ion-input,
+item-native,
+item-label {
   border: none;
   align-items: center;
   text-align: center;
-  --border-color:white;
+  --border-color: white;
   border: none;
-  --border-width:0px;
-  --border-color:white;
+  --border-width: 0px;
+  --border-color: white;
 }
 
-.center-items{
+.center-items {
   text-align: center;
 
 }
 
-#calculator-input-div{
+#calculator-input-div {
   padding-top: 80px;
   padding-bottom: 80px;
 }
-.custom-input:focus{
-border: none;
-outline: none;
-appearance: none;
--webkit-appearance: none;
+
+.custom-input:focus {
+  border: none;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
 }
@@ -415,39 +379,27 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 input[type="number"] {
-  -moz-appearance: textfield; /* Firefox */
+  -moz-appearance: textfield;
+  /* Firefox */
 }
 
-#calculator-input{
+#calculator-input {
   font-size: 1.3rem;
-  width: 100%;text-align: center;border: none;
+  width: 100%;
+  text-align: center;
+  border: none;
 }
-#calculator-input-group{
+
+#calculator-input-group {
   min-height: 100px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Vertical alignment */
-  justify-content: center; 
+  align-items: center;
+  /* Vertical alignment */
+  justify-content: center;
 }
-.custom-button{
-  padding-top: 18px;
-  padding-bottom: 18px;
-  border-radius: 25px;
-  background: rgba(255, 255, 255, 0.315);
-  border: 1px solid rgb(135, 204, 158);
-  margin-left: 2px;
-  margin-right: 2px;
-}
-#calculate-button{
 
-  background-color: #08a39198;
-  color: white;
-}
-#calculate-button:disabled{
-  color: black;
-  background-color: rgba(255, 255, 255, 0.471);
-}
-.action-div{
+.action-div {
   width: 70%;
 }
 </style>

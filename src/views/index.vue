@@ -6,12 +6,12 @@
       <ion-tab-bar slot="bottom">
         <ion-tab-button tab="calculator" href="/calculator">
           <ion-icon :icon="calculator" />
-          <ion-label>Calculator</ion-label>
+          <ion-label></ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="setup" href="/setup">
           <ion-icon :icon="carSportOutline" />
-          <ion-label>Setup</ion-label>
+          <ion-label></ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
