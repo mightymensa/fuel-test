@@ -47,7 +47,7 @@ const app = createApp(App).use(IonicVue).use(StoragePlugin).use(router).componen
 
 router.isReady().then(async () => {
   try {
-    await StatusBar.hide();
+    StatusBar.setOverlaysWebView({ overlay: true });
   } catch (error) {
     console.log(error);
   }

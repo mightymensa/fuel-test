@@ -1,6 +1,7 @@
-* {
-  font-family: Avenir Black;
+@import './fonts.css';
 
+* {
+  font-family: 'AvenirBlack', sans-serif;
 }
 
 ion-content{
@@ -41,7 +42,6 @@ ion-content{
   color: rgb(47, 46, 46);
   font-weight: 700;
   z-index: 1000;
-  font-family: Avenir Black;
 }
 
 .svg-inline--fa {
