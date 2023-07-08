@@ -13,6 +13,7 @@
               <div class="info-item-heading">Fuel Price
               </div>
               <div class="info-item-value">{{fuelPrice}} <span class="info-item-unit">GH₵</span> </div>
+              <font-awesome-icon @click="console.log(123)" class="fc-orange ion-item-action-icon" icon="fa-solid fa-pencil" />
             </div>
             <div class="info-item">
               <div class="info-item-heading">Fuel Economy
@@ -38,7 +39,7 @@
               <div v-if="calculatorInput !== ''" :style="calculatorInput !== '' ? 'display:block;' : 'display:none;'">{{
                 'Enter ' + (segmentValue == 'mileage' ? 'cost in GH₵' : 'mileage in km') }}</div>
               <input id="calculator-input" class="custom-input" v-model="calculatorInput" type="number"
-                :placeholder="'Enter ' + (segmentValue == 'mileage' ? 'cost in GHS' : 'mileage in km')">
+                :placeholder="'Enter ' + (segmentValue == 'mileage' ? 'cost in GHS' : 'mileage in km')" :style="calculatorInput === ''?'font-size: 1.1rem;':'font-size: 1.5rem;'">
             </div>
 
           </ion-card-content>
@@ -122,8 +123,8 @@ const calculatedVolume = ref();
 const showResults = ref(false);
 
 const loadData = async () => {
-  fuelEfficiency.value = (await StorageService.get('fuelEfficiency')) || 0;
-  fuelPrice.value = (await StorageService.get('fuelPrice')) || 0;
+  fuelEfficiency.value = parseFloat((await StorageService.get('fuelEfficiency')) || 0).toFixed(2);
+  fuelPrice.value = parseFloat((await StorageService.get('fuelPrice')) || 0).toFixed(2);
 };
 
 const calculate = async () => {
@@ -314,7 +315,6 @@ input[type="number"] {
 }
 
 #calculator-input {
-  font-size: 1.3rem;
   width: 100%;
   text-align: center;
   border: none;

@@ -18,8 +18,9 @@ import {
   faTachometerAlt,
   faFillDrip,
   faCogs,
+  faPencil,
 } from '@fortawesome/free-solid-svg-icons';
-library.add(faUserSecret, faMoneyBill, faGasPump, faTachometerAlt, faFillDrip, faCogs);
+library.add(faUserSecret, faMoneyBill, faGasPump, faTachometerAlt, faFillDrip, faCogs, faPencil);
 
 import { IonicVue } from '@ionic/vue';
 
