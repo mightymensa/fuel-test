@@ -7,6 +7,31 @@ ion-content{
   --background:rgb(246, 251, 249);
 }
 
+
+
+/* Margins */
+.mt-10{
+  margin-top: 10px;
+}
+.mt-20{
+  margin-top: 20px;
+}
+.mb-10{
+  margin-bottom: 10px;
+}
+.mb-20{
+  margin-bottom: 20px;
+}
+
+/* Widths */
+.w-100{
+  width: 100%;
+}
+
+.w-50{
+  width: 50%;
+}
+
 .page-title {
   max-width: 400px;
   margin: auto;
@@ -75,7 +100,7 @@ ion-card{
 }
 
 .btn-primary:disabled {
-color: rgba(13, 94, 59, 0.417);
+opacity: 0.5;
 }
 
 .btn-primary {
@@ -117,9 +142,17 @@ color: rgba(13, 94, 59, 0.417);
   font-weight: normal;
   color: rgb(146, 146, 146);
 }
-
+.info-item-value {
+  color: rgb(94, 94, 94);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
 .info-item-unit {
   font-size: 0.9rem;
   font-weight: lighter;
   color: rgb(94, 94, 94);
+}
+
+.text-lg{
+  font-size: 1.5rem;
 }

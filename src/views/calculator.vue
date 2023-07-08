@@ -12,12 +12,12 @@
             <div class="info-item">
               <div class="info-item-heading">Fuel Price
               </div>
-              <div class="result-main-item">12.23 <span class="info-item-unit">GH₵</span> </div>
+              <div class="info-item-value">{{fuelPrice}} <span class="info-item-unit">GH₵</span> </div>
             </div>
             <div class="info-item">
               <div class="info-item-heading">Fuel Economy
               </div>
-              <div class="result-main-item">2.23 <span class="info-item-unit">GH₵</span> </div>
+              <div class="info-item-value">{{fuelEfficiency}} <span class="info-item-unit">GH₵</span> </div>
             </div>
 
           </ion-card-content>
@@ -31,62 +31,50 @@
           </ion-segment-button>
         </ion-segment>
 
-        <ion-card  v-if="showResults == false">
+        <ion-card v-if="showResults == false">
           <ion-card-content id="calculator-input-div" class="center-items">
             <div id="calculator-input-group">
 
-              <div v-if="inputMileage !== ''" :style="inputMileage !== '' ? 'display:block;' : 'display:none;'">{{
-                segmentValue == 'cost' ? 'Enter Cost' : 'Enter Mileage' }}</div>
-              <input id="calculator-input" class="custom-input" v-model="inputMileage" type="number"
-                :placeholder="'Enter '+(segmentValue == 'cost' ?'cost in GHS':'mileage in km')">
+              <div v-if="calculatorInput !== ''" :style="calculatorInput !== '' ? 'display:block;' : 'display:none;'">{{
+                'Enter ' + (segmentValue == 'mileage' ? 'cost in GH₵' : 'mileage in km') }}</div>
+              <input id="calculator-input" class="custom-input" v-model="calculatorInput" type="number"
+                :placeholder="'Enter ' + (segmentValue == 'mileage' ? 'cost in GHS' : 'mileage in km')">
             </div>
 
           </ion-card-content>
         </ion-card>
         <!-- <div v-if="segmentValue == 'cost' && showResults == true" class="mw-1a"> -->
 
-          <ion-card v-if="segmentValue == 'cost' && showResults == true">
-            <ion-card-content id="calculator-result-div">
-              <!-- <div>
-                <div class="info-item-heading"><font-awesome-icon class="fc-blue" icon="fa-solid fa-money-bill" />Cost
-                </div>
+        <ion-card v-if="showResults == true">
+          <ion-card-content id="calculator-result-div">
+            <div v-if="segmentValue == 'cost'" class="info-item mt-10">
+              <div class="info-item-heading">Cost
               </div>
-              <div class="result-main-item"><span class="info-item-unit">GH₵</span> {{ calculatedCost }}</div>
-              <div>
-                <div class="mt info-item-heading"><font-awesome-icon class="fc-orange"
-                    icon="fa-solid fa-fill-drip" />Volume</div>
+              <div class="info-item-value text-lg">{{ calculatedCost }} <span class="info-item-unit">GH₵</span> </div>
+            </div>
+            <div v-if="segmentValue == 'mileage'" class="info-item mt-10">
+              <div class="info-item-heading">Mileage
               </div>
-              <div class="result-main-item">{{ calculatedVolume }} <span class="info-item-unit">liters</span></div> -->
-            </ion-card-content>
-          </ion-card>
-        <!-- </div> -->
-
-
-
-        <div v-if="segmentValue == 'mileage-invalid'">
-
-          <ion-card>
-            <ion-card-content>
-              <!-- <div>
-                <div class="info-item-heading"><font-awesome-icon class="fc-green"
-                    icon="fa-solid fa-tachometer-alt" />Mileage</div>
+              <div class="info-item-value text-lg">{{ calculatedMileage }} <span class="info-item-unit">km</span> </div>
+            </div>
+            <div class="info-item mt-10">
+              <div class="info-item-heading">Volume
               </div>
-              <div class="result-main-item">{{ calculatedMileage }} <span class="info-item-unit">km</span></div>
-
-              <div>
-                <div class="mt info-item-heading"><font-awesome-icon class="fc-orange"
-                    icon="fa-solid fa-fill-drip" />Volume</div>
+              <div class="info-item-value text-lg">{{ calculatedVolume }} <span class="info-item-unit">liters</span>
               </div>
-              <div class="result-main-item">{{ calculatedVolume }} <span class="info-item-unit">liters</span></div> -->
-            </ion-card-content>
-          </ion-card>
+            </div>
+                    </ion-card-content>
+        </ion-card>
+
+        <div v-if="showResults == false" class="centered action-div">
+          <button class="btn btn-secondary m-2 w-50" @click="clearPage()" >Clear</button>
+          <button id="calculate-button" class="btn btn-primary m-2 w-50" :disabled="(segmentValue == 'mileage' && (+calculatorInput < 1 || +calculatorInput == 0 || calculatorInput == undefined)) ||
+            (segmentValue == 'cost' && (+calculatorInput < 1 || +calculatorInput == 0 || calculatorInput == undefined))
+            " @click="calculate">Calculate</button>
         </div>
-
-        <div class="centered action-div">
-          <button class="btn btn-secondary m-2" @click="clearPage" style="width: 50%">Clear</button>
-          <button id="calculate-button" class="btn btn-primary m-2" :disabled="(segmentValue == 'mileage' && (inputCost < 1 || inputCost == 0 || inputCost == undefined)) ||
-            (segmentValue == 'cost' && (+inputMileage < 1 || +inputMileage == 0 || inputMileage == undefined))
-            " @click="calculate" style="width: 50%">Calculate</button>
+        <div v-if="showResults == true" class="centered w-100">
+          <button class="btn btn-secondary m-2 w-100" @click="clearPage(false)">Back</button>
+         
         </div>
       </div>
     </ion-content>
@@ -94,6 +82,7 @@
 </template>
 
 <script lang="ts" setup>
+import { faL } from '@fortawesome/free-solid-svg-icons';
 import {
   IonHeader,
   IonToolbar,
@@ -149,13 +138,17 @@ const calculate = async () => {
   showResults.value = true;
 };
 
-const clearPage = () => {
-  inputMileage.value = '';
-  calculatedCost.value = '';
-  inputCost.value = '';
-  calculatedMileage.value = '';
-  calculatedVolume.value = '';
-  calculatorInput.value = '';
+
+const clearPage = (clear_values=true) => {
+  if(clear_values){
+
+    inputMileage.value = '';
+    calculatedCost.value = '';
+    inputCost.value = '';
+    calculatedMileage.value = '';
+    calculatedVolume.value = '';
+    calculatorInput.value = '';
+  }
   showResults.value = false;
 };
 
@@ -215,11 +208,7 @@ ion-segment {
   margin-top: 40px;
 }
 
-.result-main-item {
-  color: rgb(94, 94, 94);
-  font-size: 1.1rem;
-  font-weight: 500;
-}
+
 
 
 ion-card {
@@ -297,7 +286,8 @@ item-label {
   padding-bottom: 75px;
   min-height: 250px;
 }
-#calculator-result-div{
+
+#calculator-result-div {
   min-height: 250px;
 
 }

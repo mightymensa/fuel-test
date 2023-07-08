@@ -9,7 +9,7 @@
        
           <ion-card  mode="ios">
             <ion-card-content>
-                <!-- <div>
+                <div>
                   <div class="result-heading-item"><font-awesome-icon class="fc-orange" icon="fa-solid fa-gas-pump" />Tank Capacity</div>
                 </div>
                 <div class="result-main-itema setup-parameter-item">
@@ -31,7 +31,7 @@
                 <div class="result-main-itema setup-parameter-item">
                   <input type="number" max="100" :disabled="fuelPrice>100000" name="" v-model="fuelPrice" class="setup-parameter-input">
                   <span class="setup-parameter-unit">GH₵ / liter</span>
-                </div> -->
+                </div>
         
             </ion-card-content>
           </ion-card>
