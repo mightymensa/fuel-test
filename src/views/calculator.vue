@@ -9,15 +9,15 @@
 
         <ion-card>
           <ion-card-content>
-            <div class="info-card-item">
-              <div class="result-heading-item">Fuel Price
+            <div class="info-item">
+              <div class="info-item-heading">Fuel Price
               </div>
-              <div class="result-main-item">12.23 <span class="param-unit">GH₵</span> </div>
+              <div class="result-main-item">12.23 <span class="info-item-unit">GH₵</span> </div>
             </div>
-            <div class="info-card-item">
-              <div class="result-heading-item">Fuel Economy
+            <div class="info-item">
+              <div class="info-item-heading">Fuel Economy
               </div>
-              <div class="result-main-item">2.23 <span class="param-unit">GH₵</span> </div>
+              <div class="result-main-item">2.23 <span class="info-item-unit">GH₵</span> </div>
             </div>
 
           </ion-card-content>
@@ -43,41 +43,41 @@
 
           </ion-card-content>
         </ion-card>
-        <div v-if="segmentValue == 'cosat'" class="mw-1a">
+        <div v-if="segmentValue == 'cost-INVALID'" class="mw-1a">
 
           <ion-card>
             <ion-card-content>
               <div>
-                <div class="result-heading-item"><font-awesome-icon class="fc-blue" icon="fa-solid fa-money-bill" />Cost
+                <div class="info-item-heading"><font-awesome-icon class="fc-blue" icon="fa-solid fa-money-bill" />Cost
                 </div>
               </div>
-              <div class="result-main-item"><span class="param-unit">GH₵</span> {{ calculatedCost }}</div>
+              <div class="result-main-item"><span class="info-item-unit">GH₵</span> {{ calculatedCost }}</div>
               <div>
-                <div class="mt result-heading-item"><font-awesome-icon class="fc-orange"
+                <div class="mt info-item-heading"><font-awesome-icon class="fc-orange"
                     icon="fa-solid fa-fill-drip" />Volume</div>
               </div>
-              <div class="result-main-item">{{ calculatedVolume }} <span class="param-unit">liters</span></div>
+              <div class="result-main-item">{{ calculatedVolume }} <span class="info-item-unit">liters</span></div>
             </ion-card-content>
           </ion-card>
         </div>
 
 
 
-        <div v-if="segmentValue == 'mileagae'">
+        <div v-if="segmentValue == 'mileage-invalid'">
 
           <ion-card>
             <ion-card-content>
               <div>
-                <div class="result-heading-item"><font-awesome-icon class="fc-green"
+                <div class="info-item-heading"><font-awesome-icon class="fc-green"
                     icon="fa-solid fa-tachometer-alt" />Mileage</div>
               </div>
-              <div class="result-main-item">{{ calculatedMileage }} <span class="param-unit">km</span></div>
+              <div class="result-main-item">{{ calculatedMileage }} <span class="info-item-unit">km</span></div>
 
               <div>
-                <div class="mt result-heading-item"><font-awesome-icon class="fc-orange"
+                <div class="mt info-item-heading"><font-awesome-icon class="fc-orange"
                     icon="fa-solid fa-fill-drip" />Volume</div>
               </div>
-              <div class="result-main-item">{{ calculatedVolume }} <span class="param-unit">liters</span></div>
+              <div class="result-main-item">{{ calculatedVolume }} <span class="info-item-unit">liters</span></div>
             </ion-card-content>
           </ion-card>
         </div>
@@ -216,61 +216,6 @@ ion-segment {
   font-weight: 500;
 }
 
-.info-icon {
-  float: right;
-  margin-top: -15px;
-}
-
-.result-heading-item {
-  font-size: 12px;
-  font-weight: normal;
-  color: rgb(146, 146, 146);
-}
-
-.param-unit {
-  font-size: 0.9rem;
-  font-weight: lighter;
-  color: rgb(146, 146, 146);
-}
-
-#fuel-info-header {
-  display: flex;
-  text-align: left;
-  width: fit-content;
-  /* justify-content: space-between; */
-  margin: auto;
-  max-width: 320px;
-  width: 94%;
-}
-
-#fuel-info-header * {
-  text-align: center;
-  width: fit-content;
-
-}
-
-.fuel-info-subtitle {
-  font-size: 0.9rem;
-  font-weight: 300;
-  color: rgb(157, 157, 157);
-  text-transform: uppercase;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  letter-spacing: 1px;
-}
-
-.fuel-info-value {
-  margin-top: 2px;
-  font-weight: bold;
-  font-size: 1.7rem;
-  color: rgb(63, 63, 63);
-  letter-spacing: 1px;
-}
-
-.fuel-info-unit {
-  font-size: 1rem;
-  color: rgb(93, 93, 93);
-  font-weight: 600;
-}
 
 ion-card {
   margin-top: 5px;
@@ -322,22 +267,7 @@ font-awesome-icon {
 
 }
 
-.info-card-item {
-  border-left: 3px solid rgb(214, 90, 90);
-  padding-left: 5px;
-}
 
-.info-card-item:not(:first-child){
-  border-color: rgb(135, 204, 158);
-}
-
-.info-card-item:first-child{
-  border-color: rgb(164, 235, 187);
-}
-
-.info-card-item:not(:first-child) {
-  margin-top: 20px;
-}
 
 ion-item,
 ion-input,
