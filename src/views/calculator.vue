@@ -238,6 +238,7 @@ ion-segment-button {
   /* --indicator-color: rgb(211, 242, 232); */
   --padding-top: 5px;
   --padding-bottom: 5px;
+  --indicator-box-shadow:none;
 }
 
 /* Material Design styles */
@@ -251,6 +252,10 @@ ion-segment-button.ios {
   --color: rgb(94, 94, 94);
   --color-checked: rgb(31, 200, 128);
   --border-radius: 20px;
+}
+
+.segment-button-indicator-background{
+  box-shadow: none;
 }
 
 .fa-solid {
