@@ -5,25 +5,24 @@
 
     <ion-content>
 
-      <ion-modal ref="modal" trigger="open-modal">
-        <div style="display: flex;align-items: center;justify-content: center;flex-direction: column;margin: auto;">
+      <ion-modal ref="modal" trigger="open-modal" @willPresent="getFuelPrice()">
+        <div style="display: flex;align-items: center;justify-content: center;flex-direction: column;margin: auto;color: rgb(94, 94, 94);">
           <div class="center-content">
-            <div v-if="calculatorInput !== ''" :style="calculatorInput !== '' ? 'display:block;' : 'display:none;'">{{
-              'Enter ' + (segmentValue == 'mileage' ? 'cost in GH&cent;' : 'mileage in km') }}</div>
-            <input id="calculator-input" v-model="calculatorInput" type="number"
-              placeholder="Enter Fuel Price in GH&cent;"
-              :style="calculatorInput === '' ? 'font-size: 1.1rem;' : 'font-size: 1.5rem;'">
+            <div v-if="fuelPricetemp !== ''" :style="fuelPricetemp !== '' ? 'display:block;' : 'display:none;'">Enter Fuel
+              Price in GH&cent;</div>
+            <input id="fuel-price-input" v-model="fuelPricetemp" type="number" placeholder="Enter Fuel Price in GH&cent;"
+              :style="fuelPricetemp === '' ? 'font-size: 1.1rem;' : 'font-size: 1.5rem;'">
           </div>
-          <div class="w-80 row" style="margin-top: 20px;">
-            <button class="btn btn-secondary m-2 w-50">Cancel</button>
-            <button id="calculate-button" class="btn btn-primary m-2 w-50">Save</button>
+          <div class="w-80 row mt-20">
+            <button class="btn btn-secondary m-2 w-50" @click="dismissModal()">Cancel</button>
+            <button id="calculate-button" class="btn btn-primary m-2 w-50" @click="saveFuelPrice()">Save</button>
           </div>
         </div>
       </ion-modal>
 
       <div class="page-title">Calculator</div>
 
-      <div class="container" style="margin-top: 20px;">
+      <div class="container mt-20">
 
         <ion-card>
           <ion-card-content>
@@ -104,32 +103,31 @@
 </template>
 
 <script lang="ts" setup>
-import { faL } from '@fortawesome/free-solid-svg-icons';
 import {
-  IonHeader,
-  IonToolbar,
-  IonButton,
+
   IonContent,
   IonPage,
   IonSegment,
 
   IonSegmentButton,
-  IonInput,
   IonModal,
   IonLabel,
   IonCard,
   IonCardContent,
 } from '@ionic/vue';
 import { ref, inject, onBeforeUpdate } from 'vue';
+import { modalController } from '@ionic/vue';
 
 const StorageService = inject('StorageService') as {
   set: (key: string, value: number) => Promise<void>;
   get: (key: string) => Promise<any>;
   remove: (key: string) => Promise<void>;
 };
+// const modalController_ = inject('modalController');
 
 const segmentValue = ref('cost');
 const fuelPrice = ref();
+const fuelPricetemp = ref();
 const fuelEfficiency = ref();
 
 onBeforeUpdate(async () => {
@@ -163,6 +161,20 @@ const calculate = async () => {
 };
 
 
+const dismissModal = () => {
+  modalController.dismiss();
+};
+const getFuelPrice = () => {
+  fuelPricetemp.value = fuelPrice.value;
+
+};
+const saveFuelPrice = () => {
+  fuelPrice.value = fuelPricetemp.value;
+  StorageService.set('fuelPrice', fuelPrice.value);
+  modalController.dismiss();
+
+
+};
 const clearPage = (clear_values = true) => {
   if (clear_values) {
 
@@ -228,14 +240,9 @@ ion-segment {
   margin-top: 40px;
 }
 
-
-
-
 ion-card {
   margin-top: 5px;
   border-radius: 20px;
-  /* padding-top: 10px;
-  padding-bottom: 10px; */
 }
 
 label {
@@ -254,7 +261,6 @@ ion-segment {
 
 ion-segment-button {
   --indicator-color: rgb(211, 242, 232);
-  /* --indicator-color: rgb(211, 242, 232); */
   --padding-top: 5px;
   --padding-bottom: 5px;
   --indicator-box-shadow: none;
@@ -317,9 +323,7 @@ item-label {
 
 }
 
-
-
-#calculator-input {
+#calculator-input,#fuel-price-input {
   width: 100%;
   text-align: center;
   border: none;
