@@ -212,8 +212,5 @@ ion-item {
   margin-top: 40px;
 }
 
-.setup-input{
-  padding-left: 0px;
-  min-width: 3ch;
-}
+
 </style>

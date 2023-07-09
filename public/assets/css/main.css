@@ -1,5 +1,9 @@
+/* Fonts */
 @import './fonts.css';
+/* Fonts */
 
+
+/* Globel Elements */
 * {
   font-family: 'AvenirBlack', sans-serif;
 }
@@ -12,7 +16,7 @@ input{
   border: none;
   outline: none;
   appearance: none;
-
+  
 }
 
 input[type="number"]::-webkit-inner-spin-button,
@@ -32,18 +36,37 @@ input[type="number"] {
   right: 20px;
   top: 20px;
 }
+/* Globel Elements */
 
 
 
 /* Widths */
 .w-100{
   width: 100%;
+  margin: auto;
 }
-
+.w-80{
+  width: 80%;
+  margin: auto;
+}
 .w-50{
+  margin: auto;
   width: 50%;
 }
+/* Widths */
 
+
+
+/*  */
+.row{
+  display: flex;
+  flex-direction: row;
+}
+.center-content{
+  text-align: center;
+}
+
+/*  */
 .page-title {
   max-width: 400px;
   margin: auto;
@@ -95,7 +118,6 @@ ion-card{
 
 
 /* BUTTONS */
-
 .btn {
   border-radius: 18px;
   border: 1px solid rgb(31, 200, 128);
@@ -112,13 +134,14 @@ ion-card{
 }
 
 .btn-primary:disabled {
-opacity: 0.5;
+  opacity: 0.5;
 }
 
 .btn-primary {
   background-color: rgb(211, 242, 232);
-
+  
 }
+/* BUTTONS */
 
 
 /* Margins */
@@ -126,26 +149,22 @@ opacity: 0.5;
   margin-left: 2px;
   margin-right: 2px;
 }
+/* Margins */
 
 
 
 
-/* INFO ITEM */
-
+/* Info Item */
 .info-item {
   border-left: 3px solid rgb(214, 90, 90);
   padding-left: 5px;
 }
-
 .info-item:not(:first-child){
   border-color: rgb(135, 204, 158);
 }
-
 .info-item:first-child{
   border-color: rgb(164, 235, 187);
 }
-
-
 .info-item-heading {
   font-size: 12px;
   font-weight: normal;
@@ -161,10 +180,14 @@ opacity: 0.5;
   font-weight: lighter;
   color: rgb(94, 94, 94);
 }
+/* Info Item */
 
+
+/* Text */
 .text-lg{
   font-size: 1.5rem;
 }
+/* Text */
 
 
 
@@ -183,4 +206,11 @@ opacity: 0.5;
 }
 .mb-20{
   margin-bottom: 20px;
+}
+/* Margins */
+
+
+.setup-input{
+  padding-left: 0px;
+  min-width: 3ch;
 }

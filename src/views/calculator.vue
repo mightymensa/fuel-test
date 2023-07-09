@@ -1,8 +1,26 @@
 <!-- eslint-disable vue/multi-word-component-names -->
+<!-- eslint-disable -->
 <template>
   <ion-page>
 
     <ion-content>
+
+      <ion-modal ref="modal" trigger="open-modal">
+        <div style="display: flex;align-items: center;justify-content: center;flex-direction: column;margin: auto;">
+          <div class="center-content">
+            <div v-if="calculatorInput !== ''" :style="calculatorInput !== '' ? 'display:block;' : 'display:none;'">{{
+              'Enter ' + (segmentValue == 'mileage' ? 'cost in GH&cent;' : 'mileage in km') }}</div>
+            <input id="calculator-input" v-model="calculatorInput" type="number"
+              placeholder="Enter Fuel Price in GH&cent;"
+              :style="calculatorInput === '' ? 'font-size: 1.1rem;' : 'font-size: 1.5rem;'">
+          </div>
+          <div class="w-80 row" style="margin-top: 20px;">
+            <button class="btn btn-secondary m-2 w-50">Cancel</button>
+            <button id="calculate-button" class="btn btn-primary m-2 w-50">Save</button>
+          </div>
+        </div>
+      </ion-modal>
+
       <div class="page-title">Calculator</div>
 
       <div class="container" style="margin-top: 20px;">
@@ -12,17 +30,18 @@
             <div class="info-item">
               <div class="info-item-heading">Fuel Price
               </div>
-              <div class="info-item-value">{{fuelPrice}} <span class="info-item-unit">GH&cent;</span> </div>
-              <font-awesome-icon @click="console.log(123)" class="fc-orange ion-item-action-icon" icon="fa-solid fa-pencil" />
+              <div class="info-item-value">{{ fuelPrice }} <span class="info-item-unit">GH&cent;</span> </div>
+              <font-awesome-icon id="open-modal" class="fc-orange ion-item-action-icon" icon="fa-solid fa-pencil" />
             </div>
             <div class="info-item">
               <div class="info-item-heading">Fuel Economy
               </div>
-              <div class="info-item-value">{{fuelEfficiency}} <span class="info-item-unit">GH&cent;</span> </div>
+              <div class="info-item-value">{{ fuelEfficiency }} <span class="info-item-unit">GH&cent;</span> </div>
             </div>
 
           </ion-card-content>
         </ion-card>
+
         <ion-segment v-model="segmentValue" class="centered" mode="ios">
           <ion-segment-button value="cost">
             <ion-label>Cost</ion-label>
@@ -39,7 +58,8 @@
               <div v-if="calculatorInput !== ''" :style="calculatorInput !== '' ? 'display:block;' : 'display:none;'">{{
                 'Enter ' + (segmentValue == 'mileage' ? 'cost in GH&cent;' : 'mileage in km') }}</div>
               <input id="calculator-input" v-model="calculatorInput" type="number"
-                :placeholder="'Enter ' + (segmentValue == 'mileage' ? 'cost in GHS' : 'mileage in km')" :style="calculatorInput === ''?'font-size: 1.1rem;':'font-size: 1.5rem;'">
+                :placeholder="'Enter ' + (segmentValue == 'mileage' ? 'cost in GHS' : 'mileage in km')"
+                :style="calculatorInput === '' ? 'font-size: 1.1rem;' : 'font-size: 1.5rem;'">
             </div>
 
           </ion-card-content>
@@ -51,7 +71,8 @@
             <div v-if="segmentValue == 'cost'" class="info-item mt-10">
               <div class="info-item-heading">Cost
               </div>
-              <div class="info-item-value text-lg">{{ calculatedCost }} <span class="info-item-unit">GH&cent;</span> </div>
+              <div class="info-item-value text-lg">{{ calculatedCost }} <span class="info-item-unit">GH&cent;</span>
+              </div>
             </div>
             <div v-if="segmentValue == 'mileage'" class="info-item mt-10">
               <div class="info-item-heading">Mileage
@@ -64,18 +85,18 @@
               <div class="info-item-value text-lg">{{ calculatedVolume }} <span class="info-item-unit">liters</span>
               </div>
             </div>
-                    </ion-card-content>
+          </ion-card-content>
         </ion-card>
 
         <div v-if="showResults == false" class="centered action-div">
-          <button class="btn btn-secondary m-2 w-50" @click="clearPage()" >Clear</button>
+          <button class="btn btn-secondary m-2 w-50" @click="clearPage()">Clear</button>
           <button id="calculate-button" class="btn btn-primary m-2 w-50" :disabled="(segmentValue == 'mileage' && (+calculatorInput < 1 || +calculatorInput == 0 || calculatorInput == undefined)) ||
             (segmentValue == 'cost' && (+calculatorInput < 1 || +calculatorInput == 0 || calculatorInput == undefined))
             " @click="calculate">Calculate</button>
         </div>
         <div v-if="showResults == true" class="centered w-100">
           <button class="btn btn-secondary m-2 w-100" @click="clearPage(false)">Back</button>
-         
+
         </div>
       </div>
     </ion-content>
@@ -91,8 +112,10 @@ import {
   IonContent,
   IonPage,
   IonSegment,
+
   IonSegmentButton,
   IonInput,
+  IonModal,
   IonLabel,
   IonCard,
   IonCardContent,
@@ -140,8 +163,8 @@ const calculate = async () => {
 };
 
 
-const clearPage = (clear_values=true) => {
-  if(clear_values){
+const clearPage = (clear_values = true) => {
+  if (clear_values) {
 
     inputMileage.value = '';
     calculatedCost.value = '';
@@ -181,10 +204,6 @@ ion-button {
 ion-page {
   max-width: 400px;
   background-color: #08a391;
-}
-
-div {
-  width: 100%;
 }
 
 .parameter-title {
@@ -238,7 +257,7 @@ ion-segment-button {
   /* --indicator-color: rgb(211, 242, 232); */
   --padding-top: 5px;
   --padding-bottom: 5px;
-  --indicator-box-shadow:none;
+  --indicator-box-shadow: none;
 }
 
 /* Material Design styles */
@@ -254,7 +273,7 @@ ion-segment-button.ios {
   --border-radius: 20px;
 }
 
-.segment-button-indicator-background{
+.segment-button-indicator-background {
   box-shadow: none;
 }
 
@@ -319,8 +338,32 @@ item-label {
   width: 70%;
 }
 
-.info-item:not(:first-child){
+.info-item:not(:first-child) {
   margin-top: 40px;
 }
 
+ion-modal {
+  --background: white;
+  margin: auto;
+  --width: 80%;
+  --max-width: 350px;
+  --height: 30%;
+  --min-height: 50px;
+  --border-radius: 16px;
+  --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+ion-modal::part(backdrop) {
+  background: rgba(209, 213, 219);
+  opacity: 1;
+}
+
+ion-modal ion-toolbar {
+  --background: rgb(14 116 144);
+  --color: white;
+}
+
+#background-content {
+  background-color: white;
+}
 </style>
