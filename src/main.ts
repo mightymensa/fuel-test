@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
 import router from "./router";
-import StoragePlugin from "./views/services/storage.plugin";
+import StoragePlugin from "./services/storage.plugin";
 
 /* import the fontawesome core */
 import { library } from "@fortawesome/fontawesome-svg-core";
