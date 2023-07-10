@@ -6,12 +6,12 @@
       <ion-tab-bar slot="bottom">
         <ion-tab-button tab="calculator" href="/calculator">
           <ion-icon :icon="calculator" />
-          <ion-label>Calculator</ion-label>
+          <ion-label></ion-label>
         </ion-tab-button>
 
         <ion-tab-button tab="setup" href="/setup">
           <ion-icon :icon="carSportOutline" />
-          <ion-label>Setup</ion-label>
+          <ion-label></ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
@@ -28,7 +28,6 @@ import { calculator, carSportOutline } from "ionicons/icons";
 ion-tab-bar {
   /* --color: black; */
   --border: none;
-  box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
-  padding: 10px;
+  /* box-shadow: 0 10px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important; */
 }
 </style>
