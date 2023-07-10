@@ -18,13 +18,15 @@ import {
   faTachometerAlt,
   faFillDrip,
   faCogs,
+  faPencil,
 } from '@fortawesome/free-solid-svg-icons';
-library.add(faUserSecret, faMoneyBill, faGasPump, faTachometerAlt, faFillDrip, faCogs);
+library.add(faUserSecret, faMoneyBill, faGasPump, faTachometerAlt, faFillDrip, faCogs, faPencil);
 
 import { IonicVue } from '@ionic/vue';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/vue/css/core.css';
+import { StatusBar, Style } from '@capacitor/status-bar';
 
 /* Basic CSS for apps built with Ionic */
 import '@ionic/vue/css/normalize.css';
@@ -44,6 +46,11 @@ import './theme/variables.css';
 
 const app = createApp(App).use(IonicVue).use(StoragePlugin).use(router).component('font-awesome-icon', FontAwesomeIcon);
 
-router.isReady().then(() => {
+router.isReady().then(async () => {
+  try {
+    StatusBar.setOverlaysWebView({ overlay: true });
+  } catch (error) {
+    console.log(error);
+  }
   app.mount('#app');
 });

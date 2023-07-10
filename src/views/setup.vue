@@ -9,45 +9,61 @@
        
           <ion-card  mode="ios">
             <ion-card-content>
-              <div>
-                <div class="result-heading-item"><font-awesome-icon class="fc-orange" icon="fa-solid fa-gas-pump" />Tank Capacity</div>
+<!-- 
+              <div  class="info-item mt-50">
+              <div class="info-item-heading"><font-awesome-icon class="fc-orange" icon="fa-solid fa-gas-pump" />Tank Capacity
               </div>
-              <div class="result-main-itema setup-parameter-item">
-                <input type="number" :disabled="tankCapacity>100000" v-model="tankCapacity" class="setup-parameter-input">
-                <span class="setup-parameter-unit">liters</span>
-              </div>
-              <!-- <div class="result-main-item">
-                <ion-item mode="ios">
-                  <IonInput type="number" v-model="tankCapacity"></IonInput>
-                  <ion-note slot="end">liters</ion-note>
-                </ion-item>
-              </div> -->
-              <div>
-                <div class="mt result-heading-item"><font-awesome-icon class="fc-green" icon="fa-solid fa-tachometer-alt" />Maximum Mileage</div>
-              </div>
-              <div class="result-main-itema setup-parameter-item">
-                <input type="number" :disabled="maxMileage>100000" name="" v-model="maxMileage" class="setup-parameter-input">
-                <span class="setup-parameter-unit">km</span>
+              <div class="info-item-value text-lg">
+                <div style="position: absolute;left: 30px;">{{ tankCapacity }} <span class="info-item-unit">liters;</span> </div> 
+                <input type="number" placeholder="" v-model="tankCapacity" style="display: inline-block;width: fit-content !important;font-size: 1rem;position: absolute;left: 30px;width: 100%;color: white;background: none;"> 
               </div>
 
-              <div>
-                <div class="mt result-heading-item"><font-awesome-icon class="fc-blue" icon="fa-solid fa-money-bill" />Fuel Price</div>
+            </div> -->
+              <div  class="info-item">
+              <div class="info-item-heading">Tank Capacity
               </div>
-              <div class="result-main-itema setup-parameter-item">
-                <input type="number" max="100" :disabled="fuelPrice>100000" name="" v-model="fuelPrice" class="setup-parameter-input">
-                <span class="setup-parameter-unit">GH₵ / liter</span>
+              <div class="info-item-value text-lg"><input v-model="tankCapacity" placeholder="0" class="setup-input" id="tankCapacity" @input="autoResize('tankCapacity')" type="number" style="width: 3ch;"> <span class="info-item-unit">liters;</span> </div>
+            </div>
+              <div  class="info-item">
+              <div class="info-item-heading"><font-awesome-icon class="fc-blue" icon="fa-solid fa-tachometer-alt" />Maximum Mileage
               </div>
-              <!-- <div class="result-main-item">
-                <ion-item>
-                  <IonInput type="number" v-model="fuelPrice" step="1"></IonInput>
-                  <ion-note slot="end">GH₵ / liter</ion-note>
-                </ion-item>
-              </div> -->
+              <div class="info-item-value text-lg"> <span class="info-item-unit">km;</span> </div>
+            </div>
+              <div  class="info-item">
+              <div class="info-item-heading"><font-awesome-icon class="fc-blue" icon="fa-solid fa-money-bill" />Fuel Price
+              </div>
+              <div class="info-item-value text-lg"> <span class="info-item-unit">GH&cent;</span> </div>
+            </div>
+
+                <!-- <div>
+                  <div class="result-heading-item mt-10"><font-awesome-icon class="fc-orange" icon="fa-solid fa-gas-pump" />Tank Capacity</div>
+                </div>
+                <div class="result-main-itema setup-parameter-item">
+                  <input type="number" :disabled="tankCapacity>100000" v-model="tankCapacity" class="setup-parameter-input">
+                  <span class="setup-parameter-unit">liters</span>
+                </div>
+      
+                <div>
+                  <div class="mt result-heading-item"><font-awesome-icon class="fc-green" icon="fa-solid fa-tachometer-alt" />Maximum Mileage</div>
+                </div>
+                <div class="result-main-itema setup-parameter-item">
+                  <input type="number" :disabled="maxMileage>100000" name="" v-model="maxMileage" class="setup-parameter-input">
+                  <span class="setup-parameter-unit">km</span>
+                </div>
+
+                <div>
+                  <div class="mt result-heading-item"><font-awesome-icon class="fc-blue" icon="fa-solid fa-money-bill" />Fuel Price</div>
+                </div>
+                <div class="result-main-itema setup-parameter-item">
+                  <input type="number" max="100" :disabled="fuelPrice>100000" name="" v-model="fuelPrice" class="setup-parameter-input">
+                  <span class="setup-parameter-unit">GH₵ / liter</span>
+                </div> -->
+        
             </ion-card-content>
           </ion-card>
         <div class="centered">
-          <ion-button color="medium" class="result-buttons" @click="clearData">Clear</ion-button>
-          <ion-button id="save" :disabled="maxMileage<=0||tankCapacity<=0||fuelPrice<=0" class="result-buttons fc-blue-button" @click="saveData">Save</ion-button>
+          <button color="medium" class="btn btn-secondary m-2" @click="clearData" style="width: 50%">Clear</button>
+          <button id="save" :disabled="maxMileage<=0||tankCapacity<=0||fuelPrice<=0" class="btn btn-primary m-2" @click="saveData" style="width: 50%">Save</button>
           <ion-toast class="ion-toast" trigger="save" message="Saved!" :duration="3000" position="top" :icon="checkmarkCircleOutline"></ion-toast>
         </div>
       </div>
@@ -87,6 +103,16 @@ const loadData = async () => {
   fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
 };
 
+
+
+const autoResize = async (id:string) => {
+  const myvar = id=='tankCapacity'?tankCapacity.value:(id=='fuelPrice'?fuelPrice.value:maxMileage.value);
+  const element = document.getElementById(id);
+  console.log(id=='tankCapacity',id,myvar,element?.style.width);
+  if(element){
+    element.style.width = (myvar.toString().length+1) + 'ch';
+  }
+};
 const saveData = async () => {
   await StorageService.set("tankCapacity", tankCapacity.value);
   await StorageService.set("maxMileage", maxMileage.value);
@@ -134,12 +160,7 @@ loadData();
   margin-top: 35px;
 }
 .container {
-  /* background: rgb(22, 1, 61); */
-  /* color: white; */
-  /* display: flex;
-  flex-direction: column; */
-  /* align-items: center; */
-  /* text-align: center; */
+
   width: 90%;
   max-width: 400px;
   margin: auto;
@@ -147,10 +168,7 @@ loadData();
 }
 
 .result-buttons {
-  /* --background: #93e9be;
-  --background-hover: #9ce0be;
-  --background-activated: #88f4be;
-  --background-focused: #88f4be; */
+
 
   /* --color: blue; */
   width: 50%;
@@ -183,9 +201,6 @@ ion-item {
   padding: 5px;
   --padding-start: 2px;
 }
-ion-card{
-  max-width: 360px;
-}
 
 .setup-parameter-item {
   display: flex;
@@ -193,6 +208,9 @@ ion-card{
   margin-top: 10px;
 }
 
+.info-item:not(:first-child){
+  margin-top: 40px;
+}
 
 
 </style>
