@@ -147,9 +147,27 @@ ion-card{
   margin-left: 2px;
   margin-right: 2px;
 }
-
+.m-5{
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.mt-5{
+  margin-top: 5px;
+}
+.mt-10{
+  margin-top: 10px;
+}
 .mt-20{
   margin-top: 20px;
+}
+.mt-50{
+  margin-top: 50px;
+}
+.mb-10{
+  margin-bottom: 10px;
+}
+.mb-20{
+  margin-bottom: 20px;
 }
 /* Margins */
 
@@ -191,29 +209,6 @@ ion-card{
   font-size: 1.5rem;
 }
 /* Text */
-
-
-
-/* Margins */
-.mt-5{
-  margin-top: 5px;
-}
-.mt-10{
-  margin-top: 10px;
-}
-.mt-20{
-  margin-top: 20px;
-}
-.mt-50{
-  margin-top: 50px;
-}
-.mb-10{
-  margin-bottom: 10px;
-}
-.mb-20{
-  margin-bottom: 20px;
-}
-/* Margins */
 
 
 .setup-input{

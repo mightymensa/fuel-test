@@ -17,7 +17,7 @@
           </div>
           <div class="w-80 row mt-20">
             <button class="btn btn-secondary m-2 w-50" @click="dismissModal()">Cancel</button>
-            <button id="calculate-button" class="btn btn-primary m-2 w-50" @click="saveFuelPrice()">Save</button>
+            <button class="btn btn-primary m-2 w-50" @click="saveFuelPrice()">Save</button>
           </div>
         </div>
       </ion-modal>
@@ -33,10 +33,8 @@
               <font-awesome-icon id="open-modal" class="ion-item-action-icon" icon="fa fa-pen-to-square" />
             </div>
             <div class="info-item">
-              <div>
-                <div class="info-item-heading">Fuel Economy</div>
-                <div class="info-item-value">{{ fuelEfficiency }} <span class="info-item-unit">km/liter</span></div>
-              </div>
+              <div class="info-item-heading">Fuel Economy</div>
+              <div class="info-item-value">{{ fuelEfficiency }} <span class="info-item-unit">km/liter</span></div>
             </div>
           </ion-card-content>
         </ion-card>
@@ -96,11 +94,10 @@
           </ion-card-content>
         </ion-card>
 
-        <div v-if="showResults == false" class="centered action-div">
-          <button class="btn btn-secondary m-2 w-50 mb-10" @click="clearPage()">Clear</button>
+        <div v-if="showResults == false" class="centered">
+          <button class="btn btn-secondary m-5 mb-10 w-50" @click="clearPage()">Clear</button>
           <button
-            id="calculate-button"
-            class="btn btn-primary m-2 w-50 mb-10"
+            class="btn btn-primary m-5 mb-10 w-50"
             :disabled="+calculatorInput < 1 || +calculatorInput == 0 || calculatorInput == undefined"
             @click="calculate"
           >
@@ -143,7 +140,7 @@ onBeforeUpdate(async () => {
 
 const loadData = async () => {
   fuelEfficiency.value = parseFloat((await StorageService.get("fuelEfficiency")) || 0).toFixed(2);
-  fuelPrice.value = parseFloat((await StorageService.get("fuelPrice")) || 0).toFixed(2);
+  fuelPrice.value = parseFloat((await StorageService.get("fuelPrice")) || 0);
 };
 
 const getFuelPrice = () => {
@@ -275,10 +272,6 @@ ion-segment-button.ios {
 }
 .segment-button-indicator-background {
   box-shadow: none;
-}
-
-.action-div {
-  width: 70%;
 }
 
 .info-item:not(:first-child) {

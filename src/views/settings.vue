@@ -8,66 +8,50 @@
         <ion-card mode="ios">
           <ion-card-content>
             <div class="info-item">
-              <div class="info-item-heading">Tank Capacity</div>
+              <div class="info-item-heading"><font-awesome-icon icon="fa-solid fa-fill-drip" />Tank Capacity</div>
               <div class="info-item-value text-lg">
-                <input
-                  v-model="tankCapacity"
-                  placeholder="0"
-                  class="setup-input"
-                  id="tankCapacity"
-                  @input="autoResize('tankCapacity')"
-                  type="number"
-                  style="width: 3ch"
-                />
-                <span class="info-item-unit">liters;</span>
+                <div v-if="canEdit">
+                  <input v-model="tankCapacity" placeholder="" id="tankCapacity" type="number" />
+                  <span class="info-item-unit">liters</span>
+                </div>
+                <div v-else>{{ tankCapacity }}<span class="info-item-unit"> liters</span></div>
               </div>
             </div>
             <div class="info-item">
-              <div class="info-item-heading"><font-awesome-icon class="fc-blue" icon="fa-solid fa-tachometer-alt" />Maximum Mileage</div>
-              <div class="info-item-value text-lg"><span class="info-item-unit">km;</span></div>
+              <div class="info-item-heading"><font-awesome-icon icon="fa-solid fa-road" />Maximum Mileage</div>
+              <div class="info-item-value text-lg">
+                <div v-if="canEdit">
+                  <input v-model="maxMileage" placeholder="" id="maxMileage" type="number" />
+                  <span class="info-item-unit">km</span>
+                </div>
+                <div v-else>{{ maxMileage }}<span class="info-item-unit"> km</span></div>
+              </div>
             </div>
             <div class="info-item">
-              <div class="info-item-heading"><font-awesome-icon class="fc-blue" icon="fa-solid fa-money-bill" />Fuel Price</div>
-              <div class="info-item-value text-lg"><span class="info-item-unit">GH&cent;</span></div>
+              <div class="info-item-heading"><font-awesome-icon class="fc-blue" icon="fa-solid fa-gas-pump" />Fuel Price</div>
+              <div class="info-item-value text-lg">
+                <div v-if="canEdit">
+                  <input v-model="fuelPrice" placeholder="" id="fuelPrice" type="number" />
+                  <span class="info-item-unit">GH&cent;</span>
+                </div>
+                <div v-else>{{ fuelPrice }}<span class="info-item-unit"> GH&cent;</span></div>
+              </div>
             </div>
-
-            <!-- <div>
-                  <div class="result-heading-item mt-10"><font-awesome-icon class="fc-orange" icon="fa-solid fa-gas-pump" />Tank Capacity</div>
-                </div>
-                <div class="result-main-itema setup-parameter-item">
-                  <input type="number" :disabled="tankCapacity>100000" v-model="tankCapacity" class="setup-parameter-input">
-                  <span class="setup-parameter-unit">liters</span>
-                </div>
-      
-                <div>
-                  <div class="mt result-heading-item"><font-awesome-icon class="fc-green" icon="fa-solid fa-tachometer-alt" />Maximum Mileage</div>
-                </div>
-                <div class="result-main-itema setup-parameter-item">
-                  <input type="number" :disabled="maxMileage>100000" name="" v-model="maxMileage" class="setup-parameter-input">
-                  <span class="setup-parameter-unit">km</span>
-                </div>
-
-                <div>
-                  <div class="mt result-heading-item"><font-awesome-icon class="fc-blue" icon="fa-solid fa-money-bill" />Fuel Price</div>
-                </div>
-                <div class="result-main-itema setup-parameter-item">
-                  <input type="number" max="100" :disabled="fuelPrice>100000" name="" v-model="fuelPrice" class="setup-parameter-input">
-                  <span class="setup-parameter-unit">GH₵ / liter</span>
-                </div> -->
           </ion-card-content>
         </ion-card>
         <div class="centered">
-          <button color="medium" class="btn btn-secondary m-2" @click="clearData" style="width: 50%">Clear</button>
+          <button class="btn btn-secondary m-5 w-50" @click="clearData">Clear</button>
           <button
+            v-if="canEdit"
             id="save"
             :disabled="maxMileage <= 0 || tankCapacity <= 0 || fuelPrice <= 0"
-            class="btn btn-primary m-2"
+            class="btn btn-primary m-5 w-50"
             @click="saveData"
-            style="width: 50%"
           >
             Save
           </button>
-          <ion-toast class="ion-toast" trigger="save" message="Saved!" :duration="3000" position="top" :icon="checkmarkCircleOutline"></ion-toast>
+          <button v-if="!canEdit" id="edit" class="btn btn-primary m-2 w-50" @click="editData">Edit</button>
+          <ion-toast class="ion-toast" trigger="save" message="Saved!" duration="3000" position="top" :icon="checkmarkCircleOutline"></ion-toast>
         </div>
       </div>
     </ion-content>
@@ -76,8 +60,8 @@
 
 <script lang="ts" setup>
 import { checkmarkCircleOutline } from "ionicons/icons";
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonInput, IonButton, IonToast } from "@ionic/vue";
-import { ref, inject } from "vue";
+import { IonContent, IonPage, IonToast } from "@ionic/vue";
+import { ref, inject, onBeforeUpdate } from "vue";
 
 const StorageService = inject("StorageService") as {
   set: (key: string, value: number) => Promise<void>;
@@ -90,6 +74,12 @@ const maxMileage = ref();
 const fuelEfficiency = ref();
 const fuelPrice = ref();
 
+const canEdit = ref(false);
+
+onBeforeUpdate(async () => {
+  await loadData();
+});
+
 const loadData = async () => {
   tankCapacity.value = (await StorageService.get("tankCapacity")) || 0;
   maxMileage.value = (await StorageService.get("maxMileage")) || 0;
@@ -97,20 +87,17 @@ const loadData = async () => {
   fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
 };
 
-const autoResize = async (id: string) => {
-  const myvar = id == "tankCapacity" ? tankCapacity.value : id == "fuelPrice" ? fuelPrice.value : maxMileage.value;
-  const element = document.getElementById(id);
-  console.log(id == "tankCapacity", id, myvar, element?.style.width);
-  if (element) {
-    element.style.width = myvar.toString().length + 1 + "ch";
-  }
+const editData = () => {
+  canEdit.value = true;
 };
+
 const saveData = async () => {
   await StorageService.set("tankCapacity", tankCapacity.value);
   await StorageService.set("maxMileage", maxMileage.value);
   fuelEfficiency.value = maxMileage.value / tankCapacity.value;
   await StorageService.set("fuelEfficiency", fuelEfficiency.value);
   await StorageService.set("fuelPrice", fuelPrice.value);
+  canEdit.value = false;
 };
 
 const clearData = async () => {
@@ -124,58 +111,12 @@ loadData();
 </script>
 
 <style scoped>
-.result-main-item {
-  /* --color: var(--ion-text-color, #000); */
-  margin: 0px;
-  padding: 0px;
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 1.2;
-}
+/* Element styles */
 
-.info-icon {
-  float: right;
-  margin-top: -15px;
+ion-card {
+  margin-top: 5px;
+  border-radius: 20px;
 }
-
-.ion-toast {
-  --border-color: rgb(0, 128, 0);
-  --border-width: 50px;
-  --font-weight: 600;
-  --font-size: small;
-  --color: rgb(16, 230, 16);
-}
-
-.mt {
-  margin-top: 35px;
-}
-.container {
-  width: 90%;
-  max-width: 400px;
-  margin: auto;
-  /* padding: 20px; */
-}
-
-.result-buttons {
-  /* --color: blue; */
-  width: 50%;
-  --border-radius: 8px;
-  /* --border-color: #000; */
-  --border-style: solid;
-  --border-width: 1px;
-
-  --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
-}
-
-.centered {
-  text-align: center;
-  width: 300px;
-  display: flex;
-  align-items: center;
-  margin: auto;
-  justify-content: space-between;
-}
-
 ion-input {
   /* border-bottom: 1px solid #ededed; */
   width: 100%;
@@ -189,10 +130,29 @@ ion-item {
   --padding-start: 2px;
 }
 
-.setup-parameter-item {
+/* Other styles */
+.ion-toast {
+  --border-color: rgb(0, 128, 0);
+  --border-width: 50px;
+  --font-weight: 600;
+  --font-size: small;
+  --color: rgb(16, 230, 16);
+}
+
+.container {
+  width: 90%;
+  max-width: 400px;
+  margin: auto;
+  /* padding: 20px; */
+}
+
+.centered {
+  text-align: center;
+  width: 300px;
   display: flex;
-  border-bottom: 1px solid rgb(206, 206, 206);
-  margin-top: 10px;
+  align-items: center;
+  margin: auto;
+  justify-content: space-between;
 }
 
 .info-item:not(:first-child) {
