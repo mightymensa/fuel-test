@@ -33,8 +33,15 @@ input[type="number"] {
 
 .ion-item-action-icon{
   position: absolute;
-  right: 5px;
+  right: 15px;
   top: 15px;
+}
+
+.ion-menu-icon{
+  position: absolute;
+  right: 5px;
+  width: 16px;
+  height: 16px;
 }
 /* Global Elements */
 
@@ -75,6 +82,7 @@ input[type="number"] {
   font-weight: 700;
   z-index: 1000;
   margin-top: 20px;
+  position: relative;
 }
 
 .svg-inline--fa {
@@ -113,7 +121,13 @@ ion-card{
   margin: auto;
 }
 
-
+.ion-menu-icon {
+  right: 24px;
+  top: 24px;
+  width: 20px;
+  height: 20px;
+  pointer-events: all;
+}
 
 /* BUTTONS */
 .btn {

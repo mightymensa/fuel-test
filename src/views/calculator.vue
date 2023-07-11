@@ -22,7 +22,10 @@
         </div>
       </ion-modal>
 
-      <div class="page-title">Calculator</div>
+      <div class="page-title">
+        Calculator
+        <FontAwesomeIcon icon="fa fa-circle-info" class="ion-menu-icon" @click="openAbout"></FontAwesomeIcon>
+      </div>
 
       <div class="container mt-20">
         <ion-card>
@@ -113,15 +116,17 @@
 </template>
 
 <script lang="ts" setup>
-import { IonContent, IonPage, IonSegment, IonSegmentButton, IonModal, IonLabel, IonCard, IonCardContent } from "@ionic/vue";
+import { IonContent, IonPage, IonSegment, IonSegmentButton, IonModal, IonLabel, IonCard, IonCardContent, modalController } from "@ionic/vue";
 import { ref, inject, onBeforeUpdate } from "vue";
-import { modalController } from "@ionic/vue";
+import { useRouter } from "vue-router";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 const StorageService = inject("StorageService") as {
   set: (key: string, value: number) => Promise<void>;
   get: (key: string) => Promise<any>;
   remove: (key: string) => Promise<void>;
 };
+const router = useRouter();
 
 const segmentValue = ref("cost");
 const fuelPriceTemp = ref();
@@ -177,6 +182,9 @@ const clearPage = (clearValues = true) => {
     calculatedMileage.value = "";
   }
   showResults.value = false;
+};
+const openAbout = () => {
+  router.push("/about");
 };
 </script>
 

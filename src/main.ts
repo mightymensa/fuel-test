@@ -11,8 +11,8 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import "../public/assets/css/main.css";
 
 /* import specific icons */
-import { faUserSecret, faMoneyBill, faGasPump, faFillDrip, faCogs, faPenToSquare, faRoad, faCediSign } from "@fortawesome/free-solid-svg-icons";
-library.add(faUserSecret, faMoneyBill, faGasPump, faRoad, faFillDrip, faCogs, faPenToSquare, faCediSign);
+import { faGasPump, faFillDrip, faPenToSquare, faRoad, faCediSign, faCircleInfo, faInfo } from "@fortawesome/free-solid-svg-icons";
+library.add(faGasPump, faRoad, faFillDrip, faPenToSquare, faCediSign, faCircleInfo, faInfo);
 
 import { IonicVue } from "@ionic/vue";
 
@@ -40,9 +40,9 @@ const app = createApp(App).use(IonicVue).use(StoragePlugin).use(router).componen
 
 router.isReady().then(async () => {
   try {
-    StatusBar.setOverlaysWebView({ overlay: true });
+    // StatusBar.setOverlaysWebView({ overlay: true });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
   app.mount("#app");
 });

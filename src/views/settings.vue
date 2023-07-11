@@ -1,9 +1,12 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <ion-page>
-    <div class="page-title">Settings</div>
+    <ion-content>
+      <div class="page-title">
+        Settings
+        <FontAwesomeIcon icon="fa fa-circle-info" class="ion-menu-icon" @click="openAbout"></FontAwesomeIcon>
+      </div>
 
-    <ion-content :fullscreen="true">
       <div class="container">
         <ion-card mode="ios">
           <ion-card-content>
@@ -62,12 +65,15 @@
 import { checkmarkCircleOutline } from "ionicons/icons";
 import { IonContent, IonPage, IonToast } from "@ionic/vue";
 import { ref, inject, onBeforeUpdate } from "vue";
+import { useRouter } from "vue-router";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 const StorageService = inject("StorageService") as {
   set: (key: string, value: number) => Promise<void>;
   get: (key: string) => Promise<any>;
   remove: (key: string) => Promise<void>;
 };
+const router = useRouter();
 
 const tankCapacity = ref();
 const maxMileage = ref();
@@ -107,7 +113,9 @@ const clearData = async () => {
   fuelPrice.value = "";
 };
 
-loadData();
+const openAbout = () => {
+  router.push("/about");
+};
 </script>
 
 <style scoped>
