@@ -2,16 +2,18 @@
 <!-- eslint-disable -->
 <template>
   <ion-page>
-
     <ion-content>
-
       <ion-modal ref="modal" trigger="open-modal" @willPresent="getFuelPrice()">
-        <div style="display: flex;align-items: center;justify-content: center;flex-direction: column;margin: auto;color: rgb(94, 94, 94);">
+        <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; margin: auto; color: rgb(94, 94, 94)">
           <div class="center-content">
-            <div v-if="fuelPricetemp !== ''" :style="fuelPricetemp !== '' ? 'display:block;' : 'display:none;'">Enter Fuel
-              Price in GH&cent;</div>
-            <input id="fuel-price-input" v-model="fuelPricetemp" type="number" placeholder="Enter Fuel Price in GH&cent;"
-              :style="fuelPricetemp === '' ? 'font-size: 1.1rem;' : 'font-size: 1.5rem;'">
+            <div v-if="fuelPriceTemp !== ''" :style="fuelPriceTemp !== '' ? 'display:block;' : 'display:none;'">Enter Fuel Price in GH&cent;</div>
+            <input
+              id="fuel-price-input"
+              v-model="fuelPriceTemp"
+              type="number"
+              placeholder="Enter Fuel Price in GH&cent;"
+              :style="fuelPriceTemp === '' ? 'font-size: 1.1rem;' : 'font-size: 1.5rem;'"
+            />
           </div>
           <div class="w-80 row mt-20">
             <button class="btn btn-secondary m-2 w-50" @click="dismissModal()">Cancel</button>
@@ -23,25 +25,23 @@
       <div class="page-title">Calculator</div>
 
       <div class="container mt-20">
-
         <ion-card>
           <ion-card-content>
             <div class="info-item">
-              <div class="info-item-heading">Fuel Price
-              </div>
-              <div class="info-item-value">{{ fuelPrice }} <span class="info-item-unit">GH&cent;</span> </div>
-              <font-awesome-icon id="open-modal" class="fc-orange ion-item-action-icon" icon="fa-solid fa-pencil" />
+              <div class="info-item-heading">Fuel Price</div>
+              <div class="info-item-value">{{ fuelPrice }} <span class="info-item-unit">GH&cent;</span></div>
+              <font-awesome-icon id="open-modal" class="ion-item-action-icon" icon="fa fa-pen-to-square" />
             </div>
             <div class="info-item">
-              <div class="info-item-heading">Fuel Economy
+              <div>
+                <div class="info-item-heading">Fuel Economy</div>
+                <div class="info-item-value">{{ fuelEfficiency }} <span class="info-item-unit">km/liter</span></div>
               </div>
-              <div class="info-item-value">{{ fuelEfficiency }} <span class="info-item-unit">GH&cent;</span> </div>
             </div>
-
           </ion-card-content>
         </ion-card>
 
-        <ion-segment v-model="segmentValue" class="centered" mode="ios">
+        <ion-segment v-model="segmentValue" class="centered" mode="ios" @ionChange="clearPage()">
           <ion-segment-button value="cost">
             <ion-label>Cost</ion-label>
           </ion-segment-button>
@@ -53,35 +53,44 @@
         <ion-card v-if="showResults == false">
           <ion-card-content id="calculator-input-div" class="center-items">
             <div id="calculator-input-group">
-
-              <div v-if="calculatorInput !== ''" :style="calculatorInput !== '' ? 'display:block;' : 'display:none;'">{{
-                'Enter ' + (segmentValue == 'mileage' ? 'cost in GH&cent;' : 'mileage in km') }}</div>
-              <input id="calculator-input" v-model="calculatorInput" type="number"
-                :placeholder="'Enter ' + (segmentValue == 'mileage' ? 'cost in GHS' : 'mileage in km')"
-                :style="calculatorInput === '' ? 'font-size: 1.1rem;' : 'font-size: 1.5rem;'">
+              <div v-if="calculatorInput !== ''">
+                {{ "Enter " + (segmentValue == "mileage" ? "cost in GH&cent;:" : "mileage in km:") }}
+              </div>
+              <input
+                id="calculator-input"
+                v-model="calculatorInput"
+                type="number"
+                :placeholder="'Enter ' + (segmentValue == 'mileage' ? 'cost in GHS:' : 'mileage in km:')"
+                :style="calculatorInput === '' ? 'font-size: 1.1rem;' : 'font-size: 1.5rem;'"
+              />
             </div>
-
           </ion-card-content>
         </ion-card>
-        <!-- <div v-if="segmentValue == 'cost' && showResults == true" class="mw-1a"> -->
 
         <ion-card v-if="showResults == true">
           <ion-card-content id="calculator-result-div">
-            <div v-if="segmentValue == 'cost'" class="info-item mt-10">
-              <div class="info-item-heading">Cost
+            <div v-if="segmentValue == 'cost'">
+              <div>For a distance of {{ calculatorInput }} km, you would need an average of</div>
+              <div class="info-item mt-10">
+                <div class="info-item-heading">Volume</div>
+                <div class="info-item-value text-lg">{{ calculatedVolume }} <span class="info-item-unit">liters</span></div>
               </div>
-              <div class="info-item-value text-lg">{{ calculatedCost }} <span class="info-item-unit">GH&cent;</span>
+              <div class="mt-10">at the cost of</div>
+              <div class="info-item mt-10">
+                <div class="info-item-heading">Cost</div>
+                <div class="info-item-value text-lg">{{ calculatedCost }} <span class="info-item-unit">GH&cent;</span></div>
               </div>
             </div>
-            <div v-if="segmentValue == 'mileage'" class="info-item mt-10">
-              <div class="info-item-heading">Mileage
+            <div v-if="segmentValue == 'mileage'">
+              <div>For an amount of {{ calculatorInput }} GH&cent;, you would get an average of</div>
+              <div class="info-item mt-10">
+                <div class="info-item-heading">Volume</div>
+                <div class="info-item-value text-lg">{{ calculatedVolume }} <span class="info-item-unit">liters</span></div>
               </div>
-              <div class="info-item-value text-lg">{{ calculatedMileage }} <span class="info-item-unit">km</span> </div>
-            </div>
-            <div class="info-item mt-10">
-              <div class="info-item-heading">Volume
-              </div>
-              <div class="info-item-value text-lg">{{ calculatedVolume }} <span class="info-item-unit">liters</span>
+              <div class="mt-10">and an additional mileage of</div>
+              <div class="info-item mt-10">
+                <div class="info-item-heading">Mileage</div>
+                <div class="info-item-value text-lg">{{ calculatedMileage }} <span class="info-item-unit">km</span></div>
               </div>
             </div>
           </ion-card-content>
@@ -89,13 +98,20 @@
 
         <div v-if="showResults == false" class="centered action-div">
           <button class="btn btn-secondary m-2 w-50" @click="clearPage()">Clear</button>
-          <button id="calculate-button" class="btn btn-primary m-2 w-50" :disabled="(segmentValue == 'mileage' && (+calculatorInput < 1 || +calculatorInput == 0 || calculatorInput == undefined)) ||
-            (segmentValue == 'cost' && (+calculatorInput < 1 || +calculatorInput == 0 || calculatorInput == undefined))
-            " @click="calculate">Calculate</button>
+          <button
+            id="calculate-button"
+            class="btn btn-primary m-2 w-50"
+            :disabled="
+              (segmentValue == 'mileage' && (+calculatorInput < 1 || +calculatorInput == 0 || calculatorInput == undefined)) ||
+              (segmentValue == 'cost' && (+calculatorInput < 1 || +calculatorInput == 0 || calculatorInput == undefined))
+            "
+            @click="calculate"
+          >
+            Calculate
+          </button>
         </div>
         <div v-if="showResults == true" class="centered w-100">
           <button class="btn btn-secondary m-2 w-100" @click="clearPage(false)">Back</button>
-
         </div>
       </div>
     </ion-content>
@@ -103,87 +119,66 @@
 </template>
 
 <script lang="ts" setup>
-import {
+import { IonContent, IonPage, IonSegment, IonSegmentButton, IonModal, IonLabel, IonCard, IonCardContent } from "@ionic/vue";
+import { ref, inject, onBeforeUpdate } from "vue";
+import { modalController } from "@ionic/vue";
 
-  IonContent,
-  IonPage,
-  IonSegment,
-
-  IonSegmentButton,
-  IonModal,
-  IonLabel,
-  IonCard,
-  IonCardContent,
-} from '@ionic/vue';
-import { ref, inject, onBeforeUpdate } from 'vue';
-import { modalController } from '@ionic/vue';
-
-const StorageService = inject('StorageService') as {
+const StorageService = inject("StorageService") as {
   set: (key: string, value: number) => Promise<void>;
   get: (key: string) => Promise<any>;
   remove: (key: string) => Promise<void>;
 };
 // const modalController_ = inject('modalController');
 
-const segmentValue = ref('cost');
+const segmentValue = ref("cost");
 const fuelPrice = ref();
-const fuelPricetemp = ref();
+const fuelPriceTemp = ref();
 const fuelEfficiency = ref();
 
 onBeforeUpdate(async () => {
-  console.log('inputCost', inputCost.value);
   await loadData();
 });
 
-const inputMileage = ref('');
-const calculatedCost = ref();
-const inputCost = ref();
-const calculatorInput = ref('');
-const calculatedMileage = ref();
+const calculatorInput = ref("");
 const calculatedVolume = ref();
+const calculatedCost = ref();
+const calculatedMileage = ref();
 const showResults = ref(false);
 
 const loadData = async () => {
-  fuelEfficiency.value = parseFloat((await StorageService.get('fuelEfficiency')) || 0).toFixed(2);
-  fuelPrice.value = parseFloat((await StorageService.get('fuelPrice')) || 0).toFixed(2);
+  fuelEfficiency.value = parseFloat((await StorageService.get("fuelEfficiency")) || 0).toFixed(2);
+  fuelPrice.value = parseFloat((await StorageService.get("fuelPrice")) || 0).toFixed(2);
 };
 
 const calculate = async () => {
   await loadData();
-  if (segmentValue.value == 'cost') {
-    calculatedCost.value = ((fuelPrice.value * +calculatorInput.value) / fuelEfficiency.value).toFixed(2);
+  if (segmentValue.value == "cost") {
     calculatedVolume.value = (calculatedCost.value / fuelPrice.value).toFixed(2);
+    calculatedCost.value = ((fuelPrice.value * +calculatorInput.value) / fuelEfficiency.value).toFixed(2);
   } else {
+    calculatedVolume.value = (+calculatorInput.value / fuelPrice.value).toFixed(2);
     calculatedMileage.value = ((+calculatorInput.value * fuelEfficiency.value) / fuelPrice.value).toFixed(2);
-    calculatedVolume.value = (inputCost.value / fuelPrice.value).toFixed(2);
   }
   showResults.value = true;
 };
-
 
 const dismissModal = () => {
   modalController.dismiss();
 };
 const getFuelPrice = () => {
-  fuelPricetemp.value = fuelPrice.value;
-
+  fuelPriceTemp.value = fuelPrice.value;
 };
 const saveFuelPrice = () => {
-  fuelPrice.value = fuelPricetemp.value;
-  StorageService.set('fuelPrice', fuelPrice.value);
+  fuelPrice.value = fuelPriceTemp.value;
+  StorageService.set("fuelPrice", fuelPrice.value);
   modalController.dismiss();
-
-
 };
-const clearPage = (clear_values = true) => {
-  if (clear_values) {
-
-    inputMileage.value = '';
-    calculatedCost.value = '';
-    inputCost.value = '';
-    calculatedMileage.value = '';
-    calculatedVolume.value = '';
-    calculatorInput.value = '';
+const clearPage = (clearValues = true) => {
+  if (clearValues) {
+    calculatorInput.value = "";
+    calculatedVolume.value = "";
+    calculatedCost.value = "";
+    calculatedMileage.value = "";
   }
   showResults.value = false;
 };
@@ -229,7 +224,6 @@ ion-page {
   --color: var(--ion-text-color);
   padding: 16px;
   padding-bottom: 3px;
-
 }
 
 ion-segment {
@@ -289,10 +283,7 @@ ion-segment-button.ios {
 
 font-awesome-icon {
   display: none;
-
 }
-
-
 
 ion-item,
 ion-input,
@@ -309,7 +300,6 @@ item-label {
 
 .center-items {
   text-align: center;
-
 }
 
 #calculator-input-div {
@@ -320,10 +310,10 @@ item-label {
 
 #calculator-result-div {
   min-height: 250px;
-
 }
 
-#calculator-input,#fuel-price-input {
+#calculator-input,
+#fuel-price-input {
   width: 100%;
   text-align: center;
   border: none;
@@ -343,7 +333,7 @@ item-label {
 }
 
 .info-item:not(:first-child) {
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 ion-modal {

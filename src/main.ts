@@ -11,8 +11,17 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import "../public/assets/css/main.css";
 
 /* import specific icons */
-import { faUserSecret, faMoneyBill, faGasPump, faTachometerAlt, faFillDrip, faCogs, faPencil } from "@fortawesome/free-solid-svg-icons";
-library.add(faUserSecret, faMoneyBill, faGasPump, faTachometerAlt, faFillDrip, faCogs, faPencil);
+import {
+  faUserSecret,
+  faMoneyBill,
+  faGasPump,
+  faTachometerAlt,
+  faFillDrip,
+  faCogs,
+  faPencil,
+  faPenToSquare,
+} from "@fortawesome/free-solid-svg-icons";
+library.add(faUserSecret, faMoneyBill, faGasPump, faTachometerAlt, faFillDrip, faCogs, faPencil, faPenToSquare);
 
 import { IonicVue } from "@ionic/vue";
 
