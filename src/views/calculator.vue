@@ -101,10 +101,7 @@
           <button
             id="calculate-button"
             class="btn btn-primary m-2 w-50"
-            :disabled="
-              (segmentValue == 'mileage' && (+calculatorInput < 1 || +calculatorInput == 0 || calculatorInput == undefined)) ||
-              (segmentValue == 'cost' && (+calculatorInput < 1 || +calculatorInput == 0 || calculatorInput == undefined))
-            "
+            :disabled="+calculatorInput < 1 || +calculatorInput == 0 || calculatorInput == undefined"
             @click="calculate"
           >
             Calculate
