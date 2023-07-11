@@ -16,7 +16,6 @@ input{
   border: none;
   outline: none;
   appearance: none;
-  
 }
 
 input[type="number"]::-webkit-inner-spin-button,
