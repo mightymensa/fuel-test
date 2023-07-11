@@ -4,7 +4,7 @@
     <ion-content>
       <div class="page-title">
         Settings
-        <FontAwesomeIcon icon="fa fa-circle-info" class="ion-menu-icon" @click="openAbout"></FontAwesomeIcon>
+        <FontAwesomeIcon icon="fa fa-circle-info" class="ion-menu-icon end" @click="openAbout"></FontAwesomeIcon>
       </div>
 
       <div class="container">

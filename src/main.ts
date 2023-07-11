@@ -11,14 +11,14 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import "../public/assets/css/main.css";
 
 /* import specific icons */
-import { faGasPump, faFillDrip, faPenToSquare, faRoad, faCediSign, faCircleInfo, faInfo } from "@fortawesome/free-solid-svg-icons";
-library.add(faGasPump, faRoad, faFillDrip, faPenToSquare, faCediSign, faCircleInfo, faInfo);
+import { faGasPump, faFillDrip, faPenToSquare, faRoad, faCediSign, faCircleInfo, faInfo, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+library.add(faGasPump, faRoad, faFillDrip, faPenToSquare, faCediSign, faCircleInfo, faInfo, faChevronLeft);
 
 import { IonicVue } from "@ionic/vue";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/vue/css/core.css";
-import { StatusBar, Style } from "@capacitor/status-bar";
+// import { StatusBar, Style } from "@capacitor/status-bar";
 
 /* Basic CSS for apps built with Ionic */
 import "@ionic/vue/css/normalize.css";

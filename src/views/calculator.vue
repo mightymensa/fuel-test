@@ -24,10 +24,10 @@
 
       <div class="page-title">
         Calculator
-        <FontAwesomeIcon icon="fa fa-circle-info" class="ion-menu-icon" @click="openAbout"></FontAwesomeIcon>
+        <FontAwesomeIcon icon="fa fa-circle-info" class="ion-menu-icon end" @click="openAbout"></FontAwesomeIcon>
       </div>
 
-      <div class="container mt-20">
+      <div class="container">
         <ion-card>
           <ion-card-content>
             <div class="info-item">
@@ -116,7 +116,18 @@
 </template>
 
 <script lang="ts" setup>
-import { IonContent, IonPage, IonSegment, IonSegmentButton, IonModal, IonLabel, IonCard, IonCardContent, modalController } from "@ionic/vue";
+import {
+  IonContent,
+  IonPage,
+  IonSegment,
+  IonSegmentButton,
+  IonModal,
+  IonLabel,
+  IonCard,
+  IonCardContent,
+  modalController,
+  IonNavLink,
+} from "@ionic/vue";
 import { ref, inject, onBeforeUpdate } from "vue";
 import { useRouter } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
