@@ -1,41 +1,37 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <ion-page>
-    <div class="page-title">Setup</div>
-
+    <div class="page-title">Settings</div>
 
     <ion-content :fullscreen="true">
       <div class="container">
-       
-          <ion-card  mode="ios">
-            <ion-card-content>
-<!-- 
-              <div  class="info-item mt-50">
-              <div class="info-item-heading"><font-awesome-icon class="fc-orange" icon="fa-solid fa-gas-pump" />Tank Capacity
-              </div>
+        <ion-card mode="ios">
+          <ion-card-content>
+            <div class="info-item">
+              <div class="info-item-heading">Tank Capacity</div>
               <div class="info-item-value text-lg">
-                <div style="position: absolute;left: 30px;">{{ tankCapacity }} <span class="info-item-unit">liters;</span> </div> 
-                <input type="number" placeholder="" v-model="tankCapacity" style="display: inline-block;width: fit-content !important;font-size: 1rem;position: absolute;left: 30px;width: 100%;color: white;background: none;"> 
+                <input
+                  v-model="tankCapacity"
+                  placeholder="0"
+                  class="setup-input"
+                  id="tankCapacity"
+                  @input="autoResize('tankCapacity')"
+                  type="number"
+                  style="width: 3ch"
+                />
+                <span class="info-item-unit">liters;</span>
               </div>
+            </div>
+            <div class="info-item">
+              <div class="info-item-heading"><font-awesome-icon class="fc-blue" icon="fa-solid fa-tachometer-alt" />Maximum Mileage</div>
+              <div class="info-item-value text-lg"><span class="info-item-unit">km;</span></div>
+            </div>
+            <div class="info-item">
+              <div class="info-item-heading"><font-awesome-icon class="fc-blue" icon="fa-solid fa-money-bill" />Fuel Price</div>
+              <div class="info-item-value text-lg"><span class="info-item-unit">GH&cent;</span></div>
+            </div>
 
-            </div> -->
-              <div  class="info-item">
-              <div class="info-item-heading">Tank Capacity
-              </div>
-              <div class="info-item-value text-lg"><input v-model="tankCapacity" placeholder="0" class="setup-input" id="tankCapacity" @input="autoResize('tankCapacity')" type="number" style="width: 3ch;"> <span class="info-item-unit">liters;</span> </div>
-            </div>
-              <div  class="info-item">
-              <div class="info-item-heading"><font-awesome-icon class="fc-blue" icon="fa-solid fa-tachometer-alt" />Maximum Mileage
-              </div>
-              <div class="info-item-value text-lg"> <span class="info-item-unit">km;</span> </div>
-            </div>
-              <div  class="info-item">
-              <div class="info-item-heading"><font-awesome-icon class="fc-blue" icon="fa-solid fa-money-bill" />Fuel Price
-              </div>
-              <div class="info-item-value text-lg"> <span class="info-item-unit">GH&cent;</span> </div>
-            </div>
-
-                <!-- <div>
+            <!-- <div>
                   <div class="result-heading-item mt-10"><font-awesome-icon class="fc-orange" icon="fa-solid fa-gas-pump" />Tank Capacity</div>
                 </div>
                 <div class="result-main-itema setup-parameter-item">
@@ -58,12 +54,19 @@
                   <input type="number" max="100" :disabled="fuelPrice>100000" name="" v-model="fuelPrice" class="setup-parameter-input">
                   <span class="setup-parameter-unit">GH₵ / liter</span>
                 </div> -->
-        
-            </ion-card-content>
-          </ion-card>
+          </ion-card-content>
+        </ion-card>
         <div class="centered">
           <button color="medium" class="btn btn-secondary m-2" @click="clearData" style="width: 50%">Clear</button>
-          <button id="save" :disabled="maxMileage<=0||tankCapacity<=0||fuelPrice<=0" class="btn btn-primary m-2" @click="saveData" style="width: 50%">Save</button>
+          <button
+            id="save"
+            :disabled="maxMileage <= 0 || tankCapacity <= 0 || fuelPrice <= 0"
+            class="btn btn-primary m-2"
+            @click="saveData"
+            style="width: 50%"
+          >
+            Save
+          </button>
           <ion-toast class="ion-toast" trigger="save" message="Saved!" :duration="3000" position="top" :icon="checkmarkCircleOutline"></ion-toast>
         </div>
       </div>
@@ -73,16 +76,7 @@
 
 <script lang="ts" setup>
 import { checkmarkCircleOutline } from "ionicons/icons";
-import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonPage,
-  IonInput,
-  IonButton,
-  IonToast,
-} from "@ionic/vue";
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonPage, IonInput, IonButton, IonToast } from "@ionic/vue";
 import { ref, inject } from "vue";
 
 const StorageService = inject("StorageService") as {
@@ -103,14 +97,12 @@ const loadData = async () => {
   fuelPrice.value = (await StorageService.get("fuelPrice")) || 0;
 };
 
-
-
-const autoResize = async (id:string) => {
-  const myvar = id=='tankCapacity'?tankCapacity.value:(id=='fuelPrice'?fuelPrice.value:maxMileage.value);
+const autoResize = async (id: string) => {
+  const myvar = id == "tankCapacity" ? tankCapacity.value : id == "fuelPrice" ? fuelPrice.value : maxMileage.value;
   const element = document.getElementById(id);
-  console.log(id=='tankCapacity',id,myvar,element?.style.width);
-  if(element){
-    element.style.width = (myvar.toString().length+1) + 'ch';
+  console.log(id == "tankCapacity", id, myvar, element?.style.width);
+  if (element) {
+    element.style.width = myvar.toString().length + 1 + "ch";
   }
 };
 const saveData = async () => {
@@ -146,8 +138,6 @@ loadData();
   margin-top: -15px;
 }
 
-
-
 .ion-toast {
   --border-color: rgb(0, 128, 0);
   --border-width: 50px;
@@ -160,7 +150,6 @@ loadData();
   margin-top: 35px;
 }
 .container {
-
   width: 90%;
   max-width: 400px;
   margin: auto;
@@ -168,8 +157,6 @@ loadData();
 }
 
 .result-buttons {
-
-
   /* --color: blue; */
   width: 50%;
   --border-radius: 8px;
@@ -208,9 +195,7 @@ ion-item {
   margin-top: 10px;
 }
 
-.info-item:not(:first-child){
+.info-item:not(:first-child) {
   margin-top: 40px;
 }
-
-
 </style>

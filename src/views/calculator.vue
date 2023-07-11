@@ -75,8 +75,8 @@
                 <div class="info-item-heading">Volume</div>
                 <div class="info-item-value text-lg">{{ calculatedVolume }} <span class="info-item-unit">liters</span></div>
               </div>
-              <div class="mt-10">at the cost of</div>
-              <div class="info-item mt-10">
+              <div class="mt-20 mb-20">which will cost</div>
+              <div class="info-item">
                 <div class="info-item-heading">Cost</div>
                 <div class="info-item-value text-lg">{{ calculatedCost }} <span class="info-item-unit">GH&cent;</span></div>
               </div>
@@ -88,7 +88,7 @@
                 <div class="info-item-value text-lg">{{ calculatedVolume }} <span class="info-item-unit">liters</span></div>
               </div>
               <div class="mt-10">and an additional mileage of</div>
-              <div class="info-item mt-10">
+              <div class="info-item">
                 <div class="info-item-heading">Mileage</div>
                 <div class="info-item-value text-lg">{{ calculatedMileage }} <span class="info-item-unit">km</span></div>
               </div>
@@ -97,17 +97,17 @@
         </ion-card>
 
         <div v-if="showResults == false" class="centered action-div">
-          <button class="btn btn-secondary m-2 w-50" @click="clearPage()">Clear</button>
+          <button class="btn btn-secondary m-2 w-50 mb-10" @click="clearPage()">Clear</button>
           <button
             id="calculate-button"
-            class="btn btn-primary m-2 w-50"
+            class="btn btn-primary m-2 w-50 mb-10"
             :disabled="+calculatorInput < 1 || +calculatorInput == 0 || calculatorInput == undefined"
             @click="calculate"
           >
             Calculate
           </button>
         </div>
-        <div v-if="showResults == true" class="centered w-100">
+        <div v-if="showResults == true" class="centered w-100 mb-10">
           <button class="btn btn-secondary m-2 w-100" @click="clearPage(false)">Back</button>
         </div>
       </div>
@@ -163,11 +163,11 @@ const dismissModal = () => {
 const calculate = async () => {
   await loadData();
   if (segmentValue.value == "cost") {
+    calculatedCost.value = ((+calculatorInput.value * fuelPrice.value) / fuelEfficiency.value).toFixed(2);
     calculatedVolume.value = (calculatedCost.value / fuelPrice.value).toFixed(2);
-    calculatedCost.value = ((fuelPrice.value * +calculatorInput.value) / fuelEfficiency.value).toFixed(2);
   } else {
-    calculatedVolume.value = (+calculatorInput.value / fuelPrice.value).toFixed(2);
     calculatedMileage.value = ((+calculatorInput.value * fuelEfficiency.value) / fuelPrice.value).toFixed(2);
+    calculatedVolume.value = (+calculatorInput.value / fuelPrice.value).toFixed(2);
   }
   showResults.value = true;
 };

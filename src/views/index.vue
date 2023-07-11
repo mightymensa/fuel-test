@@ -9,7 +9,7 @@
           <ion-label></ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="setup" href="/setup">
+        <ion-tab-button tab="settings" href="/settings">
           <ion-icon :icon="carSportOutline" />
           <ion-label></ion-label>
         </ion-tab-button>
