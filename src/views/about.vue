@@ -3,7 +3,9 @@
   <ion-page>
     <IonContent>
       <div class="page-title">
-        <FontAwesomeIcon icon="fa fa-chevron-left" class="ion-menu-icon start"></FontAwesomeIcon>
+        <IonButton style="margin-top: -15px" fill="clear">
+          <FontAwesomeIcon icon="fa fa-chevron-left"></FontAwesomeIcon>
+        </IonButton>
         About
       </div>
 
@@ -13,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import { IonPage, IonButtons, IonCardContent, IonTabBar, IonBackButton, IonLabel, IonIcon, IonContent } from "@ionic/vue";
+import { IonPage, IonButtons, IonCardContent, IonTabBar, IonButton, IonLabel, IonIcon, IonContent } from "@ionic/vue";
 import { useRouter } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 </script>

@@ -24,7 +24,10 @@
 
       <div class="page-title">
         Calculator
-        <FontAwesomeIcon icon="fa fa-circle-info" class="ion-menu-icon end" @click="openAbout"></FontAwesomeIcon>
+        <IonButton style="margin-top: -15px; margin-right: -20px" fill="clear">
+          <FontAwesomeIcon icon="fa fa-circle-info"></FontAwesomeIcon>
+        </IonButton>
+        <!-- <FontAwesomeIcon icon="fa fa-circle-info" class="ion-menu-icon end" @click="openAbout"></FontAwesomeIcon> -->
       </div>
 
       <div class="container">
@@ -126,7 +129,7 @@ import {
   IonCard,
   IonCardContent,
   modalController,
-  IonNavLink,
+  IonButton,
 } from "@ionic/vue";
 import { ref, inject, onBeforeUpdate } from "vue";
 import { useRouter } from "vue-router";
@@ -228,12 +231,12 @@ ion-modal ion-toolbar {
   --color: white;
 }
 
-ion-button {
+/* ion-button {
   --border-radius: 8px;
   --border-style: solid;
   --border-width: 1px;
   --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
-}
+} */
 
 ion-card {
   margin-top: 5px;

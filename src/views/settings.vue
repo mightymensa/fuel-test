@@ -4,7 +4,10 @@
     <ion-content>
       <div class="page-title">
         Settings
-        <FontAwesomeIcon icon="fa fa-circle-info" class="ion-menu-icon end" @click="openAbout"></FontAwesomeIcon>
+        <IonButton style="margin-top: -15px; margin-right: -20px" fill="clear">
+          <FontAwesomeIcon icon="fa fa-circle-info"></FontAwesomeIcon>
+        </IonButton>
+        <!-- <FontAwesomeIcon icon="fa fa-circle-info" class="ion-menu-icon end" @click="openAbout"></FontAwesomeIcon> -->
       </div>
 
       <div class="container">
@@ -63,7 +66,7 @@
 
 <script lang="ts" setup>
 import { checkmarkCircleOutline } from "ionicons/icons";
-import { IonContent, IonPage, IonToast } from "@ionic/vue";
+import { IonContent, IonPage, IonToast, IonButton } from "@ionic/vue";
 import { ref, inject, onBeforeUpdate } from "vue";
 import { useRouter } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
