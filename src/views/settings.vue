@@ -4,10 +4,9 @@
     <ion-content>
       <div class="page-title">
         Settings
-        <IonButton style="margin-top: -15px; margin-right: -20px" fill="clear">
-          <FontAwesomeIcon icon="fa fa-circle-info"></FontAwesomeIcon>
+        <IonButton class="menu-button" fill="clear" href="/about">
+          <FontAwesomeIcon class="menu-icon" icon="fa fa-circle-info"></FontAwesomeIcon>
         </IonButton>
-        <!-- <FontAwesomeIcon icon="fa fa-circle-info" class="ion-menu-icon end" @click="openAbout"></FontAwesomeIcon> -->
       </div>
 
       <div class="container">
@@ -68,7 +67,6 @@
 import { checkmarkCircleOutline } from "ionicons/icons";
 import { IonContent, IonPage, IonToast, IonButton } from "@ionic/vue";
 import { ref, inject, onBeforeUpdate } from "vue";
-import { useRouter } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 const StorageService = inject("StorageService") as {
@@ -76,7 +74,6 @@ const StorageService = inject("StorageService") as {
   get: (key: string) => Promise<any>;
   remove: (key: string) => Promise<void>;
 };
-const router = useRouter();
 
 const tankCapacity = ref();
 const maxMileage = ref();
@@ -114,10 +111,6 @@ const clearData = async () => {
   maxMileage.value = "";
   fuelEfficiency.value = "";
   fuelPrice.value = "";
-};
-
-const openAbout = () => {
-  router.push("/about");
 };
 </script>
 

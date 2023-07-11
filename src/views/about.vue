@@ -3,7 +3,7 @@
   <ion-page>
     <IonContent>
       <div class="page-title">
-        <IonButton style="margin-top: -15px" fill="clear">
+        <IonButton style="margin-top: -15px" fill="clear" href="/calculator">
           <FontAwesomeIcon icon="fa fa-chevron-left"></FontAwesomeIcon>
         </IonButton>
         About

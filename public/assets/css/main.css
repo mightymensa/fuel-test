@@ -37,21 +37,15 @@ input[type="number"] {
   top: 15px;
 }
 
-.ion-menu-icon{
-  position: absolute;
-  top: 22px;
+.menu-button{
+  position: absolute; 
+  right: 24px; 
+  top: 2px;
+}
+
+.menu-icon {
   width: 20px;
   height: 20px;
-  pointer-events: all;
-}
-
-.ion-menu-icon.end {
-  right: 24px;
-}
-
-.ion-menu-icon.start {
-  position: relative;
-  /* left: 24px; */
 }
 
 /* Global Elements */

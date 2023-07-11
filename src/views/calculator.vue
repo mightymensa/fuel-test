@@ -24,10 +24,9 @@
 
       <div class="page-title">
         Calculator
-        <IonButton style="margin-top: -15px; margin-right: -20px" fill="clear">
-          <FontAwesomeIcon icon="fa fa-circle-info"></FontAwesomeIcon>
+        <IonButton class="menu-button" fill="clear" href="/about">
+          <FontAwesomeIcon class="menu-icon" icon="fa fa-circle-info"></FontAwesomeIcon>
         </IonButton>
-        <!-- <FontAwesomeIcon icon="fa fa-circle-info" class="ion-menu-icon end" @click="openAbout"></FontAwesomeIcon> -->
       </div>
 
       <div class="container">
@@ -132,7 +131,6 @@ import {
   IonButton,
 } from "@ionic/vue";
 import { ref, inject, onBeforeUpdate } from "vue";
-import { useRouter } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 const StorageService = inject("StorageService") as {
@@ -140,7 +138,6 @@ const StorageService = inject("StorageService") as {
   get: (key: string) => Promise<any>;
   remove: (key: string) => Promise<void>;
 };
-const router = useRouter();
 
 const segmentValue = ref("cost");
 const fuelPriceTemp = ref();
@@ -196,9 +193,6 @@ const clearPage = (clearValues = true) => {
     calculatedMileage.value = "";
   }
   showResults.value = false;
-};
-const openAbout = () => {
-  router.push("/about");
 };
 </script>
 
