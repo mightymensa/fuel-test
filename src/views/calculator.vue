@@ -125,16 +125,11 @@ const StorageService = inject("StorageService") as {
   get: (key: string) => Promise<any>;
   remove: (key: string) => Promise<void>;
 };
-// const modalController_ = inject('modalController');
 
 const segmentValue = ref("cost");
-const fuelPrice = ref();
 const fuelPriceTemp = ref();
+const fuelPrice = ref();
 const fuelEfficiency = ref();
-
-onBeforeUpdate(async () => {
-  await loadData();
-});
 
 const calculatorInput = ref("");
 const calculatedVolume = ref();
@@ -142,9 +137,27 @@ const calculatedCost = ref();
 const calculatedMileage = ref();
 const showResults = ref(false);
 
+onBeforeUpdate(async () => {
+  await loadData();
+});
+
 const loadData = async () => {
   fuelEfficiency.value = parseFloat((await StorageService.get("fuelEfficiency")) || 0).toFixed(2);
   fuelPrice.value = parseFloat((await StorageService.get("fuelPrice")) || 0).toFixed(2);
+};
+
+const getFuelPrice = () => {
+  fuelPriceTemp.value = fuelPrice.value;
+};
+
+const saveFuelPrice = () => {
+  fuelPrice.value = fuelPriceTemp.value;
+  StorageService.set("fuelPrice", fuelPrice.value);
+  modalController.dismiss();
+};
+
+const dismissModal = () => {
+  modalController.dismiss();
 };
 
 const calculate = async () => {
@@ -159,17 +172,6 @@ const calculate = async () => {
   showResults.value = true;
 };
 
-const dismissModal = () => {
-  modalController.dismiss();
-};
-const getFuelPrice = () => {
-  fuelPriceTemp.value = fuelPrice.value;
-};
-const saveFuelPrice = () => {
-  fuelPrice.value = fuelPriceTemp.value;
-  StorageService.set("fuelPrice", fuelPrice.value);
-  modalController.dismiss();
-};
 const clearPage = (clearValues = true) => {
   if (clearValues) {
     calculatorInput.value = "";
@@ -179,11 +181,37 @@ const clearPage = (clearValues = true) => {
   }
   showResults.value = false;
 };
-
-loadData();
 </script>
 
 <style scoped>
+/* Element styles */
+
+ion-page {
+  max-width: 400px;
+  background-color: #08a391;
+}
+
+ion-modal {
+  --background: white;
+  margin: auto;
+  --width: 80%;
+  --max-width: 350px;
+  --height: 30%;
+  --min-height: 50px;
+  --border-radius: 16px;
+  --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+ion-modal::part(backdrop) {
+  background: rgba(209, 213, 219);
+  opacity: 1;
+}
+
+ion-modal ion-toolbar {
+  --background: rgb(14 116 144);
+  --color: white;
+}
+
 ion-button {
   --border-radius: 8px;
   --border-style: solid;
@@ -191,63 +219,28 @@ ion-button {
   --box-shadow: 0 2px 6px 0 rgb(0, 0, 0, 0.25);
 }
 
-.centered {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 320px;
-  width: 94%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.mw-1 {
-  max-width: 400px;
-}
-
-ion-page {
-  max-width: 400px;
-  background-color: #08a391;
-}
-
-.parameter-title {
-  min-height: 40px;
-}
-
-.input {
-  border-bottom: 1px solid #eeeeee;
-  font-size: 1.3rem;
-  font-weight: 500;
-  --color: var(--ion-text-color);
-  padding: 16px;
-  padding-bottom: 3px;
-}
-
-ion-segment {
-  margin-bottom: 20px;
-}
-
-.mt {
-  margin-top: 40px;
-}
-
 ion-card {
   margin-top: 5px;
   border-radius: 20px;
 }
 
-label {
-  font-size: 0.8rem;
-  color: rgb(117, 117, 117);
-}
-
-.label-text-wrapper {
-  font-size: larger;
+ion-item,
+ion-input,
+item-native,
+item-label {
+  border: none;
+  align-items: center;
+  text-align: center;
+  --border-color: white;
+  border: none;
+  --border-width: 0px;
+  --border-color: white;
 }
 
 ion-segment {
   background: none;
   margin-top: 18px;
+  margin-bottom: 20px;
 }
 
 ion-segment-button {
@@ -270,33 +263,34 @@ ion-segment-button.ios {
   --border-radius: 20px;
 }
 
+/* Other styles */
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 320px;
+  width: 94%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .segment-button-indicator-background {
   box-shadow: none;
 }
 
-.fa-solid {
-  display: none;
+.action-div {
+  width: 70%;
 }
 
-font-awesome-icon {
-  display: none;
-}
-
-ion-item,
-ion-input,
-item-native,
-item-label {
-  border: none;
-  align-items: center;
-  text-align: center;
-  --border-color: white;
-  border: none;
-  --border-width: 0px;
-  --border-color: white;
+.info-item:not(:first-child) {
+  margin-top: 20px;
 }
 
 .center-items {
   text-align: center;
+}
+
+#background-content {
+  background-color: white;
 }
 
 #calculator-input-div {
@@ -323,38 +317,5 @@ item-label {
   align-items: center;
   /* Vertical alignment */
   justify-content: center;
-}
-
-.action-div {
-  width: 70%;
-}
-
-.info-item:not(:first-child) {
-  margin-top: 20px;
-}
-
-ion-modal {
-  --background: white;
-  margin: auto;
-  --width: 80%;
-  --max-width: 350px;
-  --height: 30%;
-  --min-height: 50px;
-  --border-radius: 16px;
-  --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-}
-
-ion-modal::part(backdrop) {
-  background: rgba(209, 213, 219);
-  opacity: 1;
-}
-
-ion-modal ion-toolbar {
-  --background: rgb(14 116 144);
-  --color: white;
-}
-
-#background-content {
-  background-color: white;
 }
 </style>
