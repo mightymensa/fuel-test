@@ -8,6 +8,11 @@
   font-family: 'AvenirBlack', sans-serif;
 }
 
+ion-toolbar{
+  --background:rgb(246, 251, 249);
+  --border-width: 0 !important;
+}
+
 ion-content{
   --background:rgb(246, 251, 249);
 }
@@ -34,12 +39,6 @@ input[type="number"] {
   position: absolute;
   right: 15px;
   top: 15px;
-}
-
-.menu-button{
-  position: absolute; 
-  right: 24px; 
-  top: 2px;
 }
 
 .menu-icon {
@@ -83,9 +82,9 @@ input[type="number"] {
   padding: 10px 20px;
   font-size: 30px;
   color: rgb(47, 46, 46);
-  font-weight: 700;
+  font-weight: 500;
   z-index: 1000;
-  margin-top: 20px;
+  /* margin-top: 20px; */
   position: relative;
 }
 
@@ -180,6 +179,13 @@ ion-card{
 }
 .mb-20{
   margin-bottom: 20px;
+
+}
+.ml-20{
+  margin-left: 20px;
+}
+.mr-20{
+  margin-right: 20px;
 }
 /* Margins */
 

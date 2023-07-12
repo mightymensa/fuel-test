@@ -1,14 +1,17 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <ion-page>
+    <IonHeader>
+      <IonToolbar>
+        <div class="page-title">Settings</div>
+        <ion-buttons slot="primary">
+          <ion-button href="/about">
+            <FontAwesomeIcon slot="icon-only" icon="fa fa-circle-info" class="menu-icon"></FontAwesomeIcon>
+          </ion-button>
+        </ion-buttons>
+      </IonToolbar>
+    </IonHeader>
     <ion-content>
-      <div class="page-title">
-        Settings
-        <IonButton class="menu-button" fill="clear" href="/about">
-          <FontAwesomeIcon class="menu-icon" icon="fa fa-circle-info"></FontAwesomeIcon>
-        </IonButton>
-      </div>
-
       <div class="container">
         <ion-card mode="ios">
           <ion-card-content>
@@ -65,7 +68,7 @@
 
 <script lang="ts" setup>
 import { checkmarkCircleOutline } from "ionicons/icons";
-import { IonContent, IonPage, IonToast, IonButton } from "@ionic/vue";
+import { IonPage, IonHeader, IonToolbar, IonContent, IonToast, IonButtons, IonButton } from "@ionic/vue";
 import { ref, inject, onBeforeUpdate } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 

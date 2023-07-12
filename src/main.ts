@@ -18,7 +18,7 @@ import { IonicVue } from "@ionic/vue";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/vue/css/core.css";
-// import { StatusBar, Style } from "@capacitor/status-bar";
+import { StatusBar, Style } from "@capacitor/status-bar";
 
 /* Basic CSS for apps built with Ionic */
 import "@ionic/vue/css/normalize.css";
@@ -40,9 +40,9 @@ const app = createApp(App).use(IonicVue).use(StoragePlugin).use(router).componen
 
 router.isReady().then(async () => {
   try {
-    // StatusBar.setOverlaysWebView({ overlay: true });
+    StatusBar.setOverlaysWebView({ overlay: true });
   } catch (error) {
-    // console.log(error);
+    console.log(error);
   }
   app.mount("#app");
 });

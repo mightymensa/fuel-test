@@ -1,26 +1,26 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <ion-page>
+    <IonHeader>
+      <IonToolbar>
+        <ion-buttons slot="start">
+          <ion-back-button class="ml-20" default-href="/calculator" text=""></ion-back-button>
+        </ion-buttons>
+        <div class="page-title">About</div>
+      </IonToolbar>
+    </IonHeader>
     <IonContent>
-      <div class="page-title">
-        <IonButton style="margin-top: -15px" fill="clear" href="/calculator">
-          <FontAwesomeIcon icon="fa fa-chevron-left"></FontAwesomeIcon>
-        </IonButton>
-        About
-      </div>
-
-      <div class="container">
+      <div class="container mt-20">
         <div>My Fuel Calculator</div>
         <div class="mt-20">Version : 1.0.0</div>
-        <div class="mt-50">© 2023 Sangie</div>
+        <div class="mt-50">© 2023 Kosey</div>
       </div>
     </IonContent>
   </ion-page>
 </template>
 
 <script lang="ts" setup>
-import { IonPage, IonButton, IonContent } from "@ionic/vue";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { IonPage, IonHeader, IonToolbar, IonButtons, IonBackButton, IonContent } from "@ionic/vue";
 </script>
 
 <style scoped>

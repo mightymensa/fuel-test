@@ -30,6 +30,7 @@ npm-debug.log*
 /platforms
 /plugins
 /www
-/screens.key
 /tests
 /android
+/ios
+/screens.key

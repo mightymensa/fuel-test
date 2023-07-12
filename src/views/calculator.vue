@@ -2,6 +2,16 @@
 <!-- eslint-disable -->
 <template>
   <ion-page>
+    <IonHeader>
+      <IonToolbar>
+        <div class="page-title">Calculator</div>
+        <ion-buttons slot="primary">
+          <ion-button href="/about">
+            <FontAwesomeIcon slot="icon-only" icon="fa fa-circle-info" class="menu-icon"></FontAwesomeIcon>
+          </ion-button>
+        </ion-buttons>
+      </IonToolbar>
+    </IonHeader>
     <ion-content>
       <ion-modal ref="modal" trigger="open-modal" @willPresent="getFuelPrice()">
         <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; margin: auto; color: rgb(94, 94, 94)">
@@ -21,13 +31,6 @@
           </div>
         </div>
       </ion-modal>
-
-      <div class="page-title">
-        Calculator
-        <IonButton class="menu-button" fill="clear" href="/about">
-          <FontAwesomeIcon class="menu-icon" icon="fa fa-circle-info"></FontAwesomeIcon>
-        </IonButton>
-      </div>
 
       <div class="container">
         <ion-card>
@@ -119,16 +122,19 @@
 
 <script lang="ts" setup>
 import {
-  IonContent,
   IonPage,
+  IonHeader,
+  IonToolbar,
+  IonContent,
   IonSegment,
   IonSegmentButton,
-  IonModal,
   IonLabel,
   IonCard,
   IonCardContent,
-  modalController,
+  IonButtons,
   IonButton,
+  IonModal,
+  modalController,
 } from "@ionic/vue";
 import { ref, inject, onBeforeUpdate } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
