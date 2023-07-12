@@ -23,6 +23,14 @@ input{
   appearance: none;
 }
 
+ion-tab-bar{
+  --background:rgb(246, 251, 249);
+}
+
+ion-tab-button{
+  --background-color: transparent
+}
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
