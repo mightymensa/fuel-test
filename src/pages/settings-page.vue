@@ -1,20 +1,19 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <template>
-  <ion-page>
+  <IonPage>
     <IonHeader>
       <IonToolbar>
         <div class="page-title">Settings</div>
-        <ion-buttons slot="primary">
-          <ion-button href="/about">
+        <IonButtons slot="primary">
+          <IonButton href="/about">
             <FontAwesomeIcon slot="icon-only" icon="fa fa-circle-info" class="menu-icon"></FontAwesomeIcon>
-          </ion-button>
-        </ion-buttons>
+          </IonButton>
+        </IonButtons>
       </IonToolbar>
     </IonHeader>
-    <ion-content>
+    <IonContent>
       <div class="container">
-        <ion-card mode="ios">
-          <ion-card-content>
+        <IonCard mode="ios">
+          <IonCardContent>
             <div class="info-item">
               <div class="info-item-heading"><font-awesome-icon icon="fa-solid fa-fill-drip" />Tank Capacity</div>
               <div class="info-item-value text-lg">
@@ -45,8 +44,8 @@
                 <div v-else>{{ fuelPrice }}<span class="info-item-unit"> GH&cent;</span></div>
               </div>
             </div>
-          </ion-card-content>
-        </ion-card>
+          </IonCardContent>
+        </IonCard>
         <div class="centered">
           <button class="btn btn-secondary m-5 w-50" @click="clearData">Clear</button>
           <button
@@ -59,11 +58,11 @@
             Save
           </button>
           <button v-if="!canEdit" id="edit" class="btn btn-primary m-2 w-50" @click="editData">Edit</button>
-          <ion-toast class="ion-toast" trigger="save" message="Saved!" duration="3000" position="top" :icon="checkmarkCircleOutline"></ion-toast>
+          <IonToast class="ion-toast" trigger="save" message="Saved!" duration="3000" position="top" :icon="checkmarkCircleOutline"></IonToast>
         </div>
       </div>
-    </ion-content>
-  </ion-page>
+    </IonContent>
+  </IonPage>
 </template>
 
 <script lang="ts" setup>
@@ -120,11 +119,11 @@ const clearData = async () => {
 <style scoped>
 /* Element styles */
 
-ion-card {
+IonCard {
   margin-top: 5px;
   border-radius: 20px;
 }
-ion-input {
+IonInput {
   /* border-bottom: 1px solid #ededed; */
   width: 100%;
   font-size: 1.5rem;

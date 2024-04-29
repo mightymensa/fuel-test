@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <ion-page>
     <IonHeader>
@@ -9,13 +8,13 @@
         <div class="page-title">About</div>
       </IonToolbar>
     </IonHeader>
-    <IonContent>
-      <div class="container mt-20">
+    <ion-content>
+      <div class="container local-container mt-20">
         <div>My Fuel Calculator</div>
         <div class="mt-20">Version : 1.0.0</div>
         <div class="mt-50">© 2023 Kosey</div>
       </div>
-    </IonContent>
+    </ion-content>
   </ion-page>
 </template>
 
@@ -24,14 +23,13 @@ import { IonPage, IonHeader, IonToolbar, IonButtons, IonBackButton, IonContent }
 </script>
 
 <style scoped>
-.container {
-  width: 100%;
-  height: 100%;
+.local-container {
+  height: 95%;
   background-color: white;
   border-radius: 40px 40px 0 0;
-  position: fixed;
   text-align: center;
   padding: 70px;
   color: rgb(31, 200, 128);
+  /* position: fixed; */
 }
 </style>

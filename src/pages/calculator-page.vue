@@ -1,5 +1,3 @@
-<!-- eslint-disable vue/multi-word-component-names -->
-<!-- eslint-disable -->
 <template>
   <ion-page>
     <IonHeader>

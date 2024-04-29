@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "@ionic/vue-router";
 import { RouteRecordRaw } from "vue-router";
 
-import index from "./views/index.vue";
+import index from "./pages/page-layout.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -19,15 +19,15 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: "calculator",
-        component: () => import("./views/calculator.vue"),
+        component: () => import("./pages/calculator-page.vue"),
       },
       {
         path: "settings",
-        component: () => import("./views/settings.vue"),
+        component: () => import("./pages/settings-page.vue"),
       },
       {
         path: "about",
-        component: () => import("./views/about.vue"),
+        component: () => import("./pages/about-page.vue"),
       },
     ],
   },
