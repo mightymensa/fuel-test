@@ -25,7 +25,6 @@ ui/.versions
 ui/.vscode/*
 ui/!/.vscode/extensions.json
 ui/coverage
-ui/dist
 ui/node_modules
 ui/platforms
 ui/plugins
@@ -33,5 +32,4 @@ ui/www
 ui/tests
 ui/android
 ui/ios
-ui/screens.key
 node_modules

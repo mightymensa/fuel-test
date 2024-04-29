@@ -13,5 +13,5 @@
   "dependencies": {
     "express": "^4.19.2"
   },
-  "description": "An Ionic project"
+  "description": "EKD's fuel manager app"
 }
