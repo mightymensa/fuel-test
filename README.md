@@ -14,7 +14,7 @@ You can calculate:
 - It's useful for trip planning and creating a budget for transportation.
 - If you drive the same distance every day or every week, for example to work, you could use this to budget for fuel for the month.
 
-## [Installation](#installation)
+## [Testing](#testing)
 
 1. `npm install`
 
