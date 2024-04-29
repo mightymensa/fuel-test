@@ -1,7 +1,0 @@
-{
-  "name": "fuel-manager",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "vue"
-}
