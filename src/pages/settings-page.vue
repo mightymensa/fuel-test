@@ -58,7 +58,7 @@
             Save
           </button>
           <button v-if="!canEdit" id="edit" class="btn btn-primary m-2 w-50" @click="editData">Edit</button>
-          <IonToast class="ion-toast" trigger="save" message="Saved!" duration="3000" position="top" :icon="checkmarkCircleOutline"></IonToast>
+          <!-- <IonToast class="ion-toast" trigger="save" message="Saved!" duration="3000" position="top" :icon="checkmarkCircleOutline"></IonToast> -->
         </div>
       </div>
     </IonContent>
@@ -67,7 +67,7 @@
 
 <script lang="ts" setup>
 import { checkmarkCircleOutline } from "ionicons/icons";
-import { IonPage, IonHeader, IonToolbar, IonContent, IonToast, IonButtons, IonButton } from "@ionic/vue";
+import { IonPage, IonHeader, IonToolbar, IonContent, IonCard, IonCardContent, IonToast, IonButtons, IonButton } from "@ionic/vue";
 import { ref, inject, onBeforeUpdate } from "vue";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 

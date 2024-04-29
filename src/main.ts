@@ -39,10 +39,6 @@ import "./theme/variables.css";
 const app = createApp(App).use(IonicVue).use(StoragePlugin).use(router).component("font-awesome-icon", FontAwesomeIcon);
 
 router.isReady().then(async () => {
-  try {
-    StatusBar.setOverlaysWebView({ overlay: true });
-  } catch (error) {
-    console.log(error);
-  }
+  StatusBar.setOverlaysWebView({ overlay: true }).catch((error) => {console.log(error)})
   app.mount("#app");
 });
