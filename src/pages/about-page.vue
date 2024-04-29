@@ -11,7 +11,7 @@
     <ion-content>
       <div class="container local-container mt-20">
         <div>My Fuel Calculator</div>
-        <div class="mt-20">Version : 1.0.0</div>
+        <div class="mt-20">Version : 1.0.1</div>
         <div class="mt-50">© 2023 Kosey</div>
       </div>
     </ion-content>
